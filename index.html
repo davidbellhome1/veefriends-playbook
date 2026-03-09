@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VeeFriends Card Selling — Research Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #141420;
+  --surface-raised: #1c1c2e;
+  --surface-hover: #252540;
+  --border: #2a2a45;
+  --text: #e8e8f0;
+  --text-muted: #8888a8;
+  --text-dim: #5c5c78;
+  --accent-green: #00e676;
+  --accent-blue: #4fc3f7;
+  --accent-purple: #b388ff;
+  --accent-orange: #ffab40;
+  --accent-red: #ff5252;
+  --accent-pink: #ff4081;
+  --accent-yellow: #ffd740;
+  --gradient-1: linear-gradient(135deg, #00e676 0%, #4fc3f7 100%);
+  --gradient-2: linear-gradient(135deg, #b388ff 0%, #ff4081 100%);
+  --gradient-3: linear-gradient(135deg, #ffab40 0%, #ff5252 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ─── HERO ──────────────────────────────────────────── */
+.hero {
+  padding: 80px 0 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(0,230,118,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--surface-raised); border: 1px solid var(--border);
+  padding: 8px 16px; border-radius: 99px;
+  font-size: 13px; color: var(--accent-green); font-weight: 500;
+  margin-bottom: 24px;
+}
+.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+.hero h1 { font-size: clamp(32px, 5vw, 56px); line-height: 1.1; margin-bottom: 16px; }
+.hero h1 span { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { font-size: 18px; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+/* ─── STAT CARDS ────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 40px 0;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.stat-card:hover { border-color: var(--accent-green); transform: translateY(-2px); }
+.stat-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px; font-weight: 700;
+  margin-bottom: 4px;
+}
+.stat-number.green { color: var(--accent-green); }
+.stat-number.blue { color: var(--accent-blue); }
+.stat-number.purple { color: var(--accent-purple); }
+.stat-number.orange { color: var(--accent-orange); }
+.stat-number.pink { color: var(--accent-pink); }
+.stat-label { font-size: 13px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ─── SECTION NAVIGATION ────────────────────────────── */
+.nav-strip {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,15,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-strip::-webkit-scrollbar { display: none; }
+.nav-inner {
+  display: flex; gap: 0;
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 24px;
+}
+.nav-btn {
+  background: none; border: none; color: var(--text-muted);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 600;
+  padding: 16px 20px; cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active { color: var(--accent-green); border-bottom-color: var(--accent-green); }
+
+/* ─── SECTIONS ──────────────────────────────────────── */
+.section { padding: 60px 0; border-top: 1px solid var(--border); }
+.section-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 32px;
+}
+.section-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+}
+.section-icon.green { background: rgba(0,230,118,0.12); }
+.section-icon.blue { background: rgba(79,195,247,0.12); }
+.section-icon.purple { background: rgba(179,136,255,0.12); }
+.section-icon.orange { background: rgba(255,171,64,0.12); }
+.section-icon.pink { background: rgba(255,64,129,0.12); }
+.section-title { font-size: 28px; }
+.section-subtitle { font-size: 14px; color: var(--text-muted); margin-top: 2px; }
+
+/* ─── ACCORDION ─────────────────────────────────────── */
+.accordion { margin-bottom: 12px; }
+.accordion-trigger {
+  width: 100%; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 18px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px; font-weight: 600;
+  transition: background 0.2s, border-color 0.2s;
+}
+.accordion-trigger:hover { background: var(--surface-raised); border-color: var(--accent-green); }
+.accordion-trigger .arrow {
+  font-size: 18px; transition: transform 0.3s;
+  color: var(--text-muted);
+}
+.accordion.open .accordion-trigger { border-radius: 12px 12px 0 0; border-bottom-color: transparent; background: var(--surface-raised); }
+.accordion.open .accordion-trigger .arrow { transform: rotate(180deg); }
+.accordion-content {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding: 24px;
+}
+.accordion.open .accordion-content { display: block; }
+
+/* ─── CONTENT BLOCKS ────────────────────────────────── */
+.content-block { margin-bottom: 28px; }
+.content-block:last-child { margin-bottom: 0; }
+.content-block h4 { font-size: 16px; margin-bottom: 10px; color: var(--accent-green); }
+.content-block p { color: var(--text-muted); font-size: 15px; margin-bottom: 10px; }
+.content-block ul { list-style: none; padding: 0; }
+.content-block li { position: relative; padding-left: 20px; color: var(--text-muted); font-size: 14px; margin-bottom: 8px; line-height: 1.5; }
+.content-block li::before { content: '→'; position: absolute; left: 0; color: var(--accent-green); font-weight: 600; }
+
+/* ─── TABLES ────────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+.data-table th {
+  text-align: left; padding: 10px 14px;
+  background: var(--surface-raised);
+  color: var(--text-muted); font-weight: 600;
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--surface-hover); }
+
+/* ─── CALLOUT BOXES ─────────────────────────────────── */
+.callout {
+  border-radius: 12px; padding: 20px 24px;
+  margin: 20px 0; font-size: 14px;
+  display: flex; gap: 14px;
+  line-height: 1.6;
+}
+.callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.callout.warning { background: rgba(255,171,64,0.08); border: 1px solid rgba(255,171,64,0.2); color: var(--accent-orange); }
+.callout.success { background: rgba(0,230,118,0.08); border: 1px solid rgba(0,230,118,0.2); color: var(--accent-green); }
+.callout.info { background: rgba(79,195,247,0.08); border: 1px solid rgba(79,195,247,0.2); color: var(--accent-blue); }
+.callout.danger { background: rgba(255,82,82,0.08); border: 1px solid rgba(255,82,82,0.2); color: var(--accent-red); }
+
+/* ─── VERDICT BADGES ────────────────────────────────── */
+.verdict { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+.verdict.go { background: rgba(0,230,118,0.15); color: var(--accent-green); }
+.verdict.maybe { background: rgba(255,171,64,0.15); color: var(--accent-orange); }
+.verdict.no { background: rgba(255,82,82,0.15); color: var(--accent-red); }
+.verdict.watch { background: rgba(79,195,247,0.15); color: var(--accent-blue); }
+
+/* ─── PROFILE CARDS ─────────────────────────────────── */
+.profile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin: 20px 0; }
+.profile-card {
+  background: var(--surface-raised); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px;
+  transition: border-color 0.2s;
+}
+.profile-card:hover { border-color: var(--accent-purple); }
+.profile-name { font-family: 'Space Grotesk'; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.profile-handle { font-size: 13px; color: var(--accent-purple); margin-bottom: 10px; }
+.profile-stat { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
+.profile-stat strong { color: var(--accent-yellow); }
+
+/* ─── CHANNEL CARDS ─────────────────────────────────── */
+.channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+.channel-card {
+  background: var(--surface-raised); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px;
+  transition: border-color 0.2s;
+}
+.channel-card:hover { border-color: var(--accent-blue); }
+.channel-name { font-family: 'Space Grotesk'; font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.channel-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5; }
+.channel-meta { display: flex; gap: 16px; flex-wrap: wrap; }
+.channel-meta span { font-size: 12px; color: var(--text-dim); }
+.channel-meta strong { color: var(--text-muted); }
+
+/* ─── CHECKLIST ─────────────────────────────────────── */
+.checklist { list-style: none; padding: 0; }
+.checklist li {
+  padding: 12px 16px 12px 44px;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px; color: var(--text);
+}
+.checklist li::before {
+  content: '☐';
+  position: absolute; left: 16px; top: 12px;
+  font-size: 16px; color: var(--accent-green);
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist-header { font-weight: 700; color: var(--accent-green); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; padding: 12px 16px; background: var(--surface-raised); border-radius: 8px 8px 0 0; }
+
+/* ─── PHASE TIMELINE ────────────────────────────────── */
+.timeline { position: relative; padding-left: 32px; margin: 24px 0; }
+.timeline::before { content: ''; position: absolute; left: 11px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.timeline-item { position: relative; margin-bottom: 32px; }
+.timeline-item::before {
+  content: '';
+  position: absolute; left: -32px; top: 4px;
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--accent-green);
+  background: var(--bg);
+}
+.timeline-item h4 { font-size: 16px; margin-bottom: 8px; }
+.timeline-item p { font-size: 14px; color: var(--text-muted); }
+.timeline-item ul { list-style: none; padding: 0; margin-top: 8px; }
+.timeline-item li { font-size: 13px; color: var(--text-muted); padding: 4px 0 4px 20px; position: relative; }
+.timeline-item li::before { content: '→'; position: absolute; left: 0; color: var(--accent-green); }
+
+/* ─── FOOTER ────────────────────────────────────────── */
+.footer {
+  text-align: center; padding: 60px 0 40px;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim); font-size: 13px;
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
+@media (max-width: 640px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .profile-grid, .channel-grid { grid-template-columns: 1fr; }
+  .section { padding: 40px 0; }
+  .accordion-trigger { padding: 14px 18px; font-size: 14px; }
+  .accordion-content { padding: 18px; }
+  .nav-btn { padding: 12px 14px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-badge"><span class="dot"></span> Research Briefing — March 2026</div>
+    <h1>The Bell Family<br><span>Card Selling Playbook</span></h1>
+    <p>Everything you need to know about selling VeeFriends cards on Whatnot, eBay, and beyond. From setup to strategy to making actual money.</p>
+  </div>
+</div>
+
+<!-- KEY STATS -->
+<div class="container">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number green">~250</div>
+      <div class="stat-label">Cards to Sell</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number blue">$570</div>
+      <div class="stat-label">Total Investment</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number purple">~11%</div>
+      <div class="stat-label">Whatnot Total Fees</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number orange">£200–800</div>
+      <div class="stat-label">Est. Portfolio Value</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number pink">5+</div>
+      <div class="stat-label">Selling Channels</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav-strip">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="scrollToSection('whatnot')">Whatnot Setup</button>
+    <button class="nav-btn" onclick="scrollToSection('money')">Making Money</button>
+    <button class="nav-btn" onclick="scrollToSection('market')">Market Intel</button>
+    <button class="nav-btn" onclick="scrollToSection('channels')">Other Channels</button>
+    <button class="nav-btn" onclick="scrollToSection('uk')">UK Strategy</button>
+    <button class="nav-btn" onclick="scrollToSection('action')">Action Plan</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1: WHATNOT SETUP
+     ═══════════════════════════════════════════════════════ -->
+<div id="whatnot" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon green">🎯</div>
+      <div>
+        <div class="section-title">Whatnot — Platform Deep Dive</div>
+        <div class="section-subtitle">Everything you need to get set up and selling on the #1 live card marketplace</div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <span class="callout-icon">✅</span>
+      <div><strong>Good news for the family:</strong> Alex (15) and Matthew (13) CAN both appear on Whatnot streams and run the show. The account must be in Dad's name, and Dad needs to appear at the start of each stream. But the boys can absolutely be the presenters.</div>
+    </div>
+
+    <div class="accordion open">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>How to Get Set Up (Step by Step)</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <div class="content-block">
+          <h4>Application Process</h4>
+          <ul>
+            <li>Create account at whatnot.com in David's name (18+ required)</li>
+            <li>Apply at whatnot.com/seller — choose "Trading Card Games" category</li>
+            <li>Need: UK passport, proof of address, links to any existing eBay shop or social media</li>
+            <li>Record a 30-60 second video showing your face, your cards, and your selling style</li>
+            <li>Approval typically takes 5-10 business days</li>
+            <li>After approval: complete Stripe Connect for GBP payouts to UK bank account</li>
+            <li>Attend the mandatory Zoom onboarding session (brief quiz at the end)</li>
+          </ul>
+        </div>
+        <div class="content-block">
+          <h4>Teen Seller Rules</h4>
+          <ul>
+            <li>Account MUST be in parent's name — David is legally responsible for everything</li>
+            <li>Both boys (13+) can use the account under supervision</li>
+            <li>An adult must appear at the beginning of each live stream</li>
+            <li>David's ID, bank details, and legal identity are on the account</li>
+            <li>⚠️ Teens who create their own accounts risk permanent bans</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Fee Structure Breakdown</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <table class="data-table">
+          <thead>
+            <tr><th>Fee Type</th><th>UK Rate</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Commission</td><td>6.67% + VAT (~8%)</td><td>On sale price only</td></tr>
+            <tr><td>Payment Processing</td><td>2.9% + £0.25 + VAT</td><td>Per transaction</td></tr>
+            <tr><td>Listing Fee</td><td>£0</td><td>Free to list</td></tr>
+            <tr><td>Monthly Fee</td><td>£0</td><td>No store fees</td></tr>
+          </tbody>
+        </table>
+        <div class="content-block">
+          <h4>What You Actually Keep (Worked Examples)</h4>
+          <table class="data-table">
+            <thead><tr><th>Sale Price</th><th>Commission</th><th>Processing</th><th>You Keep</th><th>% Kept</th></tr></thead>
+            <tbody>
+              <tr><td>£10</td><td>£0.80</td><td>£0.59</td><td><strong>£8.61</strong></td><td>86%</td></tr>
+              <tr><td>£50</td><td>£4.00</td><td>£1.75</td><td><strong>£44.25</strong></td><td>89%</td></tr>
+              <tr><td>£200</td><td>£16.00</td><td>£6.10</td><td><strong>£177.90</strong></td><td>89%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout info">
+          <span class="callout-icon">💡</span>
+          <div><strong>Low-value warning:</strong> The £0.25 per-transaction fee hurts on cheap cards. A £1 sale leaves you just 59p. Bundle cheap cards or set minimum bids of £3-5.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Equipment You Need</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <table class="data-table">
+          <thead><tr><th>Item</th><th>Cost</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td>Ring light</td><td>£15–25</td><td>🔴 Essential</td></tr>
+            <tr><td>Phone/tablet stand</td><td>£10–15</td><td>🔴 Essential</td></tr>
+            <tr><td>Packaging starter kit</td><td>~£50</td><td>🔴 Essential</td></tr>
+            <tr><td>Thermal label printer</td><td>£50–70</td><td>🟡 Nice to have</td></tr>
+            <tr><td>Webcam (if not using phone)</td><td>£30–60</td><td>🟡 Nice to have</td></tr>
+            <tr><td>Microphone</td><td>£20–40</td><td>🟡 Nice to have</td></tr>
+            <tr><td>Card mat</td><td>£10–15</td><td>🟢 Optional</td></tr>
+          </tbody>
+        </table>
+        <p style="color:var(--text-muted);font-size:14px;margin-top:12px;"><strong>Total startup: £180–350</strong>. You can start with just a phone, ring light, and packaging supplies (~£75).</p>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>How Live Selling Actually Works</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <div class="content-block">
+          <h4>The Format</h4>
+          <ul>
+            <li>You go live, show cards one at a time, and viewers bid in real-time</li>
+            <li>Auctions run 15 seconds to 2 minutes — fast-paced and exciting</li>
+            <li>Highest bidder wins and is charged automatically through the app</li>
+            <li>You can also have Buy-It-Now items available alongside auctions</li>
+            <li>Giveaways are essential for building initial audience</li>
+            <li>Chat interaction is key — talk to your viewers, answer questions, have fun</li>
+          </ul>
+        </div>
+        <div class="content-block">
+          <h4>How Whatnot Handles Shipping (UK Sellers)</h4>
+          <ul>
+            <li>Whatnot provides prepaid shipping labels — you don't pay for shipping</li>
+            <li>Buyers pay shipping at checkout (calculated by weight/distance)</li>
+            <li>Domestic UK: via Royal Mail. International: via DPD</li>
+            <li>Multiple items from same buyer are bundled automatically ("Smart Bundling")</li>
+            <li>You just need good packaging supplies — everything else is handled</li>
+          </ul>
+        </div>
+        <div class="content-block">
+          <h4>The Algorithm — How to Get Seen</h4>
+          <ul>
+            <li>Consistency is #1 — stream at the same times every week</li>
+            <li>Miss a week and your viewership tanks. Change schedule? Start over.</li>
+            <li>Follower engagement matters — the more people who turn on notifications, the better</li>
+            <li>New sellers get a brief "new seller boost" — use it wisely</li>
+            <li>High ratings and fast shipping improve your visibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2: MAKING MONEY
+     ═══════════════════════════════════════════════════════ -->
+<div id="money" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon purple">💰</div>
+      <div>
+        <div class="section-title">How People Make Money on Whatnot</div>
+        <div class="section-subtitle">Revenue models, tactics, and what separates winners from losers — across all categories</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">📊</span>
+      <div><strong>Whatnot by the numbers:</strong> $11.5B valuation. $6B+ in goods sold in 2025. 500+ sellers earning $1M+/year. The average seller earns $25K/year. A card sells every second on the platform.</div>
+    </div>
+
+    <div class="accordion open">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Revenue Models — 7 Ways to Sell</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <table class="data-table">
+          <thead><tr><th>Model</th><th>How It Works</th><th>Typical Margin</th><th>Risk</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Live Auctions</strong></td><td>Show cards, viewers bid in real-time. The core format.</td><td>15-40%</td><td>Medium</td></tr>
+            <tr><td><strong>Buy-It-Now</strong></td><td>Fixed-price listings 24/7, also browsable during streams</td><td>20-35%</td><td>Low</td></tr>
+            <tr><td><strong>Mystery Packs</strong></td><td>Curated packs with stated "floor value" sold at markup</td><td>40-60%</td><td>Medium (policy risk)</td></tr>
+            <tr><td><strong>Box Breaks</strong></td><td>Multiple buyers split cost of sealed product</td><td>30-50%</td><td>Low-Medium</td></tr>
+            <tr><td><strong>Rip & Ship</strong></td><td>Open packs live on camera for the buyer</td><td>20-40%</td><td>Medium</td></tr>
+            <tr><td><strong>Consignment</strong></td><td>Sell other people's cards, take a cut. Zero inventory cost.</td><td>15-30%</td><td>Very Low</td></tr>
+            <tr><td><strong>Bulk Lots</strong></td><td>Sell large lots of lower-value cards</td><td>30-50%</td><td>Low</td></tr>
+          </tbody>
+        </table>
+        <div class="callout warning">
+          <span class="callout-icon">⚠️</span>
+          <div><strong>Research found:</strong> Buyers on Whatnot pay on average 57% above market value for slabs/singles and 40% above for breaks compared to other platforms. The live auction format creates FOMO that drives prices up.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Top Seller Profiles — Who's Crushing It</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <div class="profile-grid">
+          <div class="profile-card">
+            <div class="profile-name">Dakota Peters</div>
+            <div class="profile-handle">@achickrips — Sports Cards</div>
+            <div class="profile-stat">Revenue: <strong>$1M+/week</strong></div>
+            <div class="profile-stat">Team: <strong>40+ employees</strong></div>
+            <div class="profile-stat">Started: Spring 2021, first stream ~$500</div>
+            <div class="profile-stat">Age 25. Skipped college. 5 streaming channels.</div>
+          </div>
+          <div class="profile-card">
+            <div class="profile-name">Zoreen Kabani</div>
+            <div class="profile-handle">@zkstyles — Women's Fashion</div>
+            <div class="profile-stat">Revenue: <strong>$100K+/month</strong></div>
+            <div class="profile-stat">Background: <strong>Ex-Goldman Sachs</strong></div>
+            <div class="profile-stat">Started: June 2022, first month $12K</div>
+            <div class="profile-stat">Streams 5-6x per week, 2-7 hours each.</div>
+          </div>
+          <div class="profile-card">
+            <div class="profile-name">Val Zapata</div>
+            <div class="profile-handle">@theshoegameco — Sneakers</div>
+            <div class="profile-stat">Revenue: <strong>$4M+ in 2024</strong></div>
+            <div class="profile-stat">Team: <strong>8 employees, 6K sqft warehouse</strong></div>
+            <div class="profile-stat">Started with an iPad + $15 ring light</div>
+            <div class="profile-stat">Quit insurance job after 1 month on Whatnot.</div>
+          </div>
+          <div class="profile-card">
+            <div class="profile-name">Casey Wehr</div>
+            <div class="profile-handle">@krunkcards — Sports Cards</div>
+            <div class="profile-stat">Revenue: <strong>Millions in 2 years</strong></div>
+            <div class="profile-stat">Setup: <strong>Sells from home with his two sons</strong></div>
+            <div class="profile-stat">Team: 5 employees</div>
+            <div class="profile-stat">"A week from idea to first stream" 🎯</div>
+          </div>
+        </div>
+        <div class="content-block">
+          <h4>What Top Sellers Have in Common</h4>
+          <ul>
+            <li>Started with a genuine passion — not just chasing money</li>
+            <li>Treated it like a real job from day one (long hours, daily streams)</li>
+            <li>Invested in a team early — none of the $1M+ sellers work alone</li>
+            <li>Built community, not just sales — entertaining, authentic, engaging</li>
+            <li>Consistent schedule — viewers know exactly when to show up</li>
+            <li>Diversified categories as they grew</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Tactics That Actually Work</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <div class="content-block">
+          <h4>$1 Starts — The Whatnot Standard</h4>
+          <p>$1 starting bids are the norm. They attract more viewers and bidders. FOMO and competitive bidding can push prices above market value. But items CAN sell for $1 if viewership is low.</p>
+          <ul>
+            <li>Use $1 starts on items you can afford to lose on (loss leaders)</li>
+            <li>Start higher ($5-$25) on valuable items until you build an audience</li>
+            <li>Use BIN listings for items where you need a specific price</li>
+          </ul>
+        </div>
+        <div class="content-block">
+          <h4>Giveaways — Essential for Growth</h4>
+          <ul>
+            <li>Run giveaways during streams to attract new followers</li>
+            <li>Keep them small — a decent card, not a PS5</li>
+            <li>Reward loyal viewers to keep them coming back</li>
+            <li>Cost: ~78p per giveaway (shipping fee on Whatnot)</li>
+          </ul>
+        </div>
+        <div class="content-block">
+          <h4>Consistency is Everything</h4>
+          <p>"Consistency is the #1 factor in a new seller's success" — Whatnot staff. Stream at the same times every week. Top sellers do 3-6 nights per week, 3-5 hours per session.</p>
+        </div>
+        <div class="content-block">
+          <h4>Community Building</h4>
+          <ul>
+            <li>"Raid trains" — send viewers to another seller's show when yours ends</li>
+            <li>Cross-promote on Instagram, TikTok, YouTube</li>
+            <li>Build a Discord server for your community</li>
+            <li>Engage with every single viewer, especially when small</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Economics — The Real Numbers</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <table class="data-table">
+          <thead><tr><th>Scenario</th><th>Weekly Sales</th><th>After Fees</th><th>After COGS & Shipping</th><th>Net Margin</th></tr></thead>
+          <tbody>
+            <tr><td>Small card streamer (10-20 viewers)</td><td>£200</td><td>£178</td><td>~£48 profit</td><td>24%</td></tr>
+            <tr><td>Mid-level seller</td><td>£3,000</td><td>£2,670</td><td>~£870/week profit</td><td>29%</td></tr>
+            <tr><td>Fashion reseller ($26K/90 days)</td><td>~£2,000</td><td>~£1,780</td><td>~£920/week profit</td><td>46%</td></tr>
+          </tbody>
+        </table>
+        <div class="callout warning">
+          <span class="callout-icon">💬</span>
+          <div>"I stream 4 nights a week, 3-4 hours each. Plus prep and shipping, 30-35 hours weekly. Sales are $8-12K/month. After costs... I'm making maybe $20-25/hour." — Reddit seller</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Common Mistakes & Pitfalls</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <div class="content-block">
+          <ul>
+            <li><strong>Burnout</strong> — Performing on camera 12-16 hours weekly is exhausting. Many love it for 3-6 months, then dread shows</li>
+            <li><strong>$1 starts going wrong</strong> — Selling a £50 card for £1 with low viewership</li>
+            <li><strong>Sourcing problems</strong> — Running out of inventory to sell</li>
+            <li><strong>Oversaturation</strong> — Too many sellers in popular categories</li>
+            <li><strong>Algorithm dependency</strong> — Miss a week and viewership tanks</li>
+            <li><strong>Non-paying bidders</strong> — New accounts win auctions and never pay</li>
+            <li><strong>Platform risk</strong> — Whatnot can ban sellers with little recourse. Policy changes can destroy business models overnight</li>
+            <li><strong>Cash flow</strong> — Until 1,000 completed deliveries, payouts are delayed 2-3 days</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3: MARKET INTEL
+     ═══════════════════════════════════════════════════════ -->
+<div id="market" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon blue">📊</div>
+      <div>
+        <div class="section-title">VeeFriends Market Intelligence</div>
+        <div class="section-subtitle">What your cards are worth, where prices are heading, and what to sell first</div>
+      </div>
+    </div>
+
+    <div class="callout danger">
+      <span class="callout-icon">⏰</span>
+      <div><strong>Time-sensitive:</strong> Modern non-sports releases typically lose 30-60% value in the first 3-6 months. Sealed Spectacular boxes are already at/below retail ($99). Sell your numbered and rare pulls NOW while prices are at their post-release peak.</div>
+    </div>
+
+    <div class="accordion open">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>What Your Cards Are Worth (Spectacular 2026)</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <table class="data-table">
+          <thead><tr><th>Card Type</th><th>Price Range</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>1/1 cards, Dual Autographs</td><td><strong>$1,000–$2,100+</strong></td><td>The jackpots</td></tr>
+            <tr><td>Low-numbered parallels (/5, /10)</td><td><strong>$400–$999</strong></td><td>Spectacular Matches command premium</td></tr>
+            <tr><td>Violet /55, Case Hit inserts</td><td><strong>$250–$400</strong></td><td>Strong demand</td></tr>
+            <tr><td>Indigo /99, Sixth Dimension /99</td><td><strong>$175–$250</strong></td><td>Mid-tier collectibles</td></tr>
+            <tr><td>Standard numbered parallels</td><td><strong>$50–$175</strong></td><td>Depends on character</td></tr>
+            <tr><td>Yellow /499, common Showdowns</td><td><strong>$20–$50</strong></td><td>Decent singles</td></tr>
+            <tr><td>Base stickers (all 6 foils)</td><td><strong>$0.01–$2.00</strong></td><td>⚠️ Essentially worthless as singles</td></tr>
+          </tbody>
+        </table>
+        <div class="callout warning">
+          <span class="callout-icon">📉</span>
+          <div><strong>Reality check:</strong> Base stickers make up the majority of any box and sell for under $2 each. Your realistic portfolio value of ~250 cards is <strong>£200–£800</strong> depending on what numbered/auto pulls you have. Could be higher if you have hits.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Top Characters (Premium Multipliers)</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <div class="content-block">
+          <ul>
+            <li><strong>VVVV Lucky Black Cat</strong> — the VeeFriends mascot/logo. 10x premium</li>
+            <li><strong>Empathy Elephant</strong> — consistently most valuable (NFT sold for $493,350)</li>
+            <li><strong>Patient Panda</strong> — top sales across all VeeFriends products</li>
+            <li><strong>GaryVee & Gary Bee</strong> — creator character + new debut character</li>
+            <li><strong>Cynical Cat</strong> — Comic Book #1 star, debut character</li>
+            <li><strong>Perfect Persian Cat</strong> — TCG powerhouse</li>
+            <li><strong>Entrepreneur Elf</strong> — crossover appeal with business audience</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>The Gary Vee Factor & Brand Sentiment</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <div class="content-block">
+          <h4>Inside the Community: Strong</h4>
+          <ul>
+            <li>Dedicated community across Discord, Reddit, social media</li>
+            <li>Cards actively selling at premiums on secondary market</li>
+            <li>Multiple physical product lines show commitment beyond NFT hype</li>
+            <li>Gary's Whatnot streams generate $140K+ in a single 2-hour session</li>
+          </ul>
+        </div>
+        <div class="content-block">
+          <h4>Outside the Community: Very Negative</h4>
+          <ul>
+            <li>"VeeFriends is so absurd it almost feels like satire of the current trading card scene"</li>
+            <li>"These cards are a money grab and will be dead sooner than later"</li>
+            <li>"I call them the VEE-cult"</li>
+            <li>Personality-driven brand, NOT IP-driven like Pokémon or Marvel</li>
+          </ul>
+        </div>
+        <div class="callout info">
+          <span class="callout-icon">🎯</span>
+          <div><strong>Key insight:</strong> VeeFriends is growing in physical products but declining in NFTs. The core question: can it survive without Gary Vee's personal promotion? Almost certainly not. This is a personality-driven brand — sell while Gary is actively promoting.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Grading — Is It Worth It?</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <div class="content-block">
+          <p><strong>Short answer: Not for 95% of Spectacular stickers.</strong> Only grade cards worth $100+ raw. PSA is the industry standard for VeeFriends (they have a dedicated category).</p>
+          <table class="data-table">
+            <thead><tr><th>Service</th><th>Price</th><th>Turnaround</th></tr></thead>
+            <tbody>
+              <tr><td>PSA Economy</td><td>$20/card</td><td>120 days</td></tr>
+              <tr><td>PSA Regular</td><td>$50/card</td><td>65 days</td></tr>
+              <tr><td>PSA Express</td><td>$100/card</td><td>20 days</td></tr>
+              <tr><td>CGC Standard</td><td>$15/card</td><td>30-60 days</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:12px">Only worth grading: 1/1 cards, low-numbered autos, top-character numbered parallels. The grading cost vs price uplift doesn't make sense for anything under ~$100 raw value.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 4: OTHER CHANNELS
+     ═══════════════════════════════════════════════════════ -->
+<div id="channels" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon orange">🌐</div>
+      <div>
+        <div class="section-title">Alternative Selling Channels</div>
+        <div class="section-subtitle">Every platform beyond Whatnot — what's worth your time and what isn't</div>
+      </div>
+    </div>
+
+    <div class="channel-grid">
+      <div class="channel-card">
+        <div class="channel-name">eBay <span class="verdict go">✅ Worth It</span></div>
+        <div class="channel-desc">The largest market for VeeFriends singles. 26,000+ active listings. Already building automated pipeline. Best for individual high-value cards.</div>
+        <div class="channel-meta"><span>Fees: <strong>~15%</strong></span><span>UK: <strong>Full support</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">VeeFriends Discord <span class="verdict go">✅ Essential</span></div>
+        <div class="channel-desc">270K+ members. Active trading channels. Zero fees. Direct access to the VeeFriends community. Should be joined immediately.</div>
+        <div class="channel-meta"><span>Fees: <strong>0%</strong></span><span>Risk: <strong>Payment trust</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">Facebook Groups <span class="verdict go">✅ Worth It</span></div>
+        <div class="channel-desc">Zero platform fees. VeeFriends-specific and general card selling groups. Good for building community and direct sales.</div>
+        <div class="channel-meta"><span>Fees: <strong>0%</strong></span><span>Effort: <strong>Medium</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">StockX <span class="verdict maybe">🟡 Sealed Only</span></div>
+        <div class="channel-desc">Best for sealed boxes and graded cards. Authentication adds trust. Fees ~12% for new sellers. Good if you have sealed product to sell.</div>
+        <div class="channel-meta"><span>Fees: <strong>~12%</strong></span><span>UK: <strong>GBP support</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">TikTok Shop <span class="verdict maybe">🟡 Experiment</span></div>
+        <div class="channel-desc">Live selling growing on TikTok. Good for audience building. Younger demographic. Worth testing alongside social content strategy.</div>
+        <div class="channel-meta"><span>Fees: <strong>~5%</strong></span><span>UK: <strong>Available</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">Voggt / Fanatics Live <span class="verdict watch">⏳ Watch</span></div>
+        <div class="channel-desc">European Whatnot equivalent. Acquired by Fanatics (Premier League deal). UK re-launch planned. Being early here could be huge.</div>
+        <div class="channel-meta"><span>Status: <strong>Pending UK launch</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">MySlabs <span class="verdict maybe">🟡 For Graded</span></div>
+        <div class="channel-desc">Specialist graded card marketplace. Only 2% fee. Worth it specifically for PSA/BGS graded cards.</div>
+        <div class="channel-meta"><span>Fees: <strong>2%</strong></span><span>Best for: <strong>Graded singles</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">TCGPlayer <span class="verdict no">❌ Not Available</span></div>
+        <div class="channel-desc">Major US card marketplace but not available to UK sellers. Skip this one.</div>
+        <div class="channel-meta"><span>UK: <strong>Not supported</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">Mercari <span class="verdict no">❌ Not Available</span></div>
+        <div class="channel-desc">Not available in the UK. US/Japan only.</div>
+        <div class="channel-meta"><span>UK: <strong>Not supported</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">Instagram <span class="verdict maybe">🟡 Marketing</span></div>
+        <div class="channel-desc">Good for card photography, community building, and driving traffic to Whatnot. Not a primary sales channel.</div>
+        <div class="channel-meta"><span>Best for: <strong>Audience building</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">Cardmarket <span class="verdict go">✅ If Expanding</span></div>
+        <div class="channel-desc">Europe's largest TCG marketplace. Great for Pokémon/MTG/Yu-Gi-Oh. VeeFriends not listed but worth it if you expand beyond VeeFriends.</div>
+        <div class="channel-meta"><span>Fees: <strong>5-8%</strong></span><span>UK: <strong>Available</strong></span></div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-name">Vinted <span class="verdict maybe">🟡 Bulk Only</span></div>
+        <div class="channel-desc">Zero seller fees. Good for clearing bulk/low-value cards. Not a serious TCG platform but useful for liquidation.</div>
+        <div class="channel-meta"><span>Fees: <strong>0%</strong></span><span>Best for: <strong>Clearing stock</strong></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 5: UK STRATEGY
+     ═══════════════════════════════════════════════════════ -->
+<div id="uk" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon pink">🇬🇧</div>
+      <div>
+        <div class="section-title">UK Seller Strategy</div>
+        <div class="section-subtitle">Shipping, tax, age rules, and how to turn being UK-based into an advantage</div>
+      </div>
+    </div>
+
+    <div class="accordion open">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Shipping Costs — UK Domestic</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <table class="data-table">
+          <thead><tr><th>Method</th><th>Price</th><th>Tracking</th><th>Best For</th></tr></thead>
+          <tbody>
+            <tr><td>Royal Mail 2nd Class Large Letter</td><td><strong>£1.55</strong></td><td>❌ No</td><td>Cards under £10</td></tr>
+            <tr><td>Royal Mail 2nd Class Signed For</td><td>£3.45</td><td>✅ Signed</td><td>Cards £10-30</td></tr>
+            <tr><td>Evri ParcelShop to ParcelShop</td><td><strong>£2.62</strong></td><td>✅ Full tracking</td><td>Best value tracked option</td></tr>
+            <tr><td>Royal Mail Special Delivery</td><td>~£8</td><td>✅ Insured</td><td>Cards over £100</td></tr>
+          </tbody>
+        </table>
+        <div class="content-block" style="margin-top:16px">
+          <h4>Cost Per Shipment (Single Card)</h4>
+          <p>Penny sleeve (1p) + toploader (8p) + team bag (3p) + envelope (12p) + stamp (£1.55) = <strong>~£1.80 total untracked</strong> or <strong>~£2.87 with Evri tracking</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>International Shipping (UK → USA)</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <table class="data-table">
+          <thead><tr><th>Service</th><th>Price (Large Letter)</th><th>Delivery Time</th></tr></thead>
+          <tbody>
+            <tr><td>Royal Mail International Standard</td><td><strong>£4.60</strong></td><td>7-21 days</td></tr>
+            <tr><td>Royal Mail International Tracked</td><td>£11.25</td><td>5-7 days</td></tr>
+            <tr><td>Evri International</td><td>From £6.08</td><td>6-14 days</td></tr>
+          </tbody>
+        </table>
+        <div class="callout danger">
+          <span class="callout-icon">🚨</span>
+          <div><strong>US Import Change (Aug 2025):</strong> The US suspended its $800 duty-free threshold. ALL shipments to the US may now face customs duties (~10% tariff). This makes UK → US shipping less competitive vs domestic US sellers. On Whatnot, international customs duties are the buyer's responsibility.</div>
+        </div>
+        <div class="callout success">
+          <span class="callout-icon">💡</span>
+          <div><strong>Whatnot advantage:</strong> On Whatnot, shipping is handled for you. Whatnot provides prepaid labels (Royal Mail domestic, DPD international). Buyers pay shipping at checkout. You just package it up.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>Tax & HMRC — What You Need to Know</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <table class="data-table">
+          <thead><tr><th>Milestone</th><th>What Happens</th></tr></thead>
+          <tbody>
+            <tr><td>First £1,000 gross income</td><td>Tax-free (trading allowance). No HMRC registration needed.</td></tr>
+            <tr><td>30+ transactions OR £1,707 on a platform</td><td>Platform automatically reports your sales to HMRC.</td></tr>
+            <tr><td>Over £1,000 gross income</td><td>Must register as sole trader with HMRC.</td></tr>
+            <tr><td>£12,570 net profit</td><td>Income tax starts (20% basic rate).</td></tr>
+            <tr><td>£50,000 turnover</td><td>Making Tax Digital — digital record-keeping required.</td></tr>
+            <tr><td>£90,000 turnover</td><td>VAT registration required.</td></tr>
+          </tbody>
+        </table>
+        <div class="content-block" style="margin-top:16px">
+          <h4>Whose Income Is It?</h4>
+          <p>Since David provides the inventory and the account is in his name — <strong>this is David's trading income</strong> for tax purposes. The boys helping doesn't change this. Safest approach: treat all income as David's self-employment until the boys turn 18 and can run their own accounts.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>UK Advantages & Positioning</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <div class="content-block">
+          <h4>Why Being UK-Based Helps</h4>
+          <ul>
+            <li><strong>Different timezone</strong> — stream at UK evening hours with less competition from US sellers</li>
+            <li><strong>Cheaper European shipping</strong> — £3.80 to Europe vs £4.60 worldwide. European buyers prefer UK sellers.</li>
+            <li><strong>VeeFriends UK gap</strong> — virtually zero UK-based VeeFriends sellers. First-mover advantage.</li>
+            <li><strong>Access to UK-exclusive products</strong> — Pokémon Centre UK exclusives, UK football cards</li>
+            <li><strong>Cardmarket access</strong> — Europe's largest TCG marketplace, not easily accessible from US</li>
+          </ul>
+        </div>
+        <div class="content-block">
+          <h4>How to Compete</h4>
+          <ul>
+            <li>Position as the "EU/UK-friendly VeeFriends seller"</li>
+            <li>Bundle shipping — encourage multiple card purchases per order</li>
+            <li>Include shipping in prices (£8 with "free shipping" beats £5 + £4.60 postage)</li>
+            <li>Stream at off-peak US hours — less competition, catch European audience</li>
+            <li>Sell on multiple platforms simultaneously</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-trigger" onclick="toggleAccordion(this)">
+        <span>UK Card Shows & Events Calendar</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <table class="data-table">
+          <thead><tr><th>Event</th><th>Location</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Birmingham Card Show #5</strong></td><td>New Bingley Hall</td><td>21 March 2026</td></tr>
+            <tr><td>Cheltenham Card Show</td><td>Leonardo Hotel</td><td>28-29 March 2026</td></tr>
+            <tr><td><strong>London Card Show XL ⭐</strong></td><td>ExCeL London</td><td>17-19 April 2026</td></tr>
+            <tr><td>Chester Card Show #5</td><td>Chester Racecourse</td><td>18 April 2026</td></tr>
+            <tr><td>Ipswich Card Show #5</td><td>Main Hall, Ipswich</td><td>10 May 2026</td></tr>
+            <tr><td>Worcester Card Show</td><td>Sixways Stadium</td><td>23-24 May 2026</td></tr>
+            <tr><td>Guildford Card Show</td><td>Guildford</td><td>31 May 2026</td></tr>
+            <tr><td><strong>Card Con IV</strong></td><td>Farnborough</td><td>5-6 September 2026</td></tr>
+          </tbody>
+        </table>
+        <p style="color:var(--text-muted);font-size:13px;margin-top:10px">Find more events: <a href="https://ukcardshows.co.uk" style="color:var(--accent-blue)">ukcardshows.co.uk</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 6: ACTION PLAN
+     ═══════════════════════════════════════════════════════ -->
+<div id="action" class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-icon green">🚀</div>
+      <div>
+        <div class="section-title">Family Action Plan</div>
+        <div class="section-subtitle">The exact steps to go from where you are now to selling cards online</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4 style="color:var(--accent-green)">Phase 1: Foundation (Weeks 1–4)</h4>
+        <p>Get set up, get organised, learn the platforms.</p>
+        <ul>
+          <li><strong>David:</strong> Apply for Whatnot seller account (in your name). Set up eBay seller account.</li>
+          <li><strong>David:</strong> Order packaging supplies: 200 toploaders + sleeves (~£25), 100 team bags (~£5), 50 envelopes (~£8), bubble mailers (~£8) = ~£50 total</li>
+          <li><strong>David:</strong> Open a separate bank account for card business (Starling/Monzo = free and instant)</li>
+          <li><strong>Alex & Matthew:</strong> Catalogue every card — set, condition, estimated value</li>
+          <li><strong>Alex & Matthew:</strong> Research values on eBay sold listings. Watch successful Whatnot streamers.</li>
+          <li><strong>Alex & Matthew:</strong> Practice presenting cards on camera — film each other on phones</li>
+          <li><strong>Family:</strong> Agree on a brand name. Check availability on Whatnot, eBay, Instagram, TikTok.</li>
+          <li><strong>Family:</strong> Set up streaming space: ring light (~£20), phone stand (~£12), clean desk</li>
+          <li><strong>Family:</strong> Join VeeFriends Discord (270K members, active trading channels)</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <h4 style="color:var(--accent-blue)">Phase 2: Launch (Weeks 4–8)</h4>
+        <p>Start listing, run your first stream, learn by doing.</p>
+        <ul>
+          <li>List 20-30 best cards on eBay — good photos, market-driven prices</li>
+          <li>Schedule and run first Whatnot live stream (30-60 minutes)</li>
+          <li>David appears at the start of stream, then boys take over</li>
+          <li>Mix of auction items ($1 starts on cheaper cards) and BIN items</li>
+          <li>Run a giveaway to attract first viewers</li>
+          <li>Create TikTok/Instagram, post first unboxing or card showcase content</li>
+          <li>Ship ALL orders within 24 hours — fast shipping = good reviews = more sales</li>
+          <li>List bundles of base stickers on eBay (individual bases aren't worth listing)</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <h4 style="color:var(--accent-purple)">Phase 3: Grow (Months 2–6)</h4>
+        <p>Build consistency, expand inventory, diversify.</p>
+        <ul>
+          <li>Increase stream frequency to 2-3 per week</li>
+          <li>Consider expanding beyond VeeFriends — Pokémon is massive on Whatnot</li>
+          <li>Source inventory: eBay bulk lots, card shows, Cardmarket, local sellers</li>
+          <li>Attend a UK card show together (London Card Show XL in April!)</li>
+          <li>Experiment with formats: mystery packs, claim sales, themed streams</li>
+          <li>When approaching £1,000 gross income, prepare for HMRC registration</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <h4 style="color:var(--accent-orange)">Phase 4: Establish (Months 6–12)</h4>
+        <p>Solidify the business, scale what works.</p>
+        <ul>
+          <li>Register as sole trader with HMRC (if income exceeds £1,000)</li>
+          <li>Consider a vendor table at a card show</li>
+          <li>Build YouTube channel alongside Whatnot/TikTok</li>
+          <li>Evaluate: fun side hustle or serious business? Decide direction as a family.</li>
+          <li>Watch for Fanatics Live UK launch — get in early</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout success" style="margin-top:32px">
+      <span class="callout-icon">🎯</span>
+      <div><strong>The "sell now" priority:</strong> List your numbered parallels, autographs, and case hit inserts on eBay immediately. VeeFriends prices decline over time — your rarest cards are worth the most right now. Base stickers should be bundled (lots of 10-20) or sold in bulk on Whatnot streams.</div>
+    </div>
+
+    <div style="margin-top:32px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px;">
+      <h3 style="font-size:20px; margin-bottom:20px;">👨‍👦‍👦 Family Ground Rules</h3>
+      <div class="content-block">
+        <ul>
+          <li>David's name on all accounts — legally required until the boys turn 18</li>
+          <li>David appears at the start of every Whatnot stream</li>
+          <li>Never share home address, school names, or personal details on stream</li>
+          <li>Ship within 2 business days — Whatnot requires this</li>
+          <li>Keep ALL receipts and records from day one</li>
+          <li>Separate bank account for all card business money</li>
+          <li>Weekly family check-in — review sales, plan next stream, discuss what's working</li>
+          <li>Re-invest profits initially — build inventory before taking cash out</li>
+          <li><strong>Have fun</strong> — if it stops being fun for anyone, reassess</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="container">
+    <p>Research compiled by Zapp • 9 March 2026</p>
+    <p style="margin-top:8px; font-size:12px;">Sources: Whatnot Help Center, Reddit (r/whatnotapp, r/flipping), CNBC, Forbes, Business Insider, eBay, Royal Mail, HMRC, VeeFriends.com</p>
+    <p style="margin-top:8px; font-size:12px; color:var(--text-dim);">Prices, policies, and tax thresholds are subject to change. Verify current rates before committing.</p>
+  </div>
+</div>
+
+<script>
+function toggleAccordion(trigger) {
+  const accordion = trigger.parentElement;
+  accordion.classList.toggle('open');
+}
+
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// Update active nav on scroll
+const sections = ['whatnot', 'money', 'market', 'channels', 'uk', 'action'];
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      const idx = sections.indexOf(id);
+      if (idx >= 0) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+    }
+  });
+}, { rootMargin: '-100px 0px -60% 0px' });
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+</script>
+</body>
+</html>
