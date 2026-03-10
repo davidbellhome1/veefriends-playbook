@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UK Seller Strategy — Shipping, Positioning & The Boys' Involvement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141420;--surface-raised:#1c1c2e;--surface-hover:#252540;--border:#2a2a45;--text:#e8e8f0;--text-muted:#8888a8;--text-dim:#5c5c78;--accent-green:#00e676;--accent-blue:#4fc3f7;--accent-purple:#b388ff;--accent-orange:#ffab40;--accent-red:#ff5252;--accent-pink:#ff4081;--accent-yellow:#ffd740}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.3}
+.page-wrapper{display:flex;max-width:1300px;margin:0 auto}
+.sidebar{width:280px;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;padding:32px 24px;border-right:1px solid var(--border);display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:4px}.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.main-content{flex:1;min-width:0;padding:48px 56px;max-width:860px}
+.back-link{display:inline-flex;align-items:center;gap:8px;color:var(--accent-pink);text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;margin-bottom:24px;transition:transform .2s}
+.back-link:hover{transform:translateX(-4px)}
+.toc-title{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);font-weight:600;margin-bottom:16px;font-family:'Space Grotesk',sans-serif}
+.toc-list{list-style:none}.toc-list li{margin-bottom:4px}
+.toc-list a{display:block;padding:8px 12px;border-radius:8px;color:var(--text-muted);text-decoration:none;font-size:13px;font-weight:500;transition:background .2s,color .2s;border-left:2px solid transparent}
+.toc-list a:hover{background:var(--surface-raised);color:var(--text)}
+.toc-list a.active{color:var(--accent-pink);border-left-color:var(--accent-pink);background:rgba(255,64,129,0.06)}
+.deep-hero{margin-bottom:48px}
+.deep-hero .badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface-raised);border:1px solid var(--border);padding:6px 14px;border-radius:99px;font-size:12px;color:var(--accent-pink);font-weight:600;margin-bottom:16px}
+.deep-hero h1{font-size:36px;margin-bottom:12px}.deep-hero h1 span{color:var(--accent-pink)}
+.deep-hero .subtitle{font-size:16px;color:var(--text-muted)}.deep-hero .meta{font-size:13px;color:var(--text-dim);margin-top:12px}
+.content h2{font-size:26px;margin-top:56px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);color:var(--accent-pink)}
+.content h3{font-size:20px;margin-top:36px;margin-bottom:14px;color:var(--text)}
+.content h4{font-size:16px;margin-top:24px;margin-bottom:10px;color:var(--accent-blue)}
+.content p{margin-bottom:14px;color:var(--text-muted);font-size:15px}
+.content ul,.content ol{margin-bottom:16px;padding-left:0;list-style:none}
+.content ul li,.content ol li{position:relative;padding:6px 0 6px 24px;color:var(--text-muted);font-size:14px;line-height:1.6}
+.content ul li::before{content:'→';position:absolute;left:0;color:var(--accent-pink);font-weight:600}
+.content ol{counter-reset:ol-counter}.content ol li{counter-increment:ol-counter}
+.content ol li::before{content:counter(ol-counter) '.';position:absolute;left:0;color:var(--accent-pink);font-weight:700;font-size:13px}
+.data-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+.data-table th{text-align:left;padding:12px 16px;background:var(--surface-raised);color:var(--text-muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border)}
+.data-table td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--text)}
+.data-table tr:last-child td{border-bottom:none}.data-table tr:hover td{background:var(--surface-hover)}
+.table-wrapper{overflow-x:auto;margin:20px 0;border-radius:12px;border:1px solid var(--border)}
+.table-wrapper .data-table{margin:0}
+blockquote{border-left:3px solid var(--accent-purple);padding:16px 24px;margin:20px 0;background:rgba(179,136,255,0.06);border-radius:0 12px 12px 0;font-size:15px;color:var(--text);font-style:italic}
+blockquote strong{color:var(--accent-purple);font-style:normal}
+.callout{border-radius:12px;padding:18px 22px;margin:20px 0;font-size:14px;display:flex;gap:14px;line-height:1.6}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.callout.warning{background:rgba(255,171,64,0.08);border:1px solid rgba(255,171,64,0.2);color:var(--accent-orange)}
+.callout.success{background:rgba(0,230,118,0.08);border:1px solid rgba(0,230,118,0.2);color:var(--accent-green)}
+.callout.info{background:rgba(79,195,247,0.08);border:1px solid rgba(79,195,247,0.2);color:var(--accent-blue)}
+.callout.danger{background:rgba(255,82,82,0.08);border:1px solid rgba(255,82,82,0.2);color:var(--accent-red)}
+.content a{color:var(--accent-blue);text-decoration:none;border-bottom:1px solid rgba(79,195,247,0.3);transition:border-color .2s}
+.content a:hover{border-bottom-color:var(--accent-blue)}
+.content strong{color:var(--text);font-weight:600}
+.checklist{list-style:none !important;padding-left:0 !important}
+.checklist li{padding-left:32px !important}
+.checklist li::before{content:'☐' !important;color:var(--accent-pink) !important;font-size:16px}
+.content hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+.sources{margin-top:32px;padding:20px 24px;background:var(--surface);border-radius:12px;border:1px solid var(--border)}
+.sources h4{color:var(--text-dim);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.sources ul li{font-size:13px}.sources ul li::before{content:'📎'}
+.deep-footer{margin-top:64px;padding-top:32px;border-top:1px solid var(--border);text-align:center;color:var(--text-dim);font-size:13px}
+@media(max-width:900px){.sidebar{display:none}.main-content{padding:24px 20px}.deep-hero h1{font-size:28px}.content h2{font-size:22px}.data-table{font-size:13px}.data-table th,.data-table td{padding:8px 10px}}
+.mobile-toc-toggle{display:none;position:fixed;bottom:24px;right:24px;z-index:999;background:var(--accent-pink);color:var(--bg);border:none;border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;box-shadow:0 4px 20px rgba(255,64,129,0.3)}
+@media(max-width:900px){.mobile-toc-toggle{display:flex;align-items:center;justify-content:center}}
+.mobile-toc-overlay{display:none;position:fixed;inset:0;z-index:998;background:rgba(10,10,15,0.95);padding:24px;overflow-y:auto}
+.mobile-toc-overlay.show{display:block}
+.mobile-toc-overlay .close-btn{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+  <nav class="sidebar">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+    <div class="toc-title">On This Page</div>
+    <ul class="toc-list">
+      <li><a href="#uk-domestic" class="active">1. UK Domestic Shipping</a></li>
+      <li><a href="#international">2. International Shipping</a></li>
+      <li><a href="#positioning">3. UK Seller Positioning</a></li>
+      <li><a href="#boys-involvement">4. The Boys' Involvement</a></li>
+      <li><a href="#success-stories">5. Young Seller Success</a></li>
+      <li><a href="#business-tax">6. Business Setup & Tax</a></li>
+      <li><a href="#brand">7. Building a UK Brand</a></li>
+      <li><a href="#action-plan">8. Family Action Plan</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+
+    <div class="deep-hero">
+      <div class="badge">🇬🇧 Deep Dive #5</div>
+      <h1>UK Seller <span>Strategy</span></h1>
+      <div class="subtitle">Shipping, positioning, tax, age requirements & how to turn being UK-based into an advantage</div>
+      <div class="meta">Prepared: 9 March 2026 · For the Bell family (David, Alex 15, Matthew 13)</div>
+    </div>
+
+    <div class="content">
+
+      <!-- SECTION 1 -->
+      <h2 id="uk-domestic">1. Shipping Solutions (UK Domestic)</h2>
+
+      <h3>Royal Mail Pricing (Current as of Oct 2025 / Apr 2026)</h3>
+      <p>The key insight: <strong>a single trading card in a toploader fits within Large Letter dimensions</strong> (max 35.3cm × 25cm × 2.5cm thick, up to 750g). This keeps you in the cheapest tier.</p>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Service</th><th>Large Letter (up to 100g)</th><th>Large Letter (up to 250g)</th><th>Small Parcel (up to 2kg)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>2nd Class (stamp)</strong></td><td><strong>£1.55</strong></td><td>£2.00</td><td>£3.90</td></tr>
+            <tr><td>1st Class (stamp)</td><td>£3.15</td><td>£3.60</td><td>£4.99</td></tr>
+            <tr><td>2nd Class Signed For</td><td>£3.45</td><td>—</td><td>—</td></tr>
+            <tr><td>1st Class Signed For</td><td>£5.05</td><td>—</td><td>—</td></tr>
+            <tr><td>Tracked 48</td><td>~£5.15</td><td>—</td><td>—</td></tr>
+            <tr><td>Tracked 24</td><td>~£6.05</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout success">
+        <span class="callout-icon">💡</span>
+        <div><strong>Best option for most single card sales:</strong> 2nd Class Large Letter at £1.55 (untracked, 2–3 working days). For cards worth £20+, consider 2nd Class Signed For at £3.45.</div>
+      </div>
+
+      <h3>Franked/Online Prices (Cheaper)</h3>
+      <ul>
+        <li>2nd Class Large Letter (100g): <strong>£1.41</strong> (Mailmark franking)</li>
+        <li>1st Class Large Letter (100g): <strong>£2.65</strong> (Mailmark franking)</li>
+      </ul>
+
+      <h3>Evri Pricing (Alternative)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Weight</th><th>Standard Drop-off</th><th>Standard to ParcelShop</th><th>Next Day to ParcelShop</th></tr></thead>
+          <tbody>
+            <tr><td>Postable (under 1kg)</td><td>£2.70</td><td><strong>£2.62</strong></td><td>£3.20</td></tr>
+            <tr><td>Under 1kg</td><td>£3.29</td><td>£2.62</td><td>£3.20</td></tr>
+            <tr><td>1kg–2kg</td><td>£4.79</td><td>£2.62</td><td>£3.20</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">📦</span>
+        <div><strong>Key advantage of Evri:</strong> Fully tracked on all services, photo confirmation of delivery, £20 default cover. The ParcelShop delivery at £2.62 is excellent value and beats Royal Mail Tracked 48 by over £2.50.</div>
+      </div>
+
+      <h3>How to Package Trading Cards Safely</h3>
+      <p><strong>Standard packaging method (industry best practice):</strong></p>
+      <ol>
+        <li><strong>Penny sleeve</strong> — soft plastic sleeve to prevent scratching (cost: ~1p each in bulk)</li>
+        <li><strong>Toploader</strong> — rigid plastic holder that prevents bending (cost: ~5–10p each in bulk)</li>
+        <li><strong>Seal the toploader</strong> — piece of tape across the top opening (use painter's tape/washi tape, NOT sellotape which can damage cards)</li>
+        <li><strong>Team bag</strong> (optional but recommended) — resealable bag over the toploader, adds moisture protection (cost: ~2–3p each)</li>
+        <li><strong>Rigid envelope or bubble mailer</strong> — "Do Not Bend" cardboard-backed envelope or small bubble mailer</li>
+      </ol>
+
+      <p>For higher-value cards (£20+):</p>
+      <ul>
+        <li>Add thin cardboard on each side of the toploader</li>
+        <li>Use a bubble mailer instead of plain envelope</li>
+        <li>Consider semi-rigid card savers instead of toploaders (better for grading-bound cards)</li>
+      </ul>
+
+      <h3>UK Packaging Suppliers (Bulk)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Supplier</th><th>Product</th><th>Approx. Price</th></tr></thead>
+          <tbody>
+            <tr><td><strong>GeckoCards</strong> (geckocards.co.uk)</td><td>Ultra Pro 100 toploaders + 100 penny sleeves bundle</td><td>~£12–15</td></tr>
+            <tr><td><strong>Chaos Cards</strong> (chaoscards.co.uk)</td><td>Ultra Pro 200 toploaders + sleeves pack</td><td>~£22–25</td></tr>
+            <tr><td><strong>London Sports Cards</strong></td><td>Ultra Pro bundles</td><td>~£12–15 per 100</td></tr>
+            <tr><td><strong>Amazon UK</strong></td><td>Cardboard Gold 25ct toploaders + sleeves</td><td>~£6–8</td></tr>
+            <tr><td><strong>eBay UK</strong></td><td>Ultra Pro penny sleeves 1000ct</td><td>~£7–10</td></tr>
+            <tr><td><strong>eBay UK</strong></td><td>"Do Not Bend" C5/C6 envelopes 100ct</td><td>~£8–12</td></tr>
+            <tr><td><strong>Amazon UK</strong></td><td>Bubble mailers (C/0 size) 50ct</td><td>~£6–10</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Cost Per Shipment (Single Card, UK Domestic)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Item</th><th>Cost</th></tr></thead>
+          <tbody>
+            <tr><td>Penny sleeve</td><td>£0.01</td></tr>
+            <tr><td>Toploader</td><td>£0.08</td></tr>
+            <tr><td>Team bag</td><td>£0.03</td></tr>
+            <tr><td>"Do Not Bend" envelope or bubble mailer</td><td>£0.10–0.15</td></tr>
+            <tr><td>2nd Class Large Letter stamp</td><td>£1.55</td></tr>
+            <tr><td><strong>Total (untracked)</strong></td><td><strong>~£1.77–1.82</strong></td></tr>
+            <tr><td>Or with Evri tracked (ParcelShop)</td><td><strong>~£2.85–2.90</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>When Is Tracking Worth It?</h3>
+      <ul>
+        <li><strong>Under £10 card value:</strong> Untracked 2nd Class Large Letter is fine</li>
+        <li><strong>£10–£30 card value:</strong> Consider Signed For or Evri (tracked), especially on eBay</li>
+        <li><strong>Over £30 card value:</strong> Always tracked + signed for</li>
+        <li><strong>Over £100:</strong> Royal Mail Special Delivery Guaranteed or tracked + insurance</li>
+        <li><strong>On Whatnot:</strong> Whatnot provides prepaid shipping labels (handled for you)</li>
+      </ul>
+
+      <hr>
+
+      <!-- SECTION 2 -->
+      <h2 id="international">2. International Shipping (UK → US and Worldwide)</h2>
+
+      <h3>Royal Mail International Pricing (2026)</h3>
+      <p><strong>Large Letter (card in toploader, under 100g) — Stamp Prices:</strong></p>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Destination</th><th>Standard (untracked)</th><th>Tracked</th></tr></thead>
+          <tbody>
+            <tr><td>Europe Zone 1 (France, Germany etc.)</td><td>£3.80</td><td>£9.95</td></tr>
+            <tr><td>Europe Zone 2 (Eastern Europe)</td><td>£3.80</td><td>£9.95</td></tr>
+            <tr><td>World Zone 1 (Australia, Japan etc.)</td><td>£4.60</td><td>£11.90</td></tr>
+            <tr><td>World Zone 2 (Middle East, Africa)</td><td>£4.60</td><td>£11.95</td></tr>
+            <tr><td><strong>World Zone 3 (USA, Canada)</strong></td><td><strong>£4.60</strong></td><td><strong>£11.25</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Keep it as a Large Letter</strong> to save dramatically on international shipping. A single card in toploader in a rigid envelope easily qualifies. Small Parcel to the US jumps to £19.50 untracked!</div>
+      </div>
+
+      <h3>USA-Specific Considerations (CRITICAL CHANGES)</h3>
+
+      <div class="callout danger">
+        <span class="callout-icon">🚨</span>
+        <div><strong>US De Minimis Threshold SUSPENDED (since 29 August 2025):</strong> Previously, goods under $800 entered the US duty-free. This exemption has been suspended for ALL countries. Now ALL shipments to the US may be subject to duties and customs clearance. This adds extra fees and makes UK → US shipping less competitive vs US domestic sellers. The current US tariff environment includes a 10% universal tariff on most imports.</div>
+      </div>
+
+      <h3>Customs Declarations</h3>
+      <ul>
+        <li><strong>Description:</strong> "Trading cards" or "Collectible trading cards"</li>
+        <li><strong>HS/Tariff Code:</strong> 9504.40.0000 (playing cards)</li>
+        <li><strong>Country of origin:</strong> Where the cards were manufactured (often USA/Japan depending on brand)</li>
+        <li><strong>Value:</strong> Declare the actual sale value — under-declaring is illegal and risky</li>
+        <li>CN22 for items under £270, CN23 for items over £270</li>
+      </ul>
+
+      <h3>VAT Considerations for UK Sellers</h3>
+      <ul>
+        <li><strong>Exports are zero-rated for VAT</strong> — you don't charge UK VAT on items shipped outside the UK</li>
+        <li>Royal Mail international services are also zero-rated for VAT</li>
+        <li>If you're VAT-registered (threshold: £90,000 turnover), you reclaim input VAT but don't charge output VAT on exports</li>
+        <li>Most small card sellers won't hit the VAT threshold</li>
+      </ul>
+
+      <h3>Delivery Times (UK → US)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Service</th><th>Typical Delivery</th></tr></thead>
+          <tbody>
+            <tr><td>Royal Mail International Standard</td><td>7–21 working days</td></tr>
+            <tr><td>Royal Mail International Tracked</td><td>5–7 working days</td></tr>
+            <tr><td>Royal Mail International Tracked & Signed</td><td>5–7 working days</td></tr>
+            <tr><td>Evri International</td><td>6–14 working days</td></tr>
+            <tr><td>DHL Express</td><td>2–4 working days</td></tr>
+            <tr><td>FedEx/UPS Express</td><td>2–4 working days</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Insurance for High-Value Cards</h3>
+      <ul>
+        <li>Royal Mail International Standard: compensation up to <strong>£20</strong></li>
+        <li>Royal Mail International Tracked: compensation up to <strong>£50</strong> (add £2.50 for up to £250)</li>
+        <li>For cards worth £250+: consider DHL Express or Parcelforce Global Express</li>
+        <li>Some sellers buy separate transit insurance through Parcel2Go</li>
+      </ul>
+
+      <h3>Better Options Than Royal Mail?</h3>
+      <ul>
+        <li><strong>Evri International:</strong> From <strong>£6.08</strong> for tracked, fully tracked to 200+ countries. Can be cheaper than Royal Mail for parcels.</li>
+        <li><strong>DHL/FedEx/UPS:</strong> Much more expensive (£25–50+ for a single card) but faster and insured. Only for very high-value shipments.</li>
+        <li><strong>Parcel2Go/ParcelMonkey:</strong> Comparison sites that find cheapest courier rates.</li>
+        <li><strong>eBay Global Shipping Programme (GSP):</strong> Ship to a UK hub (Lichfield) and eBay handles all customs/international shipping. <strong>Removes all customs hassle from the seller.</strong></li>
+      </ul>
+
+      <h3>Whatnot Shipping (How It Works for UK Sellers)</h3>
+      <div class="callout success">
+        <span class="callout-icon">✅</span>
+        <div><strong>On Whatnot, you don't need to worry about shipping costs as a seller.</strong> Whatnot partners with Royal Mail (domestic) and DPD (international). They provide prepaid shipping labels. Buyers pay shipping at checkout. You just need good packaging supplies. Multiple items from same buyer are bundled automatically.</div>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 3 -->
+      <h2 id="positioning">3. Positioning as a UK Seller</h2>
+
+      <h3>Advantages</h3>
+      <ol>
+        <li><strong>Different timezone = less competition during UK streaming hours</strong> — Peak US Whatnot hours are 6pm–11pm EST (11pm–4am UK). Stream at UK evening hours with fewer live sellers competing.</li>
+        <li><strong>Access to UK-exclusive products</strong> — UK/European exclusive TCG printings, Pokémon Centre exclusives, UK/European football cards (Panini, Topps Match Attax)</li>
+        <li><strong>European buyers at cheaper shipping</strong> — UK to Europe is £3.80 for a Large Letter vs £4.60 to World zones. European collectors prefer buying from UK sellers.</li>
+        <li><strong>Cardmarket access</strong> — cardmarket.com is Europe's largest TCG marketplace. UK sellers can sell to European buyers with lower fees than eBay.</li>
+        <li><strong>VeeFriends UK gap — first-mover advantage</strong> — Very few (if any) UK-based VeeFriends sellers on Whatnot. A UK seller specialising in VeeFriends could attract UK/European buyers who currently pay expensive US shipping.</li>
+      </ol>
+
+      <h3>Disadvantages</h3>
+      <ol>
+        <li><strong>Higher shipping costs to US buyers</strong> — £4.60+ vs ~$1 for US domestic first class. With US de minimis suspension, buyers now face potential duties too.</li>
+        <li><strong>Smaller domestic market</strong> — UK trading card collector base is smaller than US. Fewer VeeFriends enthusiasts specifically.</li>
+        <li><strong>Sourcing challenges</strong> — Many TCG products launch in US first or are US-exclusive. Import costs for US-sourced inventory.</li>
+        <li><strong>Platform competition</strong> — Whatnot is still US-centric, though growing in UK. Most established sellers are American.</li>
+      </ol>
+
+      <h3>How to Compete</h3>
+      <ul>
+        <li><strong>Focus on European market</strong> — position as "the EU/UK-friendly VeeFriends seller"</li>
+        <li><strong>Bundle shipping</strong> — encourage buyers to purchase multiple cards per order</li>
+        <li><strong>Include shipping in prices</strong> — instead of £5 card + £4.60 shipping, sell for £8 with "free international shipping"</li>
+        <li><strong>Build a brand around being UK-based</strong> — it's memorable and differentiating</li>
+        <li><strong>Stream at off-peak US hours</strong> — less competition, catch the European audience</li>
+        <li><strong>Sell on multiple platforms</strong> — Whatnot for live sales, eBay UK for static listings, Cardmarket for European TCG buyers</li>
+      </ul>
+
+      <hr>
+
+      <!-- SECTION 4 -->
+      <h2 id="boys-involvement">4. The Boys' Involvement — Age Requirements</h2>
+
+      <h3>Whatnot Age Policy (VERY IMPORTANT)</h3>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Official Whatnot rules for teens:</strong> You must be 18 or older to have your own account. Teens aged 13–17 can use Whatnot under the parent's account with supervision. An adult must appear at the beginning of each live stream. One Reddit user reported being banned after streaming at age 15 on their own account.</div>
+      </div>
+
+      <h4>What This Means for the Bells</h4>
+      <ul>
+        <li>✅ Alex (15) and Matthew (13) CAN appear on Whatnot streams</li>
+        <li>✅ They can do the actual selling/presenting during live streams</li>
+        <li>⚠️ The account MUST be in David's name</li>
+        <li>⚠️ David must appear at the start of each stream (even briefly)</li>
+        <li>⚠️ David is legally responsible for all sales, shipping, and customer service</li>
+        <li>❌ Neither boy can have their own seller account until they turn 18</li>
+      </ul>
+
+      <h3>Other Platforms — Age Requirements</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Platform</th><th>Minimum Age</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Whatnot</strong></td><td>18 (13+ with parental account)</td><td>Parent must appear at stream start</td></tr>
+            <tr><td><strong>eBay</strong></td><td>18</td><td>No under-18 accounts — legally binding contracts</td></tr>
+            <tr><td><strong>Cardmarket</strong></td><td>18</td><td>European TCG marketplace</td></tr>
+            <tr><td><strong>Facebook Marketplace</strong></td><td>18</td><td>Meta's minimum age for commerce</td></tr>
+            <tr><td><strong>TikTok Shop</strong></td><td>18 to sell</td><td>Can create content younger</td></tr>
+            <tr><td><strong>Depop/Vinted</strong></td><td>18 (13+ with parental consent varies)</td><td>Not ideal for cards</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Legal Considerations for Minors Selling Online in UK</h3>
+      <ul>
+        <li><strong>No UK law prevents children from earning money</strong> — no minimum age for self-employment</li>
+        <li>Employment law restrictions don't apply to self-employment/family businesses the same way</li>
+        <li><strong>Contract law:</strong> Minors (under 18) can enter contracts for "necessities" but other contracts may be voidable — hence platforms require adult account holders</li>
+        <li><strong>The adult bears legal responsibility</strong> for transactions, consumer rights, and disputes</li>
+      </ul>
+
+      <h3>Tax Implications — Whose Income Is It?</h3>
+      <ul>
+        <li>If David provides the inventory and runs the account in his name — <strong>this is David's trading income</strong></li>
+        <li>Special HMRC rule: if a parent "settles" income on minor children, and income exceeds <strong>£100 per year</strong> from each parent's settlement, it's taxed as the <strong>parent's income</strong> (ITTOIA/S629)</li>
+        <li><strong>Safest approach:</strong> Treat all income as David's self-employment income initially. As the boys grow and take more ownership, this can evolve.</li>
+      </ul>
+
+      <h3>Safeguarding Considerations for Live Streaming</h3>
+      <ul>
+        <li>Don't reveal home address, school name, or other identifying details during streams</li>
+        <li>Be cautious about chat interactions — some viewers may be inappropriate</li>
+        <li>Whatnot has community guidelines against harassment, but live chat is hard to moderate</li>
+        <li>David should be present (or watching) during all streams with ability to end if needed</li>
+        <li>No child performance licence needed — this only applies to formal employment/entertainment work</li>
+      </ul>
+
+      <hr>
+
+      <!-- SECTION 5 -->
+      <h2 id="success-stories">5. Young Seller Success Stories</h2>
+
+      <h3>The "Family Selling" Angle</h3>
+      <p>While specific UK teenage Whatnot sellers are rare, <strong>family-run card businesses</strong> are increasingly common:</p>
+      <ul>
+        <li><strong>Blake Martinez</strong> (ex-NFL player) turned Pokémon card selling on Whatnot into a <strong>$8.3M business</strong> in 9 months — started as a side hustle</li>
+        <li>Many successful Whatnot sellers started with small collections and grew</li>
+        <li>Reddit users report sellers making <strong>£300+ per stream</strong> on average, with top sellers doing £1,000–3,000 per week</li>
+      </ul>
+
+      <h3>The "Young Entrepreneur" Angle — Does It Help?</h3>
+      <ul>
+        <li>Viewers on Whatnot respond <strong>positively</strong> to enthusiastic young sellers who know their cards</li>
+        <li>The "family business" angle is heartwarming and memorable</li>
+        <li>On TikTok/Instagram, young card sellers get significant engagement</li>
+        <li><strong>Warning:</strong> Don't lean too heavily on "cute kids" — card knowledge and genuine enthusiasm is what builds a lasting audience</li>
+        <li>Buyers want to feel they're supporting a genuine passion, not a gimmick</li>
+      </ul>
+
+      <h3>How Young Sellers Present Themselves</h3>
+      <ul>
+        <li>Focus on <strong>card knowledge</strong> — knowing set names, rarity tiers, card conditions, values</li>
+        <li><strong>Energy and enthusiasm</strong> — young sellers often bring more energy than adults</li>
+        <li><strong>Authenticity</strong> — don't try to be a corporate brand, be a family having fun with cards</li>
+        <li><strong>Catchphrases and personality</strong> — successful Whatnot streamers have memorable styles</li>
+        <li>The boys being different ages brings natural dynamic (older/younger sibling energy)</li>
+      </ul>
+
+      <h3>Tips from Successful Family Accounts</h3>
+      <ol>
+        <li>Have one person present and one manage chat/orders</li>
+        <li>Create signature segments (e.g., "Mystery Monday" or "£1 Start Fridays")</li>
+        <li>Let the personality shine — stiff corporate presentations don't work on Whatnot</li>
+        <li>Engage with every single viewer, especially early on</li>
+        <li>Run giveaways to build initial audience (no fees on Whatnot giveaways)</li>
+      </ol>
+
+      <hr>
+
+      <!-- SECTION 6 -->
+      <h2 id="business-tax">6. Business Setup & Tax</h2>
+
+      <h3>When Does Casual Selling Become a Business?</h3>
+      <ul>
+        <li><strong>HMRC Trading Allowance:</strong> Earn up to <strong>£1,000 per tax year</strong> from trading income without telling HMRC</li>
+        <li>This is <strong>gross income</strong> (before expenses), not profit</li>
+        <li>If you're buying cards specifically to resell for profit, this is trading income from day one</li>
+        <li><strong>Once you exceed £1,000 gross trading income</strong> → must register as self-employed</li>
+      </ul>
+
+      <h3>Platform Reporting to HMRC</h3>
+      <div class="callout info">
+        <span class="callout-icon">📋</span>
+        <div><strong>Since January 2024,</strong> digital platforms must report seller data to HMRC if you complete <strong>30+ sales transactions</strong> in a calendar year, OR earn <strong>£1,707+</strong> (~€2,000) in a calendar year. This applies to eBay, Whatnot, Vinted, Etsy, Amazon, Facebook Marketplace, etc.</div>
+      </div>
+
+      <h3>Sole Trader Registration Process</h3>
+      <ol>
+        <li><strong>Register with HMRC</strong> as self-employed — do this by <strong>5 October</strong> after the end of the tax year you started trading</li>
+        <li>Go to <a href="https://www.gov.uk/register-for-self-assessment" target="_blank">gov.uk/register-for-self-assessment</a></li>
+        <li>You'll need: National Insurance number, personal details, description of business</li>
+        <li>You'll receive a <strong>Unique Taxpayer Reference (UTR)</strong> — takes about 10 days</li>
+        <li>File a <strong>Self Assessment tax return</strong> by 31 January each year</li>
+      </ol>
+
+      <h3>Making Tax Digital (MTD) — Coming April 2026</h3>
+      <ul>
+        <li>From April 2026, sole traders with income over <strong>£50,000</strong> must keep digital records using MTD-compatible software</li>
+        <li>Submit <strong>quarterly updates</strong> to HMRC</li>
+        <li>From April 2027, extends to those earning over <strong>£30,000</strong></li>
+        <li>Below those thresholds, standard Self Assessment continues</li>
+      </ul>
+
+      <h3>Deductible Expenses</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Expense</th><th>Deductible?</th></tr></thead>
+          <tbody>
+            <tr><td>Card inventory (purchase cost)</td><td>✅ Yes — cost of goods sold</td></tr>
+            <tr><td>Shipping/postage costs</td><td>✅ Yes</td></tr>
+            <tr><td>Packaging (toploaders, sleeves, mailers)</td><td>✅ Yes</td></tr>
+            <tr><td>Platform fees (Whatnot, eBay)</td><td>✅ Yes</td></tr>
+            <tr><td>Camera/lighting equipment</td><td>✅ Yes (capital allowance)</td></tr>
+            <tr><td>Phone/internet (business portion)</td><td>✅ Yes (proportional)</td></tr>
+            <tr><td>Laptop/computer (business portion)</td><td>✅ Yes (proportional)</td></tr>
+            <tr><td>Card show entry fees / travel</td><td>✅ Yes</td></tr>
+            <tr><td>Branding costs (logo design, etc.)</td><td>✅ Yes</td></tr>
+            <tr><td>Thermal label printer</td><td>✅ Yes</td></tr>
+            <tr><td>Storage supplies (boxes, binders)</td><td>✅ Yes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Tax Rates (2025/26)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Income Band</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><td>£0–£12,570 (Personal Allowance)</td><td>0%</td></tr>
+            <tr><td>£12,571–£50,270</td><td>20% (Basic rate)</td></tr>
+            <tr><td>£50,271–£125,140</td><td>40% (Higher rate)</td></tr>
+            <tr><td>National Insurance (Class 2)</td><td>£3.45/week if profits > £12,570</td></tr>
+            <tr><td>National Insurance (Class 4)</td><td>6% on profits £12,570–£50,270</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Record Keeping Requirements</h3>
+      <ul>
+        <li><strong>All sales</strong> — date, item, price, buyer, platform</li>
+        <li><strong>All purchases (inventory)</strong> — what you bought, from whom, price, date</li>
+        <li><strong>All expenses</strong> — packaging supplies, shipping costs, equipment, platform fees</li>
+        <li><strong>Mileage</strong> — if driving to post office, card shows, etc.</li>
+        <li><strong>Bank statements</strong> — separate business bank account is strongly recommended</li>
+        <li>Keep records for <strong>at least 5 years</strong> after the 31 January submission deadline</li>
+      </ul>
+
+      <hr>
+
+      <!-- SECTION 7 -->
+      <h2 id="brand">7. Building a UK Card Selling Brand</h2>
+
+      <h3>Naming & Branding Considerations</h3>
+      <ul>
+        <li><strong>Include "UK" or British reference</strong> — differentiates you immediately on US-dominated platforms</li>
+        <li>Consider names that work across all platforms (same handle on Whatnot, eBay, Instagram, TikTok)</li>
+        <li>Examples: "BellBrothersCards", "BellCardUK", "TheBellCardShop"</li>
+        <li>Check availability across: Whatnot, eBay, Instagram, TikTok, YouTube before committing</li>
+        <li>The boys can be the "face" of the brand — two brothers selling cards together is memorable</li>
+        <li>A simple, clean logo helps (can be made cheaply on Canva or Fiverr)</li>
+      </ul>
+
+      <h3>Multi-Platform Presence</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Platform</th><th>Purpose</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Whatnot</strong></td><td>Live selling (primary revenue)</td><td>🔴 HIGH</td></tr>
+            <tr><td><strong>eBay</strong></td><td>Static listings, wider reach</td><td>🔴 HIGH</td></tr>
+            <tr><td><strong>TikTok</strong></td><td>Short-form content, audience building</td><td>🟡 MEDIUM</td></tr>
+            <tr><td><strong>Instagram</strong></td><td>Card photography, community</td><td>🟡 MEDIUM</td></tr>
+            <tr><td><strong>YouTube</strong></td><td>Longer content (unboxings, vlogs)</td><td>🟢 LOWER initially</td></tr>
+            <tr><td><strong>Cardmarket</strong></td><td>European TCG sales</td><td>🟡 MEDIUM (if expanding)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Content Ideas</h3>
+      <ul>
+        <li><strong>Unboxing videos</strong> — VeeFriends pack openings (TikTok/YouTube)</li>
+        <li><strong>"What's it worth?"</strong> — educational content about card values</li>
+        <li><strong>Behind the scenes</strong> — packing orders, going to card shows, stream prep</li>
+        <li><strong>Card show vlogs</strong> — film experiences at London Card Show, etc.</li>
+        <li><strong>"Brother vs Brother" challenges</strong> — pack battles, card quiz challenges</li>
+        <li><strong>VeeFriends character spotlights</strong> — educational content about the brand</li>
+      </ul>
+
+      <h3>UK Card Shows & Conventions (2026 Calendar)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Event</th><th>Location</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr><td><strong>London Card Show XL ⭐</strong></td><td>ExCeL London</td><td>17–19 April 2026</td></tr>
+            <tr><td><strong>Card Con IV</strong></td><td>Farnborough</td><td>5–6 September 2026</td></tr>
+            <tr><td>Birmingham Card Show #5</td><td>New Bingley Hall</td><td>21 March 2026</td></tr>
+            <tr><td>Derby Card Show #3</td><td>Reach Conference Centre</td><td>14 March 2026</td></tr>
+            <tr><td>Cheltenham Card Show</td><td>Leonardo Hotel</td><td>28–29 March 2026</td></tr>
+            <tr><td>Chester Card Show #5</td><td>Chester Racecourse</td><td>18 April 2026</td></tr>
+            <tr><td>Ipswich Card Show #5</td><td>Main Hall, Ipswich</td><td>10 May 2026</td></tr>
+            <tr><td>Worcester Card Show</td><td>Sixways Stadium</td><td>23–24 May 2026</td></tr>
+            <tr><td>Guildford Card Show</td><td>Guildford</td><td>31 May 2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Find more events: <a href="https://ukcardshows.co.uk" target="_blank">ukcardshows.co.uk</a> · <a href="https://londoncardshow.co.uk" target="_blank">londoncardshow.co.uk</a> · <a href="https://thecardshowuk.co.uk" target="_blank">thecardshowuk.co.uk</a></p>
+
+      <h3>The VeeFriends UK Gap</h3>
+      <div class="callout success">
+        <span class="callout-icon">🎯</span>
+        <div><strong>This is a genuine first-mover opportunity.</strong> VeeFriends is US-centric with very few UK-based sellers on any platform. UK/European fans currently buy from US sellers and pay expensive shipping + potential import duties. A UK seller offering VeeFriends cards with cheap European shipping could carve out a niche. But: the UK market for VeeFriends specifically is small — this should be part of a broader TCG offering, not the only product line.</div>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 8 -->
+      <h2 id="action-plan">8. Family Action Plan</h2>
+
+      <h3>Phase 1: Foundation (Weeks 1–4)</h3>
+      <h4>David (Dad)</h4>
+      <ul class="checklist">
+        <li>Register for a Whatnot seller account in your name — UK bank account, valid photo ID, selling description</li>
+        <li>Set up an eBay seller account (if not already done)</li>
+        <li>Order starter packaging supplies: 200 toploaders + penny sleeves (~£25), 100 team bags (~£5), 50 envelopes (~£8), 50 bubble mailers (~£8), painter's tape (~£3) — <strong>Total: ~£50</strong></li>
+        <li>Consider buying a thermal label printer (Brother QL-800, ~£50–70)</li>
+        <li>Open a separate bank account for business transactions (Starling/Monzo = free)</li>
+        <li>Start a simple spreadsheet: inventory, purchases, sales, expenses</li>
+      </ul>
+
+      <h4>Alex & Matthew (The Boys)</h4>
+      <ul class="checklist">
+        <li>Audit current VeeFriends card collection — catalogue every card with set, condition, estimated value</li>
+        <li>Research card values on eBay sold listings and Whatnot recent sales</li>
+        <li>Watch successful Whatnot card sellers (study style, pacing, engagement)</li>
+        <li>Practice presenting cards on camera — film each other on phones</li>
+        <li>Each pick a role: one presenter, one chat manager (can rotate)</li>
+      </ul>
+
+      <h4>Family</h4>
+      <ul class="checklist">
+        <li>Agree on a brand name — check availability on Whatnot, eBay, Instagram, TikTok, YouTube</li>
+        <li>Create a simple logo (Canva is free)</li>
+        <li>Set up streaming space: clean desk, good lighting (ring light ~£15), phone stand, neutral background</li>
+        <li>Attend the nearest upcoming card show together</li>
+      </ul>
+
+      <h3>Phase 2: Launch (Weeks 4–8)</h3>
+      <ul class="checklist">
+        <li>List 20–30 cards on eBay with good photos and descriptions — learn the listing process</li>
+        <li>Schedule and run first Whatnot live stream (30–60 minutes)</li>
+        <li>David appears at the beginning, then boys take over</li>
+        <li>Mix of auction items and "Buy Now" items — consider starting low (£1–2) to attract bidding</li>
+        <li>Prepare 1–2 giveaway items to attract viewers</li>
+        <li>Create TikTok/Instagram accounts, post first content</li>
+        <li>Ship ALL orders within 24 hours — fast shipping = good reviews = more sales</li>
+      </ul>
+
+      <h3>Phase 3: Grow (Months 2–6)</h3>
+      <ul class="checklist">
+        <li>Increase stream frequency (2–3 per week)</li>
+        <li>Expand beyond VeeFriends — Pokémon is massive on Whatnot</li>
+        <li>Source inventory: eBay bulk lots, card shows, Cardmarket, wholesale contacts</li>
+        <li>Experiment with stream formats: mystery packs, claim sales, themed streams</li>
+        <li>Build European shipping angle — actively promote to European buyers</li>
+        <li>Track finances — when approaching £1,000 gross income, prepare for HMRC registration</li>
+      </ul>
+
+      <h3>Phase 4: Establish (Months 6–12)</h3>
+      <ul class="checklist">
+        <li>Register as sole trader with HMRC (if not already done)</li>
+        <li>Consider VAT-awareness (still far from £90k threshold, but plan ahead)</li>
+        <li>Evaluate MTD software needs if income grows</li>
+        <li>Potentially take a vendor table at a card show</li>
+        <li>Explore Cardmarket for European TCG sales</li>
+        <li>Build the YouTube channel — weekly content minimum</li>
+        <li>Review: fun side hustle or serious business? Decide direction together.</li>
+      </ul>
+
+      <h3>Key Financial Milestones</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Milestone</th><th>Action Needed</th></tr></thead>
+          <tbody>
+            <tr><td>First sale</td><td>Celebrate! 🎉</td></tr>
+            <tr><td>£1,000 gross income</td><td>Register with HMRC as sole trader</td></tr>
+            <tr><td>30+ transactions OR £1,707 on a platform</td><td>Platform reports to HMRC automatically</td></tr>
+            <tr><td>£12,570 net profit</td><td>Income tax starts (offset by personal allowance)</td></tr>
+            <tr><td>£50,000 turnover</td><td>MTD digital record-keeping required (from April 2026)</td></tr>
+            <tr><td>£90,000 turnover</td><td>VAT registration required</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Equipment Shopping List</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Item</th><th>Approx. Cost</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td>Ring light</td><td>£15–25</td><td>🔴 Essential</td></tr>
+            <tr><td>Phone/tablet stand for streaming</td><td>£10–15</td><td>🔴 Essential</td></tr>
+            <tr><td>Packaging starter kit</td><td>~£50</td><td>🔴 Essential</td></tr>
+            <tr><td>Thermal label printer</td><td>£50–70</td><td>🟡 Nice to have</td></tr>
+            <tr><td>Webcam (if not using phone)</td><td>£30–60</td><td>🟡 Nice to have</td></tr>
+            <tr><td>Microphone</td><td>£20–40</td><td>🟡 Nice to have</td></tr>
+            <tr><td>Card mat (clean surface)</td><td>£10–15</td><td>🟢 Optional</td></tr>
+            <tr><td>LED desk lamp (extra lighting)</td><td>£15–25</td><td>🟢 Optional</td></tr>
+            <tr><td><strong>Total estimated startup</strong></td><td><strong>£180–350</strong></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>👨‍👦‍👦 Rules of Engagement for the Family</h3>
+      <ol>
+        <li><strong>David's name on all accounts</strong> — legally required until boys turn 18</li>
+        <li><strong>David present at start of every Whatnot stream</strong> — this is a Whatnot requirement</li>
+        <li><strong>Never share personal details on stream</strong> — no address, school names, etc.</li>
+        <li><strong>Ship within 2 business days</strong> — Whatnot requires this, and fast shipping = good reviews</li>
+        <li><strong>Keep ALL receipts and records</strong> from day one</li>
+        <li><strong>Separate bank account</strong> for all card business money</li>
+        <li><strong>Weekly family check-in</strong> — review sales, plan next stream, discuss what's working</li>
+        <li><strong>Re-invest profits initially</strong> — build inventory before taking profits</li>
+        <li><strong>Have fun</strong> — if it stops being fun for the boys, reassess</li>
+      </ol>
+
+      <div class="sources">
+        <h4>Sources & Further Reading</h4>
+        <ul>
+          <li><a href="https://www.royalmail.com/current-postage-prices" target="_blank">Royal Mail — Current Postage Prices</a></li>
+          <li><a href="https://www.evri.com/our-services/our-prices" target="_blank">Evri — Prices</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/27641952241037" target="_blank">Whatnot — UK Seller Shipping Guide</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/27689602370317" target="_blank">Whatnot — Teens on Whatnot</a></li>
+          <li><a href="https://www.gov.uk/check-additional-income-tax" target="_blank">HMRC — Trading Allowance</a></li>
+          <li><a href="https://taxhelpforhustles.campaign.gov.uk/" target="_blank">HMRC — Side Hustle Tax Guide</a></li>
+          <li><a href="https://www.ebay.co.uk/help/account/regulatory/sales-reporting/uk-digital-sales-reporting?id=5454" target="_blank">eBay UK — Digital Sales Reporting</a></li>
+          <li><a href="https://www.ukcardshows.co.uk/" target="_blank">UK Card Shows Finder</a></li>
+          <li><a href="https://londoncardshow.co.uk/" target="_blank">London Card Show</a></li>
+          <li><a href="https://veefriends.com/cards" target="_blank">VeeFriends Cards Official</a></li>
+          <li><a href="https://www.cbp.gov/sites/default/files/2025-08/factsheet_suspension_of_duty-free_de_minimis_treatment.pdf" target="_blank">US CBP — De Minimis Suspension</a></li>
+        </ul>
+      </div>
+
+      <div class="deep-footer">
+        <p>Research compiled by Zapp · 9 March 2026</p>
+        <p style="margin-top:8px;">Sources: Royal Mail, Evri, Whatnot Help Center, HMRC, eBay UK, VeeFriends.com, UK Card Shows, Reddit communities</p>
+        <p style="margin-top:8px; font-size:12px; color:var(--text-dim);">Prices, policies, and tax thresholds are subject to change. Verify current rates before committing.</p>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Mobile TOC -->
+<button class="mobile-toc-toggle" onclick="document.querySelector('.mobile-toc-overlay').classList.add('show')">☰</button>
+<div class="mobile-toc-overlay">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('show')">✕</button>
+  <div style="padding-top:48px">
+    <a href="index.html" class="back-link" style="color:var(--accent-pink)">← Back to Playbook</a>
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);font-weight:600;margin:16px 0;font-family:'Space Grotesk',sans-serif">On This Page</div>
+    <ul style="list-style:none">
+      <li style="margin-bottom:8px"><a href="#uk-domestic" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">1. UK Domestic Shipping</a></li>
+      <li style="margin-bottom:8px"><a href="#international" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">2. International Shipping</a></li>
+      <li style="margin-bottom:8px"><a href="#positioning" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">3. UK Seller Positioning</a></li>
+      <li style="margin-bottom:8px"><a href="#boys-involvement" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">4. The Boys' Involvement</a></li>
+      <li style="margin-bottom:8px"><a href="#success-stories" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">5. Young Seller Success</a></li>
+      <li style="margin-bottom:8px"><a href="#business-tax" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">6. Business Setup & Tax</a></li>
+      <li style="margin-bottom:8px"><a href="#brand" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">7. Building a UK Brand</a></li>
+      <li style="margin-bottom:8px"><a href="#action-plan" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">8. Family Action Plan</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// Active TOC tracking
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.toc-list a').forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-80px 0px -60% 0px' });
+
+document.querySelectorAll('.content h2[id]').forEach(h2 => observer.observe(h2));
+</script>
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How People Make Money on Whatnot — Revenue Tactics & Success Patterns</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141420;--surface-raised:#1c1c2e;--surface-hover:#252540;--border:#2a2a45;--text:#e8e8f0;--text-muted:#8888a8;--text-dim:#5c5c78;--accent-green:#00e676;--accent-blue:#4fc3f7;--accent-purple:#b388ff;--accent-orange:#ffab40;--accent-red:#ff5252;--accent-pink:#ff4081;--accent-yellow:#ffd740}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.3}
+.page-wrapper{display:flex;max-width:1300px;margin:0 auto}
+.sidebar{width:280px;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;padding:32px 24px;border-right:1px solid var(--border);display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:4px}.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.main-content{flex:1;min-width:0;padding:48px 56px;max-width:860px}
+.back-link{display:inline-flex;align-items:center;gap:8px;color:var(--accent-purple);text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;margin-bottom:24px;transition:transform .2s}
+.back-link:hover{transform:translateX(-4px)}
+.toc-title{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);font-weight:600;margin-bottom:16px;font-family:'Space Grotesk',sans-serif}
+.toc-list{list-style:none}.toc-list li{margin-bottom:4px}
+.toc-list a{display:block;padding:8px 12px;border-radius:8px;color:var(--text-muted);text-decoration:none;font-size:13px;font-weight:500;transition:background .2s,color .2s;border-left:2px solid transparent}
+.toc-list a:hover{background:var(--surface-raised);color:var(--text)}
+.toc-list a.active{color:var(--accent-purple);border-left-color:var(--accent-purple);background:rgba(179,136,255,0.06)}
+.deep-hero{margin-bottom:48px}
+.deep-hero .badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface-raised);border:1px solid var(--border);padding:6px 14px;border-radius:99px;font-size:12px;color:var(--accent-purple);font-weight:600;margin-bottom:16px}
+.deep-hero h1{font-size:36px;margin-bottom:12px}.deep-hero h1 span{color:var(--accent-purple)}
+.deep-hero .subtitle{font-size:16px;color:var(--text-muted)}.deep-hero .meta{font-size:13px;color:var(--text-dim);margin-top:12px}
+.content h2{font-size:26px;margin-top:56px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);color:var(--accent-purple)}
+.content h3{font-size:20px;margin-top:36px;margin-bottom:14px;color:var(--text)}
+.content h4{font-size:16px;margin-top:24px;margin-bottom:10px;color:var(--accent-blue)}
+.content p{margin-bottom:14px;color:var(--text-muted);font-size:15px}
+.content ul,.content ol{margin-bottom:16px;padding-left:0;list-style:none}
+.content ul li,.content ol li{position:relative;padding:6px 0 6px 24px;color:var(--text-muted);font-size:14px;line-height:1.6}
+.content ul li::before{content:'→';position:absolute;left:0;color:var(--accent-purple);font-weight:600}
+.content ol{counter-reset:ol-counter}.content ol li{counter-increment:ol-counter}
+.content ol li::before{content:counter(ol-counter) '.';position:absolute;left:0;color:var(--accent-purple);font-weight:700;font-size:13px}
+.data-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+.data-table th{text-align:left;padding:12px 16px;background:var(--surface-raised);color:var(--text-muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border)}
+.data-table td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--text)}
+.data-table tr:last-child td{border-bottom:none}.data-table tr:hover td{background:var(--surface-hover)}
+.table-wrapper{overflow-x:auto;margin:20px 0;border-radius:12px;border:1px solid var(--border)}.table-wrapper .data-table{margin:0}
+blockquote{border-left:3px solid var(--accent-purple);padding:16px 24px;margin:20px 0;background:rgba(179,136,255,0.06);border-radius:0 12px 12px 0;font-size:15px;color:var(--text);font-style:italic}
+blockquote strong{color:var(--accent-purple);font-style:normal}
+.callout{border-radius:12px;padding:18px 22px;margin:20px 0;font-size:14px;display:flex;gap:14px;line-height:1.6}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.callout.warning{background:rgba(255,171,64,0.08);border:1px solid rgba(255,171,64,0.2);color:var(--accent-orange)}
+.callout.success{background:rgba(0,230,118,0.08);border:1px solid rgba(0,230,118,0.2);color:var(--accent-green)}
+.callout.info{background:rgba(79,195,247,0.08);border:1px solid rgba(79,195,247,0.2);color:var(--accent-blue)}
+.callout.danger{background:rgba(255,82,82,0.08);border:1px solid rgba(255,82,82,0.2);color:var(--accent-red)}
+.content a{color:var(--accent-blue);text-decoration:none;border-bottom:1px solid rgba(79,195,247,0.3);transition:border-color .2s}
+.content a:hover{border-bottom-color:var(--accent-blue)}
+.content strong{color:var(--text);font-weight:600}
+.content hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+.profile-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:20px 0}
+.profile-card{background:var(--surface-raised);border:1px solid var(--border);border-radius:14px;padding:20px;transition:border-color .2s}
+.profile-card:hover{border-color:var(--accent-purple)}
+.profile-name{font-family:'Space Grotesk';font-size:18px;font-weight:700;margin-bottom:4px}
+.profile-handle{font-size:13px;color:var(--accent-purple);margin-bottom:10px}
+.profile-stat{font-size:13px;color:var(--text-muted);margin-bottom:4px}
+.profile-stat strong{color:var(--accent-yellow)}
+.sources{margin-top:32px;padding:20px 24px;background:var(--surface);border-radius:12px;border:1px solid var(--border)}
+.sources h4{color:var(--text-dim);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.sources ul li{font-size:13px}.sources ul li::before{content:'📎'}
+.deep-footer{margin-top:64px;padding-top:32px;border-top:1px solid var(--border);text-align:center;color:var(--text-dim);font-size:13px}
+@media(max-width:900px){.sidebar{display:none}.main-content{padding:24px 20px}.deep-hero h1{font-size:28px}.content h2{font-size:22px}.data-table{font-size:13px}.data-table th,.data-table td{padding:8px 10px}.profile-grid{grid-template-columns:1fr}}
+.mobile-toc-toggle{display:none;position:fixed;bottom:24px;right:24px;z-index:999;background:var(--accent-purple);color:var(--bg);border:none;border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;box-shadow:0 4px 20px rgba(179,136,255,0.3)}
+@media(max-width:900px){.mobile-toc-toggle{display:flex;align-items:center;justify-content:center}}
+.mobile-toc-overlay{display:none;position:fixed;inset:0;z-index:998;background:rgba(10,10,15,0.95);padding:24px;overflow-y:auto}
+.mobile-toc-overlay.show{display:block}
+.mobile-toc-overlay .close-btn{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <nav class="sidebar">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+    <div class="toc-title">On This Page</div>
+    <ul class="toc-list">
+      <li><a href="#platform-overview" class="active">1. Platform Overview</a></li>
+      <li><a href="#revenue-models">2. Revenue Models</a></li>
+      <li><a href="#top-sellers">3. Top Seller Profiles</a></li>
+      <li><a href="#tactics">4. Tactics That Drive Sales</a></li>
+      <li><a href="#economics">5. Economics & Profitability</a></li>
+      <li><a href="#mistakes">6. Common Mistakes</a></li>
+      <li><a href="#trading-cards">7. Trading Cards Specifically</a></li>
+      <li><a href="#veefriends-whatnot">8. VeeFriends on Whatnot</a></li>
+      <li><a href="#takeaways">9. Top 10 Takeaways</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+
+    <div class="deep-hero">
+      <div class="badge">💰 Deep Dive #2</div>
+      <h1>How People <span>Make Money</span> on Whatnot</h1>
+      <div class="subtitle">Revenue tactics, success patterns, and the real economics of live selling</div>
+      <div class="meta">Research compiled: 9 March 2026 · Sources: CNBC, Forbes, Business Insider, Reddit, Whatnot Help Center</div>
+    </div>
+
+    <div class="content">
+
+      <h2 id="platform-overview">1. Platform Overview &amp; Scale</h2>
+      <p>Whatnot is the dominant livestream commerce platform for collectibles, valued at <strong>$11.5 billion</strong> (Series F, October 2025). Key stats:</p>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Metric</th><th>Figure</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><td>2024 GMV (goods sold on platform)</td><td><strong>$3 billion</strong></td><td><a href="https://fortune.com/2025/06/16/whatnot-startup-5-billion-dollar-livestream-video-shopping-app-auctions-sports-trade-card-breaks-ebay/" target="_blank">Fortune</a></td></tr>
+            <tr><td>2025 GMV (through Oct)</td><td><strong>$6 billion+</strong></td><td><a href="https://news.crunchbase.com/venture/ecommerce-unicorn-whatnot-raises-seriesf/" target="_blank">Crunchbase</a></td></tr>
+            <tr><td>2025 Revenue target</td><td><strong>~$1 billion</strong></td><td>The Information</td></tr>
+            <tr><td>Sellers earning $1M+ annually</td><td><strong>500+</strong> (as of Sept 2024)</td><td><a href="https://www.forbes.com/sites/danschlossberg/2024/12/18/fueled-by-baseball-card-boom-whatnot-hits-financial-home-run/" target="_blank">Forbes</a></td></tr>
+            <tr><td>Employees</td><td>~700</td><td>Forbes</td></tr>
+            <tr><td>Live hours per week</td><td>175,000</td><td>Forbes</td></tr>
+            <tr><td>Customer retention (MoM)</td><td>80%</td><td>eMarketer</td></tr>
+            <tr><td>Average daily viewing time</td><td>80+ minutes</td><td>Forbes</td></tr>
+            <tr><td>UK users</td><td>~100,000 (~5% of total)</td><td>eCommerce Bonsai</td></tr>
+            <tr><td>Categories</td><td>250+</td><td>Whatnot</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>A card is sold every second on Whatnot</strong> (per Whatnot VP Armand Wilson). The platform commission is <strong>8% on most categories</strong> plus <strong>2.9% + $0.30 processing fee</strong> per transaction.</p>
+
+      <hr>
+
+      <h2 id="revenue-models">2. Revenue Models — How Sellers Actually Make Money</h2>
+
+      <h3>2.1 Live Auction Format (The Core Model)</h3>
+      <p>The bread and butter. Sellers go live, show items one at a time, and viewers bid in real-time. Auctions run <strong>15 seconds to 2 minutes</strong>. The highest bidder wins and is charged automatically.</p>
+      <p><strong>Why it works:</strong> Bidding wars create the "endowment effect" — buyers overvalue items they're leading the bidding on. Research found buyers paid <strong>57% above comps</strong> for slabs/singles and <strong>40% above</strong> for breaks compared to other platforms.</p>
+      <p><strong>Best margins when:</strong> You have desirable, scarce items and enough viewers (30+) to generate competitive bidding.</p>
+
+      <h3>2.2 Buy-It-Now (BIN) Marketplace</h3>
+      <p>Whatnot now has a traditional marketplace alongside live shows. Sellers can list fixed-price items 24/7. Buyers can also browse your BIN store during live streams.</p>
+      <p><strong>Margins:</strong> More predictable but lower excitement. Good for items you can't risk selling below a certain price.</p>
+
+      <h3>2.3 Mystery Packs / Grab Bags</h3>
+      <p>Sellers curate packs of cards with a stated "floor value" and sell them at a markup. A <strong>$5 product can become a $25+ mystery pack</strong>.</p>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Reality check:</strong> Analysis found mystery packs are "meticulously planned by breakers to maximize profits." The floor values are often inflated. This model has the <strong>highest margins</strong> but faces increasing scrutiny from Whatnot's evolving Surprise Products Policy (Feb 2025).</div>
+      </div>
+
+      <h3>2.4 Box Breaks</h3>
+      <p>Multiple buyers split the cost of sealed product. For example, 30 buyers pay $20 each ($600 total) for a $300 box — the seller pockets $300 minus fees. Each buyer gets cards pulled for their assigned teams.</p>
+      <p><strong>Formats include:</strong></p>
+      <ul>
+        <li>Pick Your Team (PYT) — buyers choose teams</li>
+        <li>Random Team — cheaper, teams assigned randomly</li>
+        <li>"Spin 3, Pick 1" / "Spin 5, Pick 2" — adds gambling element</li>
+      </ul>
+      <p><strong>Margins:</strong> Can be extremely high. Combined buyer payments often exceed the box value by <strong>50-100%</strong>.</p>
+
+      <h3>2.5 "Rip and Ship"</h3>
+      <p>Seller opens sealed packs live on camera while chatting with viewers. The buyer pre-purchases a pack and watches it opened in real time. The excitement of seeing what's inside is the product.</p>
+      <p><strong>This is Whatnot's signature experience</strong> — it's what hooked many of the top sellers.</p>
+
+      <h3>2.6 Consignment Selling</h3>
+      <p>Sellers accept other people's cards/items, grade them if needed, then sell on Whatnot and take a percentage. This model requires <strong>zero inventory investment</strong>.</p>
+
+      <h3>2.7 Bulk Lots &amp; Clearance Shows</h3>
+      <p>Selling large lots of lower-value items (5,000-count boxes of random sports cards for ~$5 each). Individual cards within can be cherry-picked and sold for 50p+ each. <strong>Massive profit on bulk junk wax HOFers</strong>.</p>
+
+      <h3>Which Models Have the Best Margins?</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Model</th><th>Typical Margin</th><th>Risk Level</th><th>Scalability</th></tr></thead>
+          <tbody>
+            <tr><td>Mystery Packs</td><td><strong>40-60%+</strong></td><td>Medium (policy risk)</td><td>High</td></tr>
+            <tr><td>Box Breaks</td><td><strong>30-50%</strong></td><td>Low-Medium</td><td>High</td></tr>
+            <tr><td>Consignment</td><td><strong>15-30%</strong> (no COGS)</td><td>Very Low</td><td>Medium</td></tr>
+            <tr><td>Singles Auctions</td><td><strong>15-40%</strong></td><td>Medium (price risk)</td><td>Medium</td></tr>
+            <tr><td>Rip and Ship</td><td><strong>20-40%</strong></td><td>Medium</td><td>High</td></tr>
+            <tr><td>Bulk Lots</td><td><strong>30-50%</strong></td><td>Low</td><td>Medium</td></tr>
+            <tr><td>BIN Marketplace</td><td><strong>20-35%</strong></td><td>Low</td><td>High</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <h2 id="top-sellers">3. Top Seller Profiles</h2>
+
+      <div class="profile-grid">
+        <div class="profile-card">
+          <div class="profile-name">Dakota Peters</div>
+          <div class="profile-handle">@achickrips — Sports Cards</div>
+          <div class="profile-stat">Revenue: <strong>$1M+ per week</strong> in GMV</div>
+          <div class="profile-stat">Age: 25, Boca Raton, Florida</div>
+          <div class="profile-stat">Started: Spring 2021, first stream ~$500-600 to &lt;20 viewers</div>
+          <div class="profile-stat">Team: <strong>40+ employees</strong> (mostly full-time)</div>
+          <div class="profile-stat">5 sports card channels + thrift clothing and coins</div>
+          <div class="profile-stat">Did 12-24 hour streams in first year</div>
+          <div class="profile-stat">Top 400 shows: $10,000+ each, avg 5 hours per stream</div>
+        </div>
+        <div class="profile-card">
+          <div class="profile-name">Zoreen Kabani</div>
+          <div class="profile-handle">@zkstyles — Women's Fashion</div>
+          <div class="profile-stat">Revenue: <strong>$100K+/month</strong>, $900K+ in first 9 months of 2024</div>
+          <div class="profile-stat">Age: 37, Las Vegas. Ex-Goldman Sachs, Ex-JPMorgan</div>
+          <div class="profile-stat">Started: June 2022. First month: $12K gross</div>
+          <div class="profile-stat">Schedule: <strong>Mon-Fri streams, 7pm PT, 2-7 hours</strong></div>
+          <div class="profile-stat">Items sold: 75,000+ total. COGS: $5-$25/item</div>
+          <div class="profile-stat">"I probably have 15-hour days"</div>
+        </div>
+        <div class="profile-card">
+          <div class="profile-name">Val Zapata</div>
+          <div class="profile-handle">@theshoegameco — Sneakers & Streetwear</div>
+          <div class="profile-stat">Revenue: <strong>$4M+ in sales in 2024</strong>, up to $500K/month</div>
+          <div class="profile-stat">Age: 27. Ex-life insurance broker</div>
+          <div class="profile-stat">Started 2022. First show: "Mayhem. Made like 50 bucks."</div>
+          <div class="profile-stat">Team: <strong>8 employees, 6,000 sq ft warehouse</strong></div>
+          <div class="profile-stat">Started with: iPad + iPhone + $15 desk ring light</div>
+          <div class="profile-stat">Quit insurance job after just ONE month on Whatnot</div>
+        </div>
+        <div class="profile-card">
+          <div class="profile-name">Geoff Wilson</div>
+          <div class="profile-handle">Cards HQ — Sports Cards</div>
+          <div class="profile-stat">Revenue: <strong>$2.5M in sales since opening (2024)</strong></div>
+          <div class="profile-stat">Setup: 14,000 sq ft facility near Truist Park, Atlanta</div>
+          <div class="profile-stat">5 streaming studios</div>
+          <div class="profile-stat">Brick-and-mortar showroom + live Whatnot streams</div>
+        </div>
+        <div class="profile-card">
+          <div class="profile-name">Casey Wehr</div>
+          <div class="profile-handle">@krunkcards — Sports Cards</div>
+          <div class="profile-stat">Revenue: <strong>Millions in sales over 2 years</strong></div>
+          <div class="profile-stat">Started: Late 2023, <strong>selling from home with his two sons</strong></div>
+          <div class="profile-stat">Team: 5 employees</div>
+          <div class="profile-stat">"A week from idea to first stream" 🎯</div>
+          <div class="profile-stat">Two streams: live auctions (15-sec format) + BIN sealed product</div>
+        </div>
+        <div class="profile-card">
+          <div class="profile-name">Clinton Benninghoff</div>
+          <div class="profile-handle">The GHQ Crew — Golf Equipment</div>
+          <div class="profile-stat">Revenue: <strong>$1M+ in 2025</strong> from Whatnot</div>
+          <div class="profile-stat">Sold <strong>$100,000 in a single livestream</strong></div>
+          <div class="profile-stat">"I had no idea what I was doing. That first day, I was live for 20 minutes."</div>
+          <div class="profile-stat">"Everybody in my stream was telling me how to stream."</div>
+        </div>
+      </div>
+
+      <h3>Reddit Self-Reported Sellers (Verified Patterns)</h3>
+      <ul>
+        <li><strong>Football singles seller:</strong> $77,000 total selling overnight</li>
+        <li><strong>Mixed category seller:</strong> $28K since August, ~$3K/week, <strong>$4K/month profit</strong></li>
+        <li><strong>Clothing/accessories reseller:</strong> 200+ items, $11K profit in a year (part-time)</li>
+        <li><strong>$26K in 90 days seller (fashion):</strong> Items cost $3-$5, sell for $10-$20</li>
+        <li><strong>Small Pokémon streamer (10-20 viewers):</strong> $100-$225 per 4-hour stream doing $1 starts</li>
+      </ul>
+
+      <h3>What Top Sellers Have in Common</h3>
+      <ol>
+        <li><strong>Started with a personal passion</strong> — sneakers, sports, fashion, golf</li>
+        <li><strong>Treated it like a real job from day one</strong> — long hours, daily/near-daily streams</li>
+        <li><strong>Invested in team early</strong> — none of the $1M+ sellers work alone</li>
+        <li><strong>Built community, not just sales</strong> — engaging, authentic, entertaining</li>
+        <li><strong>Diversified channels/categories</strong> as they grew</li>
+        <li><strong>Consistent schedule</strong> — viewers know when to show up</li>
+      </ol>
+
+      <hr>
+
+      <h2 id="tactics">4. Tactics That Drive Sales</h2>
+
+      <h3>4.1 Starting Bid Psychology</h3>
+      <p><strong>$1 starts are the standard on Whatnot</strong> — and also the most controversial topic among sellers.</p>
+      <h4>Why sellers do $1 starts:</h4>
+      <ul>
+        <li>Whatnot's own guidelines recommend starting bids at $1 for items in the $25-$1,000 range</li>
+        <li>Low starts attract more viewers and bidders</li>
+        <li>FOMO and competitive bidding can drive prices above market value</li>
+        <li>Buyers enter streams specifically looking for $1 starts — without them, many leave</li>
+      </ul>
+      <h4>The risk:</h4>
+      <ul>
+        <li>Items can sell for $1 if there's only one bidder</li>
+        <li>"If an item sells for too little, the seller gets mad and gets rid of $1 starts, then I'll just leave" — typical buyer sentiment</li>
+      </ul>
+      <h4>Strategies to mitigate risk:</h4>
+      <ul>
+        <li>Use $1 starts on items you can afford to lose on (loss leaders)</li>
+        <li>Start higher ($5-$25) on valuable items</li>
+        <li>Use BIN listings for items where you need a specific price</li>
+        <li>Use the "rapid fire" format (5-second sudden death) with $1 starts — sell 250+ items/lots per hour</li>
+      </ul>
+
+      <h3>4.2 Giveaway Strategies</h3>
+      <p>Giveaways are <strong>essential</strong> for building audience on Whatnot.</p>
+      <ul>
+        <li>Sellers are responsible for shipping costs on giveaway items (~78p per giveaway)</li>
+        <li>Run giveaways during streams to attract new followers</li>
+        <li>Use giveaways to reward loyal viewers and keep them engaged</li>
+        <li>Some sellers do periodic big giveaways (PSA slabs, sealed product) to drive large viewer counts</li>
+        <li><strong>Warning:</strong> Avoid giveaways that are too expensive — you'll attract freebie-seekers, not buyers</li>
+      </ul>
+
+      <h3>4.3 Show Scheduling &amp; Consistency</h3>
+      <blockquote><strong>"Consistency is the number one factor in a new seller's success"</strong> — direct quote from Whatnot staff</blockquote>
+      <ul>
+        <li>Set a streaming schedule and stick to it weekly</li>
+        <li>Showing up at the same times is more important than the actual time</li>
+        <li>Whatnot's algorithm rewards consistent streamers with more visibility</li>
+        <li>Miss a week? Your viewership tanks. Change schedule? Start over.</li>
+        <li>Top sellers stream 3-6 nights per week, 3-5 hours per session</li>
+      </ul>
+
+      <h3>4.4 Cross-Promotion &amp; Community</h3>
+      <ul>
+        <li><strong>"Raid trains"</strong> — Whatnot lets sellers send viewers to another seller's show when theirs ends</li>
+        <li><strong>Guest appearances</strong> on other sellers' streams</li>
+        <li><strong>Joint shows</strong> with complementary sellers</li>
+        <li><strong>Social media:</strong> Post show announcements, behind-the-scenes content, product teasers on Instagram, TikTok, YouTube</li>
+        <li><strong>Discord servers</strong> for building community between shows</li>
+      </ul>
+
+      <h3>4.5 Card Grading as Value-Add</h3>
+      <ul>
+        <li><strong>PSA is king for resale value</strong> — commands highest premiums, especially PSA 10</li>
+        <li><strong>CGC</strong> has lower grading costs and faster turnaround but lower resale value</li>
+        <li><strong>BGS (Beckett)</strong> — strong for sports cards, especially BGS Black Label 10</li>
+        <li><strong>SGC</strong> — gaining popularity for speed and consistency</li>
+        <li>Grading adds 30-300%+ value depending on card and grade</li>
+        <li>PSA grading costs: ~$20-150/card depending on service level and declared value</li>
+      </ul>
+
+      <h3>4.6 Bundles &amp; Mystery Elements</h3>
+      <ul>
+        <li>Bundle lower-value items to increase perceived value</li>
+        <li>"Bundles of 5 vintage comic books generate more excitement than selling individually"</li>
+        <li>Mystery elements drive bidding — the unknown is worth more than the known</li>
+        <li><strong>Important:</strong> Whatnot updated its mystery/surprise product policy (Feb 2025) to restrict certain gambling-like formats</li>
+      </ul>
+
+      <h3>4.7 Handling Slow Shows</h3>
+      <ul>
+        <li>Lower starting bids to attract any bidding activity</li>
+        <li>Add incentives (free shipping, bonus items)</li>
+        <li>Engage more actively with whatever viewers are present</li>
+        <li>Don't show frustration on camera — it drives viewers away</li>
+        <li>Use slow shows to build relationships with the small audience present</li>
+        <li>Have a mix of items — loss leaders to draw in viewers, premium items for profit</li>
+      </ul>
+
+      <hr>
+
+      <h2 id="economics">5. Economics &amp; Profitability</h2>
+
+      <h3>5.1 Fee Structure (2026)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Fee Type</th><th>Rate</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Commission (most categories)</td><td><strong>8%</strong></td><td>On final sale price</td></tr>
+            <tr><td>Commission (sneakers)</td><td><strong>12%</strong></td><td>Higher margins category</td></tr>
+            <tr><td>Commission (coins &amp; currency)</td><td><strong>4%</strong></td><td>Low-margin category</td></tr>
+            <tr><td>Commission (electronics)</td><td><strong>5%</strong></td><td>Lower rate</td></tr>
+            <tr><td>Payment processing</td><td><strong>2.9% + £0.30</strong></td><td>Per transaction</td></tr>
+            <tr><td><strong>Total effective fees</strong></td><td><strong>~11%</strong></td><td>On a typical sale</td></tr>
+            <tr><td>Listing fees</td><td><strong>£0</strong></td><td>Free to list</td></tr>
+            <tr><td>Monthly subscription</td><td><strong>£0</strong></td><td>No store fees</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Example:</strong> A £20 sale: ~£1.60 commission + ~£0.88 processing = <strong>£2.48 in fees</strong> → you receive <strong>£17.52</strong> before COGS and shipping.</p>
+      <p>For low-value items, the flat 30p fee hurts disproportionately. On a £1 sale, total fees are ~£0.41 — <strong>you keep just 59p</strong>.</p>
+
+      <h3>5.2 Typical Margins After All Costs</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Scenario</th><th>Gross Revenue</th><th>After Fees (~11%)</th><th>After COGS</th><th>After Ship/Pack</th><th>Net Profit</th><th>Margin</th></tr></thead>
+          <tbody>
+            <tr><td>Fashion ($26K/90 days)</td><td>£26,000</td><td>£23,140</td><td>~£8,000</td><td>~£3,000</td><td><strong>~£12,000</strong></td><td>~46%</td></tr>
+            <tr><td>Small card streamer ($200/4hr)</td><td>£200</td><td>£178</td><td>~£100</td><td>~£30</td><td><strong>~£48</strong></td><td>~24%</td></tr>
+            <tr><td>Mid-level seller ($3K/week)</td><td>£3,000</td><td>£2,670</td><td>~£1,500</td><td>~£300</td><td><strong>~£870/week</strong></td><td>~29%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>The Reddit consensus on margins:</strong> Most profitable sellers report <strong>20-40% net margins</strong> after all expenses. Volume sellers (mystery packs, breaks) can hit 40-60% but carry more risk.</p>
+      <blockquote>"I stream 4 nights a week, 3-4 hours each. Plus prep and shipping, 30-35 hours weekly. My sales are $8-12K/month. After inventory costs, fees, shipping supplies, and calculating my hourly rate… I'm making maybe $20-25/hour."</blockquote>
+
+      <h3>5.3 Volume vs High-Value Strategy</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Strategy</th><th>Pros</th><th>Cons</th></tr></thead>
+          <tbody>
+            <tr><td><strong>High volume / low price</strong></td><td>More sales, more followers, algorithm loves it</td><td>Thin margins, massive shipping workload, burnout risk</td></tr>
+            <tr><td><strong>High value / low volume</strong></td><td>Better margins, less shipping, less time</td><td>Fewer viewers, slower growth, higher inventory risk</td></tr>
+            <tr><td><strong>Best: Hybrid</strong></td><td>Loss leaders attract viewers, premium items make profit</td><td>Requires excellent inventory knowledge</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.4 Sourcing Inventory Profitably</h3>
+      <h4>Where top sellers source:</h4>
+      <ul>
+        <li><strong>Thrift stores &amp; charity shops</strong> — best margins, requires time investment</li>
+        <li><strong>Estate/garage sales</strong> — rare finds, seasonal</li>
+        <li><strong>Wholesale liquidation</strong> (Boutique by the Box, Premier Wholesaler, Alibaba, Faire) — bulk, consistent supply</li>
+        <li><strong>Retail clearance</strong> — Target, Walmart end-of-season</li>
+        <li><strong>Facebook buy/sell groups</strong> — great for local deals</li>
+        <li><strong>Consignment</strong> — friends, customers, other sellers (zero inventory cost)</li>
+        <li><strong>Direct supplier relationships</strong> — brand liquidations</li>
+        <li><strong>Goodwill bins / outlet centres</strong> — lowest cost per item</li>
+        <li><strong>Card shows and conventions</strong> — bulk buying at events like The National</li>
+      </ul>
+
+      <h3>5.5 Hidden Costs People Don't Expect</h3>
+      <ol>
+        <li><strong>Shipping supplies</strong> — boxes, padded mailers, tape, sleeves, toploaders. Adds up fast.</li>
+        <li><strong>Packaging time</strong> — bundling multiple items per buyer. Can take 1-3 hours post-show.</li>
+        <li><strong>Equipment</strong> — camera ($100-500), lighting ($50-200), mic ($50-150), display stands ($50-200)</li>
+        <li><strong>Whatnot Promote/boost costs</strong> — paid advertising within the app</li>
+        <li><strong>Returns and disputes</strong> — Whatnot can side with buyers; sellers eat the loss</li>
+        <li><strong>Non-paying bidders</strong> — time wasted, items unsold</li>
+        <li><strong>Coupon/giveaway costs</strong> — coupons and giveaway shipping add ~78p+ each</li>
+        <li><strong>Inventory shrinkage</strong> — items lost, damaged, or stolen</li>
+        <li><strong>Software</strong> — Vendoo, Closo, or other cross-listing/inventory tools</li>
+        <li><strong>Cash flow delays</strong> — until 1,000 completed deliveries, payouts take 2-3 business days after shipping</li>
+      </ol>
+
+      <h3>5.6 Tax Considerations (UK Specific)</h3>
+      <ul>
+        <li><strong>Trading Allowance:</strong> First £1,000 of trading income per tax year is tax-free</li>
+        <li><strong>Self-employment registration required</strong> if you regularly buy items to resell and earn above the trading allowance</li>
+        <li><strong>HMRC reporting:</strong> Whatnot reports seller earnings to HMRC if you sell 30+ items/year or earn over ~£1,700</li>
+        <li><strong>Proposed new rules (from March 2025):</strong> Earnings up to £3,000 may not require self-assessment (pending legislation)</li>
+        <li><strong>VAT:</strong> Only if you're VAT-registered (threshold: £90,000 turnover). Most Whatnot sellers won't hit this.</li>
+        <li><strong>Deductible expenses:</strong> Platform fees, shipping costs, packaging, equipment, home office space, cost of goods, internet bills</li>
+        <li><strong>You pay tax on profit, not revenue</strong> — track all expenses meticulously</li>
+        <li><strong>Digital platforms report to HMRC</strong> — don't assume you can avoid scrutiny</li>
+      </ul>
+
+      <h3>5.7 When Does It Make Sense to Go Full-Time?</h3>
+      <ul>
+        <li><strong>Don't quit your day job</strong> until you've been profitable for 6+ months consistently</li>
+        <li>Most sellers need <strong>$5K-$10K/month in sales</strong> before full-time is viable</li>
+        <li>You need <strong>reliable sourcing channels</strong> — one-time collections won't sustain streaming schedule</li>
+        <li>Full-time requires <strong>20-35+ hours/week</strong> (streaming + prep + shipping + sourcing)</li>
+        <li>Have <strong>3-6 months expenses saved</strong> before going full-time</li>
+        <li>Val Zapata quit after 1 month — but she's an outlier, not the norm</li>
+      </ul>
+
+      <hr>
+
+      <h2 id="mistakes">6. Common Mistakes &amp; Pitfalls</h2>
+
+      <h3>6.1 Why Sellers Fail or Quit</h3>
+      <ol>
+        <li><strong>Burnout</strong> — "Performing on camera for 12-16 hours weekly is exhausting. Many sellers report loving it for 3-6 months, then dreading shows."</li>
+        <li><strong>Underpricing / $1 starts going wrong</strong> — Items sell for pennies with low viewership. "I couldn't dream of a worse feeling than selling a $50 card for $1"</li>
+        <li><strong>Sourcing problems</strong> — "If undercutting bigger streamers makes it unprofitable, you have a sourcing problem"</li>
+        <li><strong>Oversaturation</strong> — "Whatnot is oversaturated with scum on both sides. Other sellers will purposely sabotage you."</li>
+        <li><strong>Algorithm dependency</strong> — Miss a week? Viewership tanks. Whatnot controls who sees your shows.</li>
+        <li><strong>Cash flow problems</strong> — Until 1,000 completed deliveries, payouts are delayed 2-3 days.</li>
+        <li><strong>Non-paying bidders</strong> — New accounts win auctions and never pay</li>
+        <li><strong>Shill bidding accusations</strong> — Even legitimate bidding wars get accused of being fake</li>
+      </ol>
+
+      <h3>6.2 Pricing Mistakes</h3>
+      <ul>
+        <li>Starting too high scares away bidders</li>
+        <li>Starting too low without enough viewers = selling at a loss</li>
+        <li>Not accounting for fees (11%) + shipping + COGS in your pricing</li>
+        <li>Not researching comps before listing (always check eBay sold listings)</li>
+      </ul>
+
+      <h3>6.3 Shipping Problems</h3>
+      <ul>
+        <li>Sellers who don't ship promptly face poor ratings and potential suspension</li>
+        <li>Whatnot requires shipping within a few days; failing triggers warnings</li>
+        <li>Late shipping = lower visibility in algorithm = fewer viewers = death spiral</li>
+      </ul>
+
+      <h3>6.4 Platform Risk</h3>
+      <div class="callout danger">
+        <span class="callout-icon">🚨</span>
+        <div>"Whatnot permanently banned my seller account AFTER I shipped $20k+ in iPhones, now refusing to pay me" — Reddit. Policy changes (e.g., mystery box policy) can destroy entire business models overnight.</div>
+      </div>
+
+      <hr>
+
+      <h2 id="trading-cards">7. Trading Cards Specifically</h2>
+
+      <h3>7.1 What Sells Best on Whatnot</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Category</th><th>Demand</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Sports cards (basketball)</strong></td><td>🔥🔥🔥🔥🔥</td><td>Whatnot's #1 category. Wemby, Stroud, rookie cards</td></tr>
+            <tr><td><strong>Sports cards (football/baseball)</strong></td><td>🔥🔥🔥🔥</td><td>Baseball is massive, NFL football strong</td></tr>
+            <tr><td><strong>Pokémon</strong></td><td>🔥🔥🔥🔥</td><td>Huge community, both sealed and singles</td></tr>
+            <tr><td><strong>One Piece</strong></td><td>🔥🔥🔥</td><td>Growing rapidly</td></tr>
+            <tr><td><strong>Magic: The Gathering</strong></td><td>🔥🔥🔥</td><td>Established community</td></tr>
+            <tr><td><strong>VeeFriends</strong></td><td>🔥🔥</td><td>Active official presence, niche audience</td></tr>
+            <tr><td><strong>Vintage cards</strong></td><td>🔥🔥🔥</td><td>High value, knowledge = edge</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>7.2 Singles vs Sealed Product</h3>
+      <p><strong>Singles:</strong> Higher margin per item, requires deep product knowledge, more work per sale, best for knowledgeable sellers.</p>
+      <p><strong>Sealed product:</strong> Consistent demand, box breaks are highest-volume revenue model, can source at wholesale, less individual knowledge needed.</p>
+      <p><strong>Verdict:</strong> Most profitable sellers do BOTH — sealed for volume/breaks, singles for margin/expertise shows.</p>
+
+      <h3>7.3 How Grading Affects Whatnot Prices</h3>
+      <ul>
+        <li><strong>PSA 10</strong> commands the highest premium — can be 3-10x raw card value</li>
+        <li><strong>PSA</strong> is the gold standard for resale, despite being the most expensive</li>
+        <li><strong>CGC</strong> is cheaper and faster but sells for less (~20-40% less than equivalent PSA grade)</li>
+        <li><strong>BGS Black Label 10</strong> can command even more than PSA 10 in some cases</li>
+        <li>On Whatnot: graded cards in slabs photograph and display better on camera, creating higher perceived value</li>
+        <li><strong>Strategy:</strong> Grade your best pulls via PSA ($20-150/card), sell raw cards that wouldn't grade highly</li>
+      </ul>
+
+      <h3>7.4 Seasonal Patterns</h3>
+      <ul>
+        <li><strong>New set releases</strong> drive huge spikes in viewership and sales</li>
+        <li><strong>Sports seasons</strong> — NFL/NBA draft picks create "hot player" demand cycles</li>
+        <li><strong>Holiday season</strong> (Nov-Dec) — gift buying drives collectibles sales</li>
+        <li><strong>The National</strong> (major midsummer collectibles show) — Whatnot hosts massive events</li>
+        <li><strong>Post-season lulls</strong> — January, summer (for sports) can be slower</li>
+      </ul>
+
+      <h3>7.5 Real Pricing Data</h3>
+      <ul>
+        <li>Cards regularly sell for <strong>20-30% ABOVE eBay comps</strong> on Whatnot due to bidding psychology</li>
+        <li>But small streamers (10-20 viewers) find items sell at or below market</li>
+        <li><strong>Volume matters enormously</strong> — more viewers = more bidding competition = higher prices</li>
+      </ul>
+
+      <hr>
+
+      <h2 id="veefriends-whatnot">8. VeeFriends on Whatnot</h2>
+
+      <h3>Official Presence</h3>
+      <p>VeeFriends has an <strong>official seller account</strong> on Whatnot: <a href="https://www.whatnot.com/user/veefriends" target="_blank">@veefriends</a> with the tagline "Welcome to the best show on Whatnot! 250+ characters to collect!"</p>
+      <p>VeeFriends is listed as a subcategory under <strong>Trading Card Games</strong>. At time of research, it showed ~8 viewers in the category tag page — small but active.</p>
+
+      <h3>Community Perception</h3>
+      <p>Reddit sentiment is mixed to negative:</p>
+      <blockquote>"I call them the VEE-cult as they are trying to sell an experience with overpriced cards"<br><br>"Worth 200m but peddling BS cards on Whatnot?"<br><br>"Just a get-rich-quick gimmick. There is a reason we never heard of it."</blockquote>
+
+      <h3>Market Reality for a VeeFriends Seller</h3>
+      <ul>
+        <li><strong>Niche audience</strong> — far smaller than Pokémon or sports cards</li>
+        <li>Strong Gary Vee fanbase provides built-in demand, but ceiling is lower</li>
+        <li>Could work as <strong>part of a broader TCG streaming strategy</strong> rather than sole focus</li>
+        <li>Would need to be genuinely passionate about VeeFriends characters/community</li>
+        <li>Cross-promotion with Gary Vee content on YouTube/Instagram could drive traffic</li>
+      </ul>
+
+      <hr>
+
+      <h2 id="takeaways">9. Lessons for a New UK Seller — Top 10 Takeaways</h2>
+
+      <h3>1. Start Small, Start Now — But Don't Quit Your Day Job</h3>
+      <p>Every top seller started with a terrible first show. Val Zapata made $50 and was "probably negative after the boxes." The only way to learn is to start. But keep your income until you've been profitable for 6+ months.</p>
+
+      <h3>2. Consistency Beats Everything</h3>
+      <p>Whatnot's own staff say it: "Consistency is the number one factor in a new seller's success." Pick 2-3 time slots per week and never miss them.</p>
+
+      <h3>3. UK Has Specific Advantages and Challenges</h3>
+      <ul>
+        <li><strong>~100K UK users</strong> — smaller but less competitive market</li>
+        <li>Whatnot partners with <strong>Royal Mail</strong> (domestic) and <strong>DPD</strong> (international)</li>
+        <li>UK trading allowance: first £1,000 tax-free. Register as self-employed above that.</li>
+        <li>VAT threshold is £90,000 — you'll cross it before you think if you're doing well</li>
+      </ul>
+
+      <h3>4. Mystery Packs &amp; Box Breaks = Highest Margins (But Watch Policy Changes)</h3>
+      <p>These formats generate 40-60% margins. But Whatnot's Feb 2025 policy changes are tightening the rules. Build a model that doesn't rely solely on mystery/gambling elements.</p>
+
+      <h3>5. Your Personality IS the Product</h3>
+      <p>"Extroverted personalities and interactive shows boost sales." Every successful seller story centres on charisma, authenticity, and community. If you're camera-shy, this may not be your platform.</p>
+
+      <h3>6. Source Smart or Don't Bother</h3>
+      <p>The #1 reason sellers fail is a sourcing problem. If you can't find inventory cheaper than Whatnot selling prices minus ~40%, you'll lose money.</p>
+
+      <h3>7. $1 Starts Are a Tool, Not a Religion</h3>
+      <p>Use $1 starts strategically on loss leaders. Use BIN or higher starting bids on valuable items. The sellers who survive long-term are strategic about when to use each format.</p>
+
+      <h3>8. Build Community From Day One</h3>
+      <ul>
+        <li>Create a Discord or WhatsApp group for regular buyers</li>
+        <li>Run giveaways (budget ~78p each for shipping)</li>
+        <li>Remember buyers by name on stream</li>
+        <li>Cross-promote with other UK sellers via "raid trains"</li>
+        <li>Post behind-the-scenes content on Instagram/TikTok</li>
+      </ul>
+
+      <h3>9. Track Every Penny</h3>
+      <p>Revenue is NOT profit. After 8% commission + 2.9% + 30p processing + COGS + shipping + packaging + equipment + time... your $1,000 show might net you £250-400. Track costs rigorously.</p>
+
+      <h3>10. Plan for Scale From the Start</h3>
+      <p>Every $1M+ seller has a team. Think about what you'd delegate first. Design processes so someone else could do them. The sellers who burn out try to do everything themselves forever.</p>
+
+      <div class="sources">
+        <h4>Key Sources</h4>
+        <ul>
+          <li><a href="https://www.cnbc.com/2025/06/30/dakota-peters-whatnot-company-makes-more-than-one-million-dollars-per-week.html" target="_blank">CNBC — Dakota Peters/Achickrips $1M/week</a></li>
+          <li><a href="https://www.cnbc.com/2024/08/18/zoreen-kabani-brings-in-more-than-100000-per-month-on-whatnot.html" target="_blank">CNBC — Zoreen Kabani $100K/month</a></li>
+          <li><a href="https://www.businessinsider.com/shoe-entrepreneur-live-selling-sneakers-sales-how-to-learn-whatnot-2024-9" target="_blank">Business Insider — Val Zapata $4M sneakers</a></li>
+          <li><a href="https://www.forbes.com/sites/danschlossberg/2024/12/18/fueled-by-baseball-card-boom-whatnot-hits-financial-home-run/" target="_blank">Forbes — Whatnot Baseball Card Boom</a></li>
+          <li><a href="https://www.underpriced.app/blog/whatnot-selling-guide-2026" target="_blank">Underpriced — Whatnot Selling Guide 2026</a></li>
+          <li><a href="https://breaksandtakes.substack.com/p/the-problem-with-whatnot-and-what" target="_blank">Breaks &amp; Takes — The Problem with Whatnot</a></li>
+          <li><a href="https://blog.vendoo.co/expert-tips-tricks-for-how-to-sell-on-whatnot" target="_blank">Vendoo — Expert Tips for Whatnot</a></li>
+          <li><a href="https://www.reddit.com/r/whatnotapp/comments/1p6frq1/how_much_do_you_actually_make_on_whatnot_and_what/" target="_blank">Reddit r/whatnotapp — How much do you make</a></li>
+        </ul>
+      </div>
+
+      <div class="deep-footer">
+        <p>Research compiled by Zapp · 9 March 2026</p>
+        <p style="margin-top:8px;">Sources: CNBC, Forbes, Business Insider, Reddit, Whatnot Help Center, Substack, industry blogs</p>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<button class="mobile-toc-toggle" onclick="document.querySelector('.mobile-toc-overlay').classList.add('show')">☰</button>
+<div class="mobile-toc-overlay">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('show')">✕</button>
+  <div style="padding-top:48px">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+    <div class="toc-title" style="margin-top:24px">On This Page</div>
+    <ul class="toc-list">
+      <li><a href="#platform-overview" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">1. Platform Overview</a></li>
+      <li><a href="#revenue-models" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">2. Revenue Models</a></li>
+      <li><a href="#top-sellers" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">3. Top Seller Profiles</a></li>
+      <li><a href="#tactics" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">4. Tactics That Drive Sales</a></li>
+      <li><a href="#economics" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">5. Economics</a></li>
+      <li><a href="#mistakes" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">6. Common Mistakes</a></li>
+      <li><a href="#trading-cards" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">7. Trading Cards</a></li>
+      <li><a href="#veefriends-whatnot" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">8. VeeFriends on Whatnot</a></li>
+      <li><a href="#takeaways" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">9. Top 10 Takeaways</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const tocLinks=document.querySelectorAll('.sidebar .toc-list a');const headings=[];
+tocLinks.forEach(link=>{const id=link.getAttribute('href').slice(1);const el=document.getElementById(id);if(el)headings.push({el,link})});
+window.addEventListener('scroll',()=>{let current=headings[0];for(const h of headings){if(h.el.getBoundingClientRect().top<=120)current=h}tocLinks.forEach(l=>l.classList.remove('active'));if(current)current.link.classList.add('active')});
+</script>
+</body>
+</html>

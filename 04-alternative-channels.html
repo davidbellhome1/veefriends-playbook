@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alternative Selling Channels — Beyond eBay & Whatnot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141420;--surface-raised:#1c1c2e;--surface-hover:#252540;--border:#2a2a45;--text:#e8e8f0;--text-muted:#8888a8;--text-dim:#5c5c78;--accent-green:#00e676;--accent-blue:#4fc3f7;--accent-purple:#b388ff;--accent-orange:#ffab40;--accent-red:#ff5252;--accent-pink:#ff4081;--accent-yellow:#ffd740}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.3}
+.page-wrapper{display:flex;max-width:1300px;margin:0 auto}
+.sidebar{width:280px;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;padding:32px 24px;border-right:1px solid var(--border);display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:4px}.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.main-content{flex:1;min-width:0;padding:48px 56px;max-width:860px}
+.back-link{display:inline-flex;align-items:center;gap:8px;color:var(--accent-orange);text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;margin-bottom:24px;transition:transform .2s}
+.back-link:hover{transform:translateX(-4px)}
+.toc-title{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);font-weight:600;margin-bottom:16px;font-family:'Space Grotesk',sans-serif}
+.toc-list{list-style:none}.toc-list li{margin-bottom:4px}
+.toc-list a{display:block;padding:8px 12px;border-radius:8px;color:var(--text-muted);text-decoration:none;font-size:13px;font-weight:500;transition:background .2s,color .2s;border-left:2px solid transparent}
+.toc-list a:hover{background:var(--surface-raised);color:var(--text)}
+.toc-list a.active{color:var(--accent-orange);border-left-color:var(--accent-orange);background:rgba(255,171,64,0.06)}
+.deep-hero{margin-bottom:48px}
+.deep-hero .badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface-raised);border:1px solid var(--border);padding:6px 14px;border-radius:99px;font-size:12px;color:var(--accent-orange);font-weight:600;margin-bottom:16px}
+.deep-hero h1{font-size:36px;margin-bottom:12px}.deep-hero h1 span{color:var(--accent-orange)}
+.deep-hero .subtitle{font-size:16px;color:var(--text-muted)}.deep-hero .meta{font-size:13px;color:var(--text-dim);margin-top:12px}
+.content h2{font-size:26px;margin-top:56px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);color:var(--accent-orange)}
+.content h3{font-size:20px;margin-top:36px;margin-bottom:14px;color:var(--text)}
+.content h4{font-size:16px;margin-top:24px;margin-bottom:10px;color:var(--accent-blue)}
+.content p{margin-bottom:14px;color:var(--text-muted);font-size:15px}
+.content ul,.content ol{margin-bottom:16px;padding-left:0;list-style:none}
+.content ul li,.content ol li{position:relative;padding:6px 0 6px 24px;color:var(--text-muted);font-size:14px;line-height:1.6}
+.content ul li::before{content:'→';position:absolute;left:0;color:var(--accent-orange);font-weight:600}
+.content ol{counter-reset:ol-counter}.content ol li{counter-increment:ol-counter}
+.content ol li::before{content:counter(ol-counter) '.';position:absolute;left:0;color:var(--accent-orange);font-weight:700;font-size:13px}
+.data-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+.data-table th{text-align:left;padding:12px 16px;background:var(--surface-raised);color:var(--text-muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border)}
+.data-table td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--text)}
+.data-table tr:last-child td{border-bottom:none}.data-table tr:hover td{background:var(--surface-hover)}
+.table-wrapper{overflow-x:auto;margin:20px 0;border-radius:12px;border:1px solid var(--border)}
+.table-wrapper .data-table{margin:0}
+blockquote{border-left:3px solid var(--accent-purple);padding:16px 24px;margin:20px 0;background:rgba(179,136,255,0.06);border-radius:0 12px 12px 0;font-size:15px;color:var(--text);font-style:italic}
+blockquote strong{color:var(--accent-purple);font-style:normal}
+.callout{border-radius:12px;padding:18px 22px;margin:20px 0;font-size:14px;display:flex;gap:14px;line-height:1.6}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.callout.warning{background:rgba(255,171,64,0.08);border:1px solid rgba(255,171,64,0.2);color:var(--accent-orange)}
+.callout.success{background:rgba(0,230,118,0.08);border:1px solid rgba(0,230,118,0.2);color:var(--accent-green)}
+.callout.info{background:rgba(79,195,247,0.08);border:1px solid rgba(79,195,247,0.2);color:var(--accent-blue)}
+.callout.danger{background:rgba(255,82,82,0.08);border:1px solid rgba(255,82,82,0.2);color:var(--accent-red)}
+.content a{color:var(--accent-blue);text-decoration:none;border-bottom:1px solid rgba(79,195,247,0.3);transition:border-color .2s}
+.content a:hover{border-bottom-color:var(--accent-blue)}
+.content strong{color:var(--text);font-weight:600}
+.content hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+.sources{margin-top:32px;padding:20px 24px;background:var(--surface);border-radius:12px;border:1px solid var(--border)}
+.sources h4{color:var(--text-dim);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.sources ul li{font-size:13px}.sources ul li::before{content:'📎'}
+.verdict{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;font-size:12px;font-weight:600;margin-left:8px}
+.verdict.go{background:rgba(0,230,118,0.15);color:var(--accent-green)}
+.verdict.maybe{background:rgba(255,171,64,0.15);color:var(--accent-orange)}
+.verdict.no{background:rgba(255,82,82,0.15);color:var(--accent-red)}
+.verdict.watch{background:rgba(79,195,247,0.15);color:var(--accent-blue)}
+.channel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:20px 0}
+.channel-card{background:var(--surface-raised);border:1px solid var(--border);border-radius:14px;padding:20px;transition:border-color .2s}
+.channel-card:hover{border-color:var(--accent-orange)}
+.channel-name{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.channel-desc{font-size:13px;color:var(--text-muted);margin-bottom:12px;line-height:1.5}
+.channel-meta{display:flex;gap:16px;flex-wrap:wrap}
+.channel-meta span{font-size:12px;color:var(--text-dim)}
+.channel-meta strong{color:var(--text-muted)}
+.deep-footer{margin-top:64px;padding-top:32px;border-top:1px solid var(--border);text-align:center;color:var(--text-dim);font-size:13px}
+@media(max-width:900px){.sidebar{display:none}.main-content{padding:24px 20px}.deep-hero h1{font-size:28px}.content h2{font-size:22px}.data-table{font-size:13px}.data-table th,.data-table td{padding:8px 10px}.channel-grid{grid-template-columns:1fr}}
+.mobile-toc-toggle{display:none;position:fixed;bottom:24px;right:24px;z-index:999;background:var(--accent-orange);color:var(--bg);border:none;border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;box-shadow:0 4px 20px rgba(255,171,64,0.3)}
+@media(max-width:900px){.mobile-toc-toggle{display:flex;align-items:center;justify-content:center}}
+.mobile-toc-overlay{display:none;position:fixed;inset:0;z-index:998;background:rgba(10,10,15,0.95);padding:24px;overflow-y:auto}
+.mobile-toc-overlay.show{display:block}
+.mobile-toc-overlay .close-btn{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+  <nav class="sidebar">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+    <div class="toc-title">On This Page</div>
+    <ul class="toc-list">
+      <li><a href="#voggt" class="active">1. Voggt / Fanatics Live</a></li>
+      <li><a href="#stockx">2. StockX</a></li>
+      <li><a href="#tcgplayer">3. TCGPlayer</a></li>
+      <li><a href="#facebook">4. Facebook Groups</a></li>
+      <li><a href="#discord">5. Discord</a></li>
+      <li><a href="#tiktok">6. TikTok Shop</a></li>
+      <li><a href="#instagram">7. Instagram</a></li>
+      <li><a href="#mercari">8. Mercari</a></li>
+      <li><a href="#other">9. Other Platforms</a></li>
+      <li><a href="#comparison">10. Channel Comparison</a></li>
+      <li><a href="#priority">11. Priority Order</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+
+    <div class="deep-hero">
+      <div class="badge">🌐 Deep Dive #4</div>
+      <h1>Alternative <span>Selling Channels</span></h1>
+      <div class="subtitle">Every platform beyond eBay & Whatnot — what's worth your time and what isn't</div>
+      <div class="meta">Prepared: 9 March 2026 · For the Bell family · UK-based seller, VeeFriends + general trading cards</div>
+    </div>
+
+    <div class="content">
+
+      <!-- SECTION 1 -->
+      <h2 id="voggt">1. Voggt / Fanatics Live</h2>
+
+      <h3>What Is It?</h3>
+      <p>Voggt is a European livestream shopping app founded in 2021, focused on collectibles and pop culture. It's essentially Europe's answer to Whatnot — live-selling via mobile/web with real-time bidding and buying. Categories include Pokémon cards, Yu-Gi-Oh, Magic: The Gathering, One Piece, sports cards (football, NFL), comic books, figurines, and sneakers.</p>
+
+      <h3>Current Status: Acquired by Fanatics</h3>
+      <ul>
+        <li><strong>October 2024:</strong> Fanatics Live acquired Voggt's assets</li>
+        <li>The platform had <strong>500,000+ members</strong> at time of acquisition</li>
+        <li><strong>Fanatics Live announced a UK launch in 2025</strong> (as stated by CEO Nick Bell)</li>
+        <li>The platform continues to operate under the Voggt brand for now</li>
+        <li>Fanatics' broader strategy includes a Premier League trading card partnership</li>
+      </ul>
+
+      <h3>UK Availability</h3>
+      <ul>
+        <li>Voggt <strong>launched in the UK in November 2022</strong> but later pulled back to focus on mainland Europe (France, Germany primarily)</li>
+        <li>With the Fanatics acquisition, a <strong>renewed UK launch is planned for 2025</strong> — this could be a significant opportunity</li>
+        <li>The app is available on UK App Store</li>
+      </ul>
+
+      <h3>Fee Structure</h3>
+      <ul>
+        <li>Voggt's specific seller fee percentage is not publicly documented in detail</li>
+        <li>Based on community discussions, it operates on a commission model similar to Whatnot</li>
+        <li>Sellers set prices during live shows; platform takes a cut of each sale</li>
+        <li>Exact current fees likely in flux due to the Fanatics transition</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="callout-icon">⏳</span>
+        <div><strong>Verdict: WORTH MONITORING</strong> — Voggt/Fanatics Live is the most promising upcoming competitor to Whatnot in Europe. The Fanatics backing (Premier League cards deal, massive sports infrastructure) could make this a powerhouse. When it launches in the UK, being an early seller would be a major advantage. Download the app, create an account, and monitor for UK seller programme announcements.</div>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 2 -->
+      <h2 id="stockx">2. StockX</h2>
+
+      <h3>How It Works</h3>
+      <p>StockX operates as a "stock market for things" — buyers place bids, sellers place asks, and transactions happen when bid meets ask. All items ship to StockX's authentication centre first, where they're verified before forwarding to the buyer.</p>
+
+      <h3>Trading Cards on StockX</h3>
+      <ul>
+        <li><strong>Sealed boxes</strong> (booster boxes, hobby boxes) ✅ Most active category</li>
+        <li><strong>Graded singles</strong> (PSA, BGS graded cards) ✅ Available</li>
+        <li><strong>Raw singles</strong> ❌ Not supported — cards must be graded or sealed</li>
+        <li>Authentication team checks grade, condition, and authenticity</li>
+      </ul>
+
+      <h3>VeeFriends on StockX</h3>
+      <ul>
+        <li><strong>VeeFriends Series 1 Collectible Trading Card Box</strong> (zerocool)</li>
+        <li><strong>VeeFriends Series 2</strong> boxes in multiple editions (Least Rare Debut, Web 3, Lucky editions)</li>
+        <li><strong>Mattel VeeFriends UNO Card Game</strong></li>
+        <li>The VeeFriends blog specifically recommends StockX for <strong>sealed box valuations</strong> via bid/ask spreads</li>
+        <li>The zerocool brand (co-founded by StockX's own Josh Luber) launched VeeFriends as its first release — a natural connection</li>
+      </ul>
+
+      <h3>Fee Structure (UK Sellers)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Seller Level</th><th>Sales Required</th><th>Transaction Fee</th></tr></thead>
+          <tbody>
+            <tr><td>Level 1</td><td>None</td><td>9%</td></tr>
+            <tr><td>Level 2</td><td>12 sales or £1,500</td><td>8.5%</td></tr>
+            <tr><td>Level 3</td><td>40 sales or £5,000</td><td>8%</td></tr>
+            <tr><td>Level 4</td><td>200 sales or £25,000</td><td>7.5%</td></tr>
+            <tr><td>Level 5</td><td>800 sales or £100,000</td><td>7%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><strong>Plus:</strong> 3% payment processing fee on every sale</li>
+        <li>Minimum transaction fee: <strong>£4.50</strong> (UK)</li>
+        <li><strong>Total for new sellers: ~12% (9% + 3%)</strong></li>
+        <li>Shipping to StockX authentication centre required</li>
+      </ul>
+
+      <div class="callout success">
+        <span class="callout-icon">💡</span>
+        <div><strong>Verdict: WORTH IT FOR SEALED PRODUCT</strong> — StockX is excellent for selling sealed VeeFriends boxes and graded cards. The bid/ask system helps establish fair market value. However, it's useless for raw singles (which is likely the bulk of a VeeFriends collection). Best for higher-value sealed products where authenticity matters to buyers.</div>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 3 -->
+      <h2 id="tcgplayer">3. TCGPlayer</h2>
+
+      <h3>What Is It?</h3>
+      <p>TCGPlayer is the largest dedicated trading card marketplace, owned by eBay since 2022. It's the go-to platform in North America for buying and selling individual cards across Magic: The Gathering, Pokémon, Yu-Gi-Oh, and other games.</p>
+
+      <h3>VeeFriends on TCGPlayer</h3>
+      <ul>
+        <li>VeeFriends cards <strong>do not appear to be a listed game/brand</strong> on TCGPlayer</li>
+        <li>TCGPlayer focuses on established TCG games: Magic, Pokémon, Yu-Gi-Oh, One Piece, Dragon Ball, Lorcana, Flesh and Blood, etc.</li>
+        <li>The VeeFriends TCG (Compete & Collect) is a niche product and not mainstream enough for TCGPlayer's catalogue</li>
+      </ul>
+
+      <h3>Fee Structure</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Fee Type</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><td>Marketplace Commission (Level 1-4)</td><td>10.75% + $0.30 per order</td></tr>
+            <tr><td>Pro Seller Add-on</td><td>+2.5%</td></tr>
+            <tr><td>Direct Shipping Fee</td><td>Variable</td></tr>
+            <tr><td>Commission Cap</td><td>$75 per item</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>UK Seller Support</h3>
+      <ul>
+        <li><strong>TCGPlayer is US/Canada only for sellers</strong> — UK sellers cannot list on TCGPlayer</li>
+        <li>Only US and Canadian-based sellers can create seller accounts</li>
+        <li>International <strong>buyers</strong> can purchase (including UK), but sellers must be North American</li>
+        <li>This is a hard blocker for UK-based selling</li>
+      </ul>
+
+      <div class="callout danger">
+        <span class="callout-icon">❌</span>
+        <div><strong>Verdict: NOT AVAILABLE</strong> — TCGPlayer doesn't support UK sellers at all, and VeeFriends cards aren't listed on the platform. Double disqualification. Not an option.</div>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 4 -->
+      <h2 id="facebook">4. Facebook Marketplace & Groups</h2>
+
+      <h3>VeeFriends-Specific Groups</h3>
+      <ul>
+        <li>VeeFriends has an official Facebook page that links to their card community</li>
+        <li>The VeeFriends blog specifically recommends <strong>community channels</strong> for buying/selling/trading</li>
+        <li>Several collector groups exist (search "VeeFriends Cards" on Facebook)</li>
+        <li>Group "Non-Sports Cards Nonsense" has discussions about VeeFriends card values</li>
+        <li>Niche but dedicated community of VeeFriends collectors</li>
+      </ul>
+
+      <h3>General UK Trading Card Groups</h3>
+      <ul>
+        <li><strong>"JW Sports Cards UK - Buy, Sell & Trade"</strong> — active UK sports card community</li>
+        <li><strong>"UK & Ireland MTG Cards For Trade & Sale"</strong> — Magic cards</li>
+        <li><strong>"UK Soccer Card Collectors"</strong> — football cards</li>
+        <li>Many local and regional groups for Pokémon, sports cards</li>
+        <li>Reddit r/PokemonTCG_UK community recommends Facebook groups as a top selling method</li>
+      </ul>
+
+      <h3>Facebook Marketplace</h3>
+      <ul>
+        <li>List cards in the <strong>Collectibles</strong> category</li>
+        <li>Great for <strong>local sales</strong> (collection only = no postage costs/risks)</li>
+        <li>No standard selling fees for local transactions</li>
+        <li>Can reach casual collectors who aren't on specialist platforms</li>
+        <li>Less suitable for niche items like VeeFriends (small local audience)</li>
+      </ul>
+
+      <h3>Payment Methods</h3>
+      <ul>
+        <li><strong>PayPal Goods & Services</strong> — recommended for posted sales (buyer protection)</li>
+        <li><strong>PayPal Friends & Family</strong> — AVOID for posted sales (no protection)</li>
+        <li><strong>Cash</strong> — fine for in-person/collection deals</li>
+        <li><strong>Bank transfer</strong> — used but offers no buyer/seller protection</li>
+      </ul>
+
+      <h3>Scam Mitigation</h3>
+      <ul>
+        <li>Check buyer/seller profiles (new accounts with few friends = red flag)</li>
+        <li>Use group vouch threads to confirm reliability</li>
+        <li>Always use PayPal G&S for posted items</li>
+        <li>Meet in public places for in-person trades</li>
+        <li>Take photos of packaging before sending</li>
+      </ul>
+
+      <div class="callout success">
+        <span class="callout-icon">✅</span>
+        <div><strong>Verdict: WORTH IT (SUPPLEMENTARY)</strong> — Zero fees is the killer advantage. Facebook groups are excellent for building community connections and selling to fellow collectors who understand VeeFriends. Not scalable as a primary channel, but perfect for supplementary sales, trades, and building reputation.</div>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 5 -->
+      <h2 id="discord">5. Discord</h2>
+
+      <h3>VeeFriends Discord</h3>
+      <ul>
+        <li><strong>270,000+ members</strong> on the official VeeFriends Discord server (discord.gg/veefriends)</li>
+        <li>Dedicated channels: <strong>#trading-cards</strong> and <strong>#irl-collectibles</strong> for buying/selling/trading</li>
+        <li>The VeeFriends blog specifically directs collectors here for transactions</li>
+        <li>Active community for card valuations, trades, and sales</li>
+        <li>This is considered <strong>the primary community hub</strong> for VeeFriends card trading</li>
+      </ul>
+
+      <h3>How Discord Card Sales Work</h3>
+      <ol>
+        <li>Seller posts card(s) with photos, condition, price in the trading channel</li>
+        <li>Interested buyer replies or DMs</li>
+        <li>They agree on price and payment method</li>
+        <li>Payment sent → seller ships card → buyer confirms receipt</li>
+        <li>Both parties may leave vouches for each other</li>
+      </ol>
+
+      <h3>Payment Methods</h3>
+      <ul>
+        <li><strong>PayPal Goods & Services</strong> (most common, offers protection)</li>
+        <li><strong>PayPal Friends & Family</strong> (used between trusted/vouched members)</li>
+        <li><strong>CashApp, Venmo</strong> (US-focused, less relevant for UK)</li>
+        <li><strong>Crypto</strong> (some collectors use ETH given the VeeFriends/NFT crossover)</li>
+        <li><strong>Bank transfer</strong> (UK sellers may use for domestic trades)</li>
+      </ul>
+
+      <h3>Trust Systems</h3>
+      <ul>
+        <li><strong>Vouch systems</strong> — members build reputation through completed trades</li>
+        <li><strong>Vouch bots</strong> (e.g., "Vouch." bot) — automated tracking of seller profiles with ratings, history, and payment methods</li>
+        <li><strong>Moderator oversight</strong> — community rules enforced by server mods</li>
+        <li>New members start with lower trust; build up through small trades</li>
+        <li><strong>Middlemen</strong> available for high-value trades (trusted community member holds payment)</li>
+      </ul>
+
+      <div class="callout success">
+        <span class="callout-icon">✅</span>
+        <div><strong>Verdict: ESSENTIAL FOR VEEFRIENDS</strong> — The VeeFriends Discord is THE community hub with 270K+ members. It's where the most knowledgeable collectors hang out and where cards are valued. Zero fees, direct connection to passionate buyers, and an established trust system. Essential for anyone serious about selling VeeFriends cards.</div>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 6 -->
+      <h2 id="tiktok">6. TikTok Shop</h2>
+
+      <h3>UK Availability</h3>
+      <p>TikTok Shop is <strong>fully operational in the UK</strong> and growing rapidly:</p>
+      <ul>
+        <li>200,000+ UK small businesses signed up (as of late 2025)</li>
+        <li>Major brands (Sainsbury's, M&S) selling through the platform</li>
+        <li>Live sessions up 64% year-on-year (to Nov 2024)</li>
+        <li>Daily sales up 93% in the same period</li>
+        <li>131% more UK TikTok Shop shoppers in 2024</li>
+        <li>Social commerce in UK forecast to grow from £7.4bn (2024) to £16bn (2028)</li>
+      </ul>
+
+      <h3>How Live Selling Works</h3>
+      <ul>
+        <li>Host live streams through TikTok</li>
+        <li>Products tagged and purchasable directly in the stream</li>
+        <li>Viewers can buy with one tap — seamless checkout</li>
+        <li>Algorithm pushes engaging live content to new viewers</li>
+        <li>Can also sell via short-form video content and in-feed product listings</li>
+      </ul>
+
+      <h3>Fee Structure (UK)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Fee Type</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><td>Commission</td><td><strong>9%</strong> of total order value (most categories)</td></tr>
+            <tr><td>Self-ship platform fee</td><td><strong>£0.50 per order</strong> (introduced July 2025)</td></tr>
+            <tr><td>FBT (Fulfilled by TikTok)</td><td>Variable — pick, pack, ship, storage</td></tr>
+            <tr><td>New seller discount</td><td>Reduced commission for introductory period</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Trading Cards on TikTok</h3>
+      <ul>
+        <li>Sports Trading Cards category exists on TikTok Shop</li>
+        <li>Live card breaks and openings are popular content</li>
+        <li>Pokémon card content is huge on TikTok generally</li>
+        <li>Some sellers successfully selling sealed product and singles</li>
+        <li>Reddit feedback mixed — some sellers report low conversion</li>
+        <li>Audience skews younger — may not align with VeeFriends collector demographic</li>
+        <li>Works best when combined with entertaining content/personality</li>
+      </ul>
+
+      <div class="callout warning">
+        <span class="callout-icon">🟡</span>
+        <div><strong>Verdict: WORTH EXPERIMENTING</strong> — TikTok Shop is exploding in the UK and live selling is growing fast. However, the trading card niche is still developing, and the audience skews younger/casual. The 9% commission is competitive. Could work well if you enjoy creating video content. VeeFriends' colourful characters and Gary Vee connection could play well on TikTok. Worth testing with low-cost inventory first.</div>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 7 -->
+      <h2 id="instagram">7. Instagram</h2>
+
+      <h3>How People Sell Cards</h3>
+      <ul>
+        <li><strong>Stories/Posts:</strong> Post cards for sale with prices, details, and "DM to buy"</li>
+        <li><strong>"Take" system:</strong> Seller posts card, interested buyers comment "take" in comments or DM</li>
+        <li><strong>Bio link:</strong> Payment details (PayPal link, website) in bio</li>
+        <li><strong>Reels:</strong> Showcase collection, unboxings, card reveals for engagement</li>
+        <li><strong>Dedicated BST accounts:</strong> Separate buy/sell/trade accounts (especially popular in K-pop card trading, adaptable to any cards)</li>
+      </ul>
+
+      <h3>Transaction Process</h3>
+      <ol>
+        <li>Post card(s) with photos and price</li>
+        <li>Buyer claims via comment/DM</li>
+        <li>Seller sends PayPal invoice or shares payment link</li>
+        <li>Buyer pays → seller ships → buyer confirms</li>
+        <li>No built-in checkout (Instagram Shopping exists but complex to set up for individuals)</li>
+      </ol>
+
+      <div class="callout warning">
+        <span class="callout-icon">🟡</span>
+        <div><strong>Verdict: MARKETING, NOT PRIMARY SALES</strong> — Instagram is great for building a brand, showcasing cards, and driving traffic to actual sales channels. But selling directly on IG is clunky — no native checkout for most sellers, payment via DM/PayPal, no buyer protection. Use it as a marketing arm, not a primary sales channel.</div>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 8 -->
+      <h2 id="mercari">8. Mercari</h2>
+
+      <h3>UK Availability</h3>
+      <ul>
+        <li><strong>Mercari is NOT available in the UK</strong> ❌</li>
+        <li>Only active in the <strong>US and Japan</strong></li>
+        <li>Mercari UK launched briefly years ago but was discontinued and never returned</li>
+        <li>No international shipping from Mercari US to UK</li>
+        <li>UK buyers need a US proxy/forwarding service to purchase</li>
+      </ul>
+
+      <div class="callout danger">
+        <span class="callout-icon">❌</span>
+        <div><strong>Verdict: NOT AVAILABLE IN UK</strong> — Mercari doesn't operate in the UK. No way to sell from a UK location. Not an option.</div>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 9 -->
+      <h2 id="other">9. Other Platforms</h2>
+
+      <h3>Cardmarket ✅ Available to UK Sellers</h3>
+      <p>Europe's largest trading card marketplace with <strong>2,000,000+ buyers</strong> from 30+ countries. Covers Magic: The Gathering, Pokémon, Yu-Gi-Oh, One Piece, and many more TCGs.</p>
+
+      <h4>Fee Structure</h4>
+      <ul>
+        <li><strong>Selling fee: 5%</strong> of article value (capped at €100/£ per item)</li>
+        <li>No listing fees, no time constraints</li>
+        <li>Withdrawal in GBP: £0.32 per withdrawal</li>
+        <li>Currency conversion: 3% if selling in EUR</li>
+        <li>Trustee service: 0.5-1% of article value</li>
+      </ul>
+
+      <h4>UK Seller Considerations (Post-Brexit)</h4>
+      <ul>
+        <li>UK sellers CAN list and sell on Cardmarket</li>
+        <li>UK-to-UK transactions work seamlessly (no customs)</li>
+        <li>UK sellers reportedly <strong>undercut EU sellers</strong> because EU buyers face import taxes</li>
+        <li>Selling to EU buyers: buyers may face import VAT on orders over £135</li>
+        <li>VeeFriends is <strong>not listed</strong> as a supported game — Cardmarket focuses on established TCGs only</li>
+      </ul>
+
+      <div class="callout success">
+        <span class="callout-icon">✅</span>
+        <div><strong>Verdict: WORTH IT</strong> — for MTG/Pokémon/Yu-Gi-Oh, NOT for VeeFriends. 5% fee is very competitive. Excellent for UK-to-UK trades in mainstream TCGs.</div>
+      </div>
+
+      <h3>COMC (Check Out My Cards)</h3>
+      <p>Consignment-based card marketplace. You send physical cards to COMC, they scan, store, list, and sell them on your behalf.</p>
+      <ul>
+        <li>Consignment processing: <strong>$0.50-$3.00 per card</strong></li>
+        <li>Transaction fee: <strong>5%</strong> when card sells</li>
+        <li>Cash-out fee: <strong>10%</strong> when withdrawing funds</li>
+        <li>US-based — shipping cards from UK is expensive</li>
+      </ul>
+
+      <div class="callout danger">
+        <span class="callout-icon">❌</span>
+        <div><strong>Verdict: NOT WORTH IT</strong> — Too many fees stacking up, US-centric, and international shipping makes it impractical for UK sellers.</div>
+      </div>
+
+      <h3>MySlabs 🟡 Niche but Low Fees</h3>
+      <p>Peer-to-peer marketplace focused on graded cards ("slabs"), raw cards, comics, sealed wax, and memorabilia.</p>
+      <ul>
+        <li><strong>Seller fee: 2%</strong> on graded cards/comics/sealed</li>
+        <li><strong>Seller fee: 3%</strong> on raw cards</li>
+        <li><strong>Buyer fee: 1%</strong></li>
+        <li>No listing fees — no returns policy (seller-friendly)</li>
+        <li>PayPal G&S fee (3%) is additional — NOT covered by platform</li>
+        <li>Small audience compared to eBay. US-focused.</li>
+      </ul>
+
+      <div class="callout warning">
+        <span class="callout-icon">🟡</span>
+        <div><strong>Verdict: WORTH MONITORING</strong> — If you have graded VeeFriends cards, the 2% fee is incredible. But the small audience means cards may sit unsold. Worth listing high-value graded cards alongside eBay listings.</div>
+      </div>
+
+      <h3>Vinted ✅ Available in UK</h3>
+      <p>Second-hand marketplace hugely popular in the UK, primarily for fashion but has expanded to include collectibles, hobbies, and trading cards.</p>
+      <ul>
+        <li><strong>Zero seller fees</strong> — no commission, no listing fees</li>
+        <li>Buyer pays: 5% + £0.70 service fee + shipping</li>
+        <li>"Hobbies & Collectables" category includes trading cards</li>
+        <li>Active category on Vinted UK — used by Pokémon card sellers</li>
+        <li>Best for <strong>casual/budget buyers</strong> — not for serious collectors</li>
+        <li>UK-only trading (can't sell internationally on Vinted UK)</li>
+      </ul>
+
+      <div class="callout warning">
+        <span class="callout-icon">🟡</span>
+        <div><strong>Verdict: BULK/LOW-VALUE CARDS ONLY</strong> — Zero seller fees make Vinted interesting for shifting bulk cards, common singles, and lower-value items that aren't worth the effort of eBay fees. Don't expect premium prices. Think of it as a digital car boot sale for cards.</div>
+      </div>
+
+      <h3>Other Mentions</h3>
+      <ul>
+        <li><strong>Alt (altxyzofficial)</strong> — Mobile-first trading card marketplace. 69K Instagram followers. Worth a look for US sports cards but limited UK presence.</li>
+        <li><strong>Card Synced</strong> — New marketplace positioning as a 0% seller fee alternative to TCGPlayer. Worth monitoring but very early stage.</li>
+        <li><strong>Goldin Auctions / PWCC</strong> — High-end auction houses for premium/graded cards. Relevant only for very high-value items (£500+). High buyer premiums (15-20%).</li>
+      </ul>
+
+      <hr>
+
+      <!-- SECTION 10 -->
+      <h2 id="comparison">10. Channel Strategy Comparison</h2>
+
+      <div class="channel-grid">
+        <div class="channel-card">
+          <div class="channel-name">VeeFriends Discord <span class="verdict go">✅ Essential</span></div>
+          <div class="channel-desc">270K+ members. Active trading channels. Zero fees. Direct access to the VeeFriends community. Should be joined immediately.</div>
+          <div class="channel-meta"><span>Fees: <strong>0%</strong></span><span>Effort: <strong>Low-Medium</strong></span><span>UK: <strong>Yes</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">Facebook Groups <span class="verdict go">✅ Worth It</span></div>
+          <div class="channel-desc">Zero platform fees. VeeFriends-specific and general card selling groups. Good for building community and direct sales.</div>
+          <div class="channel-meta"><span>Fees: <strong>0%</strong></span><span>Effort: <strong>Low</strong></span><span>UK: <strong>Yes</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">Vinted <span class="verdict maybe">🟡 Supplementary</span></div>
+          <div class="channel-desc">Zero seller fees. Good for clearing bulk/low-value cards. Not a serious TCG platform but useful for liquidation.</div>
+          <div class="channel-meta"><span>Fees: <strong>0%</strong></span><span>Effort: <strong>Low</strong></span><span>UK: <strong>Yes</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">Cardmarket <span class="verdict go">✅ If Expanding</span></div>
+          <div class="channel-desc">Europe's largest TCG marketplace. Great for Pokémon/MTG/Yu-Gi-Oh. VeeFriends not listed but worth it if expanding beyond VeeFriends.</div>
+          <div class="channel-meta"><span>Fees: <strong>5%</strong></span><span>Audience: <strong>2M+ buyers</strong></span><span>UK: <strong>Yes</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">TikTok Shop <span class="verdict maybe">🟡 Experiment</span></div>
+          <div class="channel-desc">Live selling growing fast. Good for audience building. Younger demographic. Worth testing alongside social content strategy.</div>
+          <div class="channel-meta"><span>Fees: <strong>9% + £0.50</strong></span><span>Effort: <strong>High</strong></span><span>UK: <strong>Yes</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">StockX <span class="verdict maybe">🟡 Sealed Only</span></div>
+          <div class="channel-desc">Best for sealed boxes and graded cards. Authentication adds trust. Good if you have sealed product to sell.</div>
+          <div class="channel-meta"><span>Fees: <strong>~12%</strong></span><span>Effort: <strong>Low</strong></span><span>UK: <strong>GBP support</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">Instagram <span class="verdict maybe">🟡 Marketing</span></div>
+          <div class="channel-desc">Good for card photography, community building, and driving traffic to Whatnot/eBay. Not a primary sales channel.</div>
+          <div class="channel-meta"><span>Fees: <strong>0%</strong></span><span>Best for: <strong>Audience building</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">Voggt / Fanatics Live <span class="verdict watch">⏳ Watch</span></div>
+          <div class="channel-desc">European Whatnot equivalent. Acquired by Fanatics (Premier League deal). UK re-launch planned. Being early here could be huge.</div>
+          <div class="channel-meta"><span>Status: <strong>Pending UK launch</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">MySlabs <span class="verdict maybe">🟡 For Graded</span></div>
+          <div class="channel-desc">Specialist graded card marketplace. Only 2% fee. Worth listing any PSA/BGS graded cards alongside eBay.</div>
+          <div class="channel-meta"><span>Fees: <strong>2%</strong></span><span>Best for: <strong>Graded singles</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">TCGPlayer <span class="verdict no">❌ Not Available</span></div>
+          <div class="channel-desc">Major US card marketplace but not available to UK sellers. Skip this one.</div>
+          <div class="channel-meta"><span>UK: <strong>Not supported</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">Mercari <span class="verdict no">❌ Not Available</span></div>
+          <div class="channel-desc">Not available in the UK. US/Japan only.</div>
+          <div class="channel-meta"><span>UK: <strong>Not supported</strong></span></div>
+        </div>
+        <div class="channel-card">
+          <div class="channel-name">COMC <span class="verdict no">❌ Not Worth It</span></div>
+          <div class="channel-desc">Consignment model. Too many stacking fees, US-centric, impractical for UK sellers.</div>
+          <div class="channel-meta"><span>Fees: <strong>5% + 10% cashout</strong></span></div>
+        </div>
+      </div>
+
+      <h3>Which Platforms Complement Each Other?</h3>
+      <p>The strongest multi-channel approach for a UK-based VeeFriends seller:</p>
+      <ol>
+        <li><strong>eBay + Discord + Facebook Groups</strong> = Core trio — eBay for maximum reach, Discord for community-driven zero-fee sales, Facebook Groups for trades</li>
+        <li><strong>Add StockX for sealed product</strong> — different buyer pool, authentication adds trust</li>
+        <li><strong>Add Cardmarket if selling other TCGs</strong> alongside VeeFriends (MTG, Pokémon, etc.)</li>
+        <li><strong>Use Instagram as a marketing funnel</strong> — drive followers to your eBay store or Discord</li>
+        <li><strong>Use Vinted to clear bulk/commons</strong> — no fees, reaches casual buyers</li>
+      </ol>
+
+      <h3>Multi-Channel Management Tips</h3>
+      <ul>
+        <li>Use consistent pricing across platforms (or slightly lower on zero-fee platforms)</li>
+        <li>Track inventory carefully to avoid double-selling</li>
+        <li>Cross-reference sold prices for accurate valuations</li>
+        <li>List high-value items on fee-based platforms (wider reach) and low-value items on zero-fee platforms</li>
+        <li>Build a recognizable brand/username across all platforms</li>
+      </ul>
+
+      <hr>
+
+      <!-- SECTION 11 -->
+      <h2 id="priority">11. Recommended Priority Order</h2>
+
+      <p>For a UK-based VeeFriends card seller, from highest to lowest priority:</p>
+
+      <h3>Tier 1: Start Here</h3>
+      <ol>
+        <li><strong>eBay</strong> (researched separately) — Largest marketplace, highest reach, buyer trust</li>
+        <li><strong>VeeFriends Discord</strong> — Essential community hub, 270K members, zero fees</li>
+        <li><strong>Facebook Groups</strong> — Zero fees, community connections, trades</li>
+      </ol>
+
+      <h3>Tier 2: Add When Ready</h3>
+      <ol>
+        <li><strong>StockX</strong> — For sealed VeeFriends boxes and graded singles only</li>
+        <li><strong>Whatnot</strong> (researched separately) — Live selling if you enjoy that format</li>
+        <li><strong>Cardmarket</strong> — If also selling MTG/Pokémon/Yu-Gi-Oh cards</li>
+        <li><strong>Instagram</strong> — Build a brand, showcase collection, funnel to sales channels</li>
+      </ol>
+
+      <h3>Tier 3: Experiment</h3>
+      <ol>
+        <li><strong>TikTok Shop</strong> — If comfortable with video content; test with low-value stock</li>
+        <li><strong>Vinted</strong> — Clear bulk/common cards at zero seller fees</li>
+        <li><strong>MySlabs</strong> — List any graded VeeFriends cards for the ultra-low 2% fee</li>
+      </ol>
+
+      <h3>Tier 4: Watch & Wait</h3>
+      <ul>
+        <li><strong>Voggt/Fanatics Live</strong> — Monitor for UK re-launch; could be a game-changer</li>
+        <li><strong>Card Synced</strong> — Early-stage zero-fee marketplace; monitor development</li>
+      </ul>
+
+      <h3>Not Worth Pursuing (from UK)</h3>
+      <ul>
+        <li><strong>TCGPlayer</strong> — US/Canada sellers only</li>
+        <li><strong>Mercari</strong> — Not available in UK</li>
+        <li><strong>COMC</strong> — Impractical from UK, fees stack up</li>
+      </ul>
+
+      <div class="callout success">
+        <span class="callout-icon">🎯</span>
+        <div><strong>Key Takeaways:</strong> The VeeFriends Discord is non-negotiable — join immediately. Zero-fee platforms (Discord, Facebook, Vinted) should handle community sales. eBay remains king for reach. The UK live-selling space is about to explode. Don't spread too thin — start with 2-3 channels, master them, then expand.</div>
+      </div>
+
+      <div class="deep-footer">
+        <p>Research compiled by Zapp · 9 March 2026</p>
+        <p style="margin-top:8px;">Sources: Whatnot Help Center, StockX, TCGPlayer, Facebook, Discord, TikTok Shop, Cardmarket, Vinted, MySlabs, Reddit communities, VeeFriends blog</p>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Mobile TOC -->
+<button class="mobile-toc-toggle" onclick="document.querySelector('.mobile-toc-overlay').classList.add('show')">☰</button>
+<div class="mobile-toc-overlay">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('show')">✕</button>
+  <div style="padding-top:48px">
+    <a href="index.html" class="back-link" style="color:var(--accent-orange)">← Back to Playbook</a>
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);font-weight:600;margin:16px 0;font-family:'Space Grotesk',sans-serif">On This Page</div>
+    <ul style="list-style:none">
+      <li style="margin-bottom:8px"><a href="#voggt" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">1. Voggt / Fanatics Live</a></li>
+      <li style="margin-bottom:8px"><a href="#stockx" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">2. StockX</a></li>
+      <li style="margin-bottom:8px"><a href="#tcgplayer" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">3. TCGPlayer</a></li>
+      <li style="margin-bottom:8px"><a href="#facebook" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">4. Facebook Groups</a></li>
+      <li style="margin-bottom:8px"><a href="#discord" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">5. Discord</a></li>
+      <li style="margin-bottom:8px"><a href="#tiktok" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">6. TikTok Shop</a></li>
+      <li style="margin-bottom:8px"><a href="#instagram" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">7. Instagram</a></li>
+      <li style="margin-bottom:8px"><a href="#mercari" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">8. Mercari</a></li>
+      <li style="margin-bottom:8px"><a href="#other" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">9. Other Platforms</a></li>
+      <li style="margin-bottom:8px"><a href="#comparison" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">10. Channel Comparison</a></li>
+      <li style="margin-bottom:8px"><a href="#priority" style="color:var(--text-muted);text-decoration:none;font-size:15px" onclick="this.closest('.mobile-toc-overlay').classList.remove('show')">11. Priority Order</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// Active TOC tracking
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.toc-list a').forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-80px 0px -60% 0px' });
+
+document.querySelectorAll('.content h2[id]').forEach(h2 => observer.observe(h2));
+</script>
+</body>
+</html>

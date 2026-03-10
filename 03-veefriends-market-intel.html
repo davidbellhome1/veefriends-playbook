@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VeeFriends Market Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141420;--surface-raised:#1c1c2e;--surface-hover:#252540;--border:#2a2a45;--text:#e8e8f0;--text-muted:#8888a8;--text-dim:#5c5c78;--accent-green:#00e676;--accent-blue:#4fc3f7;--accent-purple:#b388ff;--accent-orange:#ffab40;--accent-red:#ff5252;--accent-pink:#ff4081;--accent-yellow:#ffd740}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.3}
+.page-wrapper{display:flex;max-width:1300px;margin:0 auto}
+.sidebar{width:280px;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;padding:32px 24px;border-right:1px solid var(--border);display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:4px}.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.main-content{flex:1;min-width:0;padding:48px 56px;max-width:860px}
+.back-link{display:inline-flex;align-items:center;gap:8px;color:var(--accent-blue);text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;margin-bottom:24px;transition:transform .2s}
+.back-link:hover{transform:translateX(-4px)}
+.toc-title{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);font-weight:600;margin-bottom:16px;font-family:'Space Grotesk',sans-serif}
+.toc-list{list-style:none}.toc-list li{margin-bottom:4px}
+.toc-list a{display:block;padding:8px 12px;border-radius:8px;color:var(--text-muted);text-decoration:none;font-size:13px;font-weight:500;transition:background .2s,color .2s;border-left:2px solid transparent}
+.toc-list a:hover{background:var(--surface-raised);color:var(--text)}
+.toc-list a.active{color:var(--accent-blue);border-left-color:var(--accent-blue);background:rgba(79,195,247,0.06)}
+.deep-hero{margin-bottom:48px}
+.deep-hero .badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface-raised);border:1px solid var(--border);padding:6px 14px;border-radius:99px;font-size:12px;color:var(--accent-blue);font-weight:600;margin-bottom:16px}
+.deep-hero h1{font-size:36px;margin-bottom:12px}.deep-hero h1 span{color:var(--accent-blue)}
+.deep-hero .subtitle{font-size:16px;color:var(--text-muted)}.deep-hero .meta{font-size:13px;color:var(--text-dim);margin-top:12px}
+.content h2{font-size:26px;margin-top:56px;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);color:var(--accent-blue)}
+.content h3{font-size:20px;margin-top:36px;margin-bottom:14px;color:var(--text)}
+.content h4{font-size:16px;margin-top:24px;margin-bottom:10px;color:var(--accent-purple)}
+.content p{margin-bottom:14px;color:var(--text-muted);font-size:15px}
+.content ul,.content ol{margin-bottom:16px;padding-left:0;list-style:none}
+.content ul li,.content ol li{position:relative;padding:6px 0 6px 24px;color:var(--text-muted);font-size:14px;line-height:1.6}
+.content ul li::before{content:'→';position:absolute;left:0;color:var(--accent-blue);font-weight:600}
+.content ol{counter-reset:ol-counter}.content ol li{counter-increment:ol-counter}
+.content ol li::before{content:counter(ol-counter) '.';position:absolute;left:0;color:var(--accent-blue);font-weight:700;font-size:13px}
+.data-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+.data-table th{text-align:left;padding:12px 16px;background:var(--surface-raised);color:var(--text-muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border)}
+.data-table td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--text)}
+.data-table tr:last-child td{border-bottom:none}.data-table tr:hover td{background:var(--surface-hover)}
+.table-wrapper{overflow-x:auto;margin:20px 0;border-radius:12px;border:1px solid var(--border)}.table-wrapper .data-table{margin:0}
+blockquote{border-left:3px solid var(--accent-blue);padding:16px 24px;margin:20px 0;background:rgba(79,195,247,0.06);border-radius:0 12px 12px 0;font-size:15px;color:var(--text);font-style:italic}
+blockquote strong{color:var(--accent-blue);font-style:normal}
+.callout{border-radius:12px;padding:18px 22px;margin:20px 0;font-size:14px;display:flex;gap:14px;line-height:1.6}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.callout.warning{background:rgba(255,171,64,0.08);border:1px solid rgba(255,171,64,0.2);color:var(--accent-orange)}
+.callout.success{background:rgba(0,230,118,0.08);border:1px solid rgba(0,230,118,0.2);color:var(--accent-green)}
+.callout.info{background:rgba(79,195,247,0.08);border:1px solid rgba(79,195,247,0.2);color:var(--accent-blue)}
+.callout.danger{background:rgba(255,82,82,0.08);border:1px solid rgba(255,82,82,0.2);color:var(--accent-red)}
+.content a{color:var(--accent-blue);text-decoration:none;border-bottom:1px solid rgba(79,195,247,0.3);transition:border-color .2s}
+.content a:hover{border-bottom-color:var(--accent-blue)}
+.content strong{color:var(--text);font-weight:600}
+.content hr{border:none;border-top:1px solid var(--border);margin:40px 0}
+.sources{margin-top:32px;padding:20px 24px;background:var(--surface);border-radius:12px;border:1px solid var(--border)}
+.sources h4{color:var(--text-dim);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.sources ul li{font-size:13px}.sources ul li::before{content:'📎'}
+.deep-footer{margin-top:64px;padding-top:32px;border-top:1px solid var(--border);text-align:center;color:var(--text-dim);font-size:13px}
+.priority-badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif}
+.priority-badge.red{background:rgba(255,82,82,0.15);color:var(--accent-red)}
+.priority-badge.yellow{background:rgba(255,215,64,0.15);color:var(--accent-yellow)}
+.priority-badge.green{background:rgba(0,230,118,0.15);color:var(--accent-green)}
+.priority-badge.blue{background:rgba(79,195,247,0.15);color:var(--accent-blue)}
+@media(max-width:900px){.sidebar{display:none}.main-content{padding:24px 20px}.deep-hero h1{font-size:28px}.content h2{font-size:22px}.data-table{font-size:13px}.data-table th,.data-table td{padding:8px 10px}}
+.mobile-toc-toggle{display:none;position:fixed;bottom:24px;right:24px;z-index:999;background:var(--accent-blue);color:var(--bg);border:none;border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;box-shadow:0 4px 20px rgba(79,195,247,0.3)}
+@media(max-width:900px){.mobile-toc-toggle{display:flex;align-items:center;justify-content:center}}
+.mobile-toc-overlay{display:none;position:fixed;inset:0;z-index:998;background:rgba(10,10,15,0.95);padding:24px;overflow-y:auto}
+.mobile-toc-overlay.show{display:block}
+.mobile-toc-overlay .close-btn{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <nav class="sidebar">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+    <div class="toc-title">On This Page</div>
+    <ul class="toc-list">
+      <li><a href="#product-lines" class="active">1. Product Lines</a></li>
+      <li><a href="#market-values">2. Current Market Values</a></li>
+      <li><a href="#chrome-comparison">3. Chrome 2025 Comparison</a></li>
+      <li><a href="#platform-prices">4. Platform Prices</a></li>
+      <li><a href="#gary-vee-factor">5. The Gary Vee Factor</a></li>
+      <li><a href="#uk-opportunity">6. UK Opportunity</a></li>
+      <li><a href="#grading">7. Grading Opportunity</a></li>
+      <li><a href="#sell-first">8. What to Sell First</a></li>
+      <li><a href="#risk-factors">9. Risk Factors</a></li>
+      <li><a href="#summary">10. Summary</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+
+    <div class="deep-hero">
+      <div class="badge">📊 Deep Dive #3</div>
+      <h1>VeeFriends <span>Market Intelligence</span></h1>
+      <div class="subtitle">What your cards are worth, where prices are heading, and what to sell first</div>
+      <div class="meta">Date: March 2026 · Focus: Spectacular 2026 Series · For: UK seller with ~250 Spectacular cards</div>
+    </div>
+
+    <div class="callout danger">
+      <span class="callout-icon">⏰</span>
+      <div><strong>Executive Summary:</strong> The VeeFriends collectible market is polarising — driven almost entirely by Gary Vaynerchuk's personal brand. The 2026 Spectacular Series is a <strong>sticker-based</strong> product (not traditional trading cards), released Feb 18, 2026 at $99/box. Prices for high-end pulls are strong ($200–$2,000+), but base/common stickers sell for <strong>under $1</strong>. Sell your rare pulls NOW while prices are at their post-release peak.</div>
+    </div>
+
+    <div class="content">
+
+      <h2 id="product-lines">1. VeeFriends Product Lines — What Exists</h2>
+
+      <h3>2026 Super Stickers: Spectacular Series ⭐ (YOUR CARDS)</h3>
+      <ul>
+        <li><strong>Released:</strong> February 18, 2026</li>
+        <li><strong>Format:</strong> Stickers (not traditional trading cards), printed on card stock</li>
+        <li><strong>Retail price:</strong> $99/box (+ $2.99 Run Fair fee), sold via raffle/pre-order</li>
+        <li><strong>Configuration:</strong> 12 packs per box, 3 stickers per pack = 36 stickers per box</li>
+        <li><strong>Set size:</strong> 100 characters (88 returning + 12 debut characters)</li>
+        <li><strong>What's in a box:</strong> 2 Debut Stickers, 2 Numbered Parallels, 1 Spectacular Showdown insert, 1 Comic insert, 1 Mini Sticker (avg), 2 Scratch-off cards</li>
+        <li><strong>Case:</strong> 12 boxes per case (~$1,157 average case price on eBay, trending DOWN ~$28 in past 30 days)</li>
+      </ul>
+
+      <h4>Base Stickers (88 characters)</h4>
+      <ul>
+        <li>6 Spectacular foil finishes: <strong>Diamond, Lava, Bubble Gum, Hologram, Gold, Emerald</strong></li>
+        <li>Each character in their Spectacular form on black backgrounds</li>
+        <li><strong>GaryVee Autographs: Limited /2</strong> (the 1/2 goes to NFT holder, 2/2 in packs — ULTRA rare)</li>
+      </ul>
+
+      <h4>Numbered Parallels (88 characters × 36 variations each)</h4>
+      <ul>
+        <li>Full-art backgrounds (character in Spectacular form + matching background)</li>
+        <li>6 foil variations: Diamond, Lava, Bubble Gum, Hologram, Gold, Emerald</li>
+        <li><strong>All individually serialized</strong> (first time ever for Super Stickers)</li>
+        <li>"Spectacular Match" = character form matches background type (the ultimate chase)</li>
+      </ul>
+
+      <h4>Debut Stickers (12 new characters)</h4>
+      <p>Characters: Arbitraging Admiral, Brave Bison, Conviction Cockroach, Cynical Cat, Daring Dragonfly, Gary Bee, Hot Shot Hornet, Juicy Jaguar, Knowing Gnome, Perfect Persian Cat, Respectful Racoon, Hard-Working Wombat</p>
+
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Parallel</th><th>Print Run</th><th>Est. Value</th></tr></thead>
+          <tbody>
+            <tr><td>Red</td><td>Unnumbered (Short Print)</td><td>$5–$15</td></tr>
+            <tr><td>Orange</td><td>Unnumbered (Short Print)</td><td>$5–$15</td></tr>
+            <tr><td>Yellow</td><td>/499</td><td>$10–$30</td></tr>
+            <tr><td>Green</td><td>/399</td><td>$15–$40</td></tr>
+            <tr><td>Blue</td><td>/299</td><td>$20–$60</td></tr>
+            <tr><td>Indigo</td><td>/99</td><td>$50–$150</td></tr>
+            <tr><td>Violet</td><td>/55</td><td>$75–$250+</td></tr>
+            <tr><td>Double Rainbow</td><td>1/1</td><td>$500–$2,000+</td></tr>
+            <tr><td>Autograph</td><td>1/1</td><td>$1,000–$5,000+</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Inserts</h4>
+      <ul>
+        <li><strong>Spectacular Showdowns</strong> (10 head-to-head match-ups, 20 characters) — 1 per box</li>
+        <li><strong>Sixth Dimension</strong> (20 characters, base + Black /99)</li>
+        <li><strong>Comic Variants</strong> (base, Gold /99, DJ Coffman Auto /55, Dual Auto /10)</li>
+        <li><strong>5 Year OG Art</strong> (20 characters, Ultra-Rare CASE HIT — ~1 per 12 boxes) + GaryVee Auto /5</li>
+        <li><strong>Diamond Die Cuts</strong> (22 characters, Ultra-Rare CASE HIT) — first die-cut Super Stickers ever</li>
+        <li><strong>Haunted Holograms</strong> (8 characters)</li>
+        <li><strong>GaryVee × Gary Bee Dual Autographs</strong> — Green /55, Purple /5, Gold 1/1</li>
+        <li><strong>The Spectacular Cat</strong> — designed by Disney animator Tom Bancroft, Base /55, Auto 1/1</li>
+        <li><strong>Mini Stickers</strong> — Base (60%), Tie Dye (30%), Gold (10%), Auto 1/1</li>
+      </ul>
+
+      <h3>2025 Topps Chrome VeeFriends (the major release)</h3>
+      <ul>
+        <li><strong>Released:</strong> May 7, 2025 — $99–$140/hobby box (sold via raffle)</li>
+        <li><strong>Current resale:</strong> $400–$600 per hobby box (remarkably strong)</li>
+        <li><strong>Key chase cards:</strong> ERUPT! inserts (1:3,000 packs, $1,000+), Iconics (1:1,300, $625+)</li>
+        <li><strong>Day 1 highest sales:</strong> Jolly Jack-O Sketch 1/1 ($2,000), ERUPT! Perceptive Puma ($1,500)</li>
+        <li><strong>Significance:</strong> First Topps × VeeFriends collaboration. Legitimised VeeFriends in the hobby.</li>
+      </ul>
+
+      <h3>Earlier Products</h3>
+      <ul>
+        <li><strong>Series 1 (Zero Cool, 2022):</strong> 235-card base set. Top sale: Patient Panda 1/1 Lava PSA 9 for <strong>$7,000</strong> (all-time record)</li>
+        <li><strong>Series 2 Compete &amp; Collect (2022):</strong> Playable TCG game. Box retail $85, now reselling <strong>$300+</strong></li>
+        <li><strong>Super Stickers: Manga Series (Aug 2025):</strong> First boxed Super Sticker product. Curry crossover. Dual Auto limited to 11 copies.</li>
+      </ul>
+
+      <hr>
+
+      <h2 id="market-values">2. Current Market Values — Spectacular 2026</h2>
+      <p><strong>Source: eBay completed/sold listings, March 2026 — 3 weeks post-release</strong></p>
+
+      <h3>High-End Sales</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Price Range</th><th>Typical Card Type</th></tr></thead>
+          <tbody>
+            <tr><td><strong>$1,000–$2,100</strong></td><td>1/1 cards, Dual Autographs, top-character autos</td></tr>
+            <tr><td><strong>$400–$999</strong></td><td>Low-numbered parallels (/5, /10), Spectacular Matches</td></tr>
+            <tr><td><strong>$250–$400</strong></td><td>Numbered parallels of popular characters, Violet /55 Debuts, case-hit inserts</td></tr>
+            <tr><td><strong>$175–$250</strong></td><td>Mid-numbered parallels, Indigo /99 Debuts, Sixth Dimension Black /99</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Mid-Range Sales</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Price Range</th><th>Typical Card Type</th></tr></thead>
+          <tbody>
+            <tr><td><strong>$100–$175</strong></td><td>Standard numbered parallels, Blue /299 Debuts of popular characters</td></tr>
+            <tr><td><strong>$50–$100</strong></td><td>Common numbered parallels, Showdown inserts, Comic inserts</td></tr>
+            <tr><td><strong>$20–$50</strong></td><td>Yellow /499 Debuts, common Showdowns, Haunted Holograms</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Low-End Sales (Bulk of Market)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Price Range</th><th>Typical Card Type</th></tr></thead>
+          <tbody>
+            <tr><td><strong>$1–$20</strong></td><td>Base stickers (all 6 Spectacular types), common inserts</td></tr>
+            <tr><td><strong>$0.01–$1.00</strong></td><td>Base stickers (common characters), penny auctions</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <span class="callout-icon">📉</span>
+        <div><strong>Key Finding:</strong> Base Spectacular stickers are selling for $0.01 to $2.00 each. Many sell via penny auctions. The base stickers — which make up the majority of any box — have essentially zero resale value as singles after fees and shipping.</div>
+      </div>
+
+      <h3>Characters That Command Premiums</h3>
+      <ol>
+        <li><strong>Very, Very, Very, Very Lucky Black Cat</strong> — the VeeFriends mascot</li>
+        <li><strong>Empathy Elephant</strong> — consistently most valuable (NFT sold for $493,350)</li>
+        <li><strong>Patient Panda</strong> — top sales across all VeeFriends products</li>
+        <li><strong>GaryVee</strong> — the creator character</li>
+        <li><strong>Gary Bee</strong> — new Debut character, Gary's alter ego</li>
+        <li><strong>Cynical Cat</strong> — Comic Book #1 star, Debut character</li>
+        <li><strong>Perfect Persian Cat</strong> — TCG powerhouse, Debut character</li>
+        <li><strong>Entrepreneur Elf</strong> — crossover appeal with business audience</li>
+        <li><strong>Fearless Fairy</strong> — consistently popular</li>
+        <li><strong>Flex'n Fox</strong> — strong Series 2 track record</li>
+      </ol>
+
+      <h3>Sealed Product Pricing</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Product</th><th>Retail</th><th>Current Market (Mar 2026)</th></tr></thead>
+          <tbody>
+            <tr><td>Spectacular Hobby Box</td><td>$99</td><td>~$95–$115 (at or slightly above retail)</td></tr>
+            <tr><td>Spectacular 12-Box Case</td><td>~$1,188</td><td>~$1,157 (<strong>below retail</strong>)</td></tr>
+            <tr><td>Chrome 2025 Hobby Box</td><td>$99–$140</td><td>~$400–$600</td></tr>
+            <tr><td>Chrome 2025 Value Box</td><td>$25</td><td>~$100–$175</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout danger">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Important:</strong> Spectacular sealed boxes are hovering at or below retail — this is a warning sign that the market isn't pricing in significant premium for sealed product, unlike Chrome 2025 which trades at 3–5x retail.</div>
+      </div>
+
+      <hr>
+
+      <h2 id="chrome-comparison">3. Topps Chrome 2025 Comparison &amp; Trajectory</h2>
+      <p>Understanding how Chrome performed tells us what to expect with Spectacular:</p>
+      <ul>
+        <li><strong>Release price:</strong> $99–$140 hobby box</li>
+        <li><strong>Week 1–2 peak:</strong> Hobby boxes hit $500–$600+, singles commanding massive premiums</li>
+        <li><strong>Month 2–3:</strong> Prices started settling, base cards became abundant</li>
+        <li><strong>Month 6+ (Nov 2025):</strong> Hobby boxes still at $500–$600 (remarkably strong — Topps Chrome brand carrying it)</li>
+        <li><strong>Current (Mar 2026, 10 months post-release):</strong> Likely $400–$500 range</li>
+      </ul>
+
+      <h3>Key Insight: Spectacular vs Chrome</h3>
+      <p>Chrome benefited from: Topps brand recognition, Chrome finish (premium material), real celebrity autographs (Kevin Hart, Dana White, Michael Rubin, Daymond John), and the "first-ever" factor.</p>
+      <p>The Spectacular Series does <strong>NOT</strong> have these advantages — it's a sticker product, no celebrity autos, second Super Sticker product, lower perceived prestige.</p>
+
+      <div class="callout info">
+        <span class="callout-icon">📉</span>
+        <div><strong>Conclusion:</strong> The Spectacular Series will likely follow a steeper decline curve than Chrome. <strong>Sell numbered/rare pulls NOW</strong> while the market is fresh.</div>
+      </div>
+
+      <hr>
+
+      <h2 id="platform-prices">4. Platform Price Comparison</h2>
+
+      <h3>eBay</h3>
+      <ul>
+        <li><strong>Largest market</strong> for VeeFriends singles — 26,000+ active listings</li>
+        <li>eBay takes ~15% total fees (12.9% + processing ~3%)</li>
+        <li>Best for: individual high-value cards, numbered parallels, autographs</li>
+        <li>Authenticity Guarantee kicks in at $150+</li>
+      </ul>
+
+      <h3>Whatnot</h3>
+      <ul>
+        <li>VeeFriends has an <strong>official channel</strong> — @veefriends with active streams</li>
+        <li>Gary Vee himself has a Whatnot profile and streams regularly</li>
+        <li>Whatnot does <strong>$140,000 in VeeFriends revenue in a single 2-hour stream</strong></li>
+        <li>Whatnot takes ~10% seller fee</li>
+        <li><strong>Gary Vee streams create temporary price spikes</strong></li>
+      </ul>
+
+      <h3>StockX</h3>
+      <ul>
+        <li>Lists sealed VeeFriends products (Chrome Hobby Box, Value Box, Sapphire)</li>
+        <li><strong>Spectacular Series does NOT appear to be listed on StockX yet</strong></li>
+        <li>StockX takes ~10% seller fee + ~3% payment processing</li>
+        <li><strong>Best for sealed product only</strong> (not singles)</li>
+      </ul>
+
+      <h3>Arbitrage Opportunities</h3>
+      <ol>
+        <li><strong>Whatnot → eBay:</strong> Cards won cheaply in Whatnot live auctions can be listed higher on eBay as Buy It Now</li>
+        <li><strong>UK to US:</strong> UK sellers face less competition on eBay.com for VeeFriends; the market is almost entirely US-based</li>
+        <li><strong>Sealed Spectacular boxes</strong> at/below retail — NOT an arbitrage opportunity right now</li>
+      </ol>
+
+      <hr>
+
+      <h2 id="gary-vee-factor">5. The Gary Vaynerchuk Factor</h2>
+
+      <h3>Brand Strength</h3>
+      <ul>
+        <li>~45M+ social media followers across platforms</li>
+        <li>CEO of VaynerMedia (Pepsi, Walmart, DraftKings clients)</li>
+        <li>VeeFriends expanded beyond NFTs into: toys, apparel, Macy's partnership, Toys "R" Us, Squishmallows, comic books, UNO card game, and trading cards/stickers</li>
+        <li><strong>PSA has a dedicated VeeFriends category</strong> — significant legitimacy signal</li>
+      </ul>
+
+      <h3>Community Sentiment</h3>
+      <h4>Pro-VeeFriends:</h4>
+      <ul>
+        <li>Dedicated community across Reddit, Discord, social media</li>
+        <li>Cards actually selling on secondary market at premiums</li>
+        <li>Gary's business acumen gives confidence in brand longevity</li>
+        <li>Multiple physical product lines show commitment beyond NFT hype</li>
+      </ul>
+
+      <h4>Anti-VeeFriends (dominant view outside community):</h4>
+      <blockquote>
+        "VeeFriends is so absurd it almost feels like a satire of the current trading card scene."<br><br>
+        "These cards are a money grab and will be dead sooner than later"<br><br>
+        "I call them the VEE-cult as they are trying to sell an experience with overpriced cards"<br><br>
+        "Former VeeFriends Investor Exposes Gary Vee's $200 Million NFT Scams"
+      </blockquote>
+
+      <h3>Is VeeFriends Growing, Stable, or Declining?</h3>
+      <p><strong>Answer: Growing in physical products, declining in NFTs.</strong> The brand is pivoting from Web3 to mainstream collectibles. The core question remains: Can VeeFriends survive without Gary Vee's personal promotion? Almost certainly not — this is a personality-driven brand, not an IP-driven franchise like Marvel or Pokémon.</p>
+
+      <hr>
+
+      <h2 id="uk-opportunity">6. UK Market Opportunity</h2>
+
+      <h3>Current UK Presence</h3>
+      <ul>
+        <li>Very few VeeFriends listings on eBay.co.uk</li>
+        <li><strong>No significant UK seller presence for Spectacular 2026</strong></li>
+        <li><strong>No VeeFriends sellers streaming from the UK on Whatnot</strong></li>
+        <li>The collecting community is <strong>overwhelmingly American</strong></li>
+      </ul>
+
+      <h3>Opportunity</h3>
+      <ul>
+        <li>Zero competition on eBay.co.uk for Spectacular 2026 singles</li>
+        <li>Could capture underserved UK/EU collector base</li>
+        <li>Lower shipping costs vs US sellers for European buyers</li>
+        <li>First-mover advantage in UK market</li>
+      </ul>
+
+      <h3>Risk</h3>
+      <ul>
+        <li>Buyer base for VeeFriends is 95%+ American</li>
+        <li>European collectors are a tiny fraction</li>
+        <li>Selling on eBay.com from the UK means slower shipping</li>
+        <li>Currency conversion eats into margins (GBP/USD)</li>
+      </ul>
+
+      <h3>Recommended Strategy</h3>
+      <ol>
+        <li><strong>List high-value cards on eBay.com</strong> (where the buyers are) — accept the fees and ship internationally</li>
+        <li><strong>List bundles/lots on eBay.co.uk</strong> to capture UK/EU market</li>
+        <li><strong>Consider Whatnot</strong> — UK seller streaming VeeFriends would be unusual enough to attract attention</li>
+        <li><strong>Ship from UK to US using tracked Royal Mail International</strong> (~£5–£7 for a card = competitive with US domestic)</li>
+      </ol>
+
+      <hr>
+
+      <h2 id="grading">7. Grading Opportunity</h2>
+
+      <h3>PSA Pricing (2026)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Service</th><th>Price</th><th>Turnaround</th></tr></thead>
+          <tbody>
+            <tr><td>Value Bulk</td><td>$24.99</td><td>Several months</td></tr>
+            <tr><td>Value</td><td>$32.99</td><td>~60 days</td></tr>
+            <tr><td>Value Plus</td><td>$49.99</td><td>~45 business days</td></tr>
+            <tr><td>Value Max</td><td>$64.99</td><td>~35 business days</td></tr>
+            <tr><td>Regular</td><td>$79.99</td><td>~25 business days</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Is Grading VeeFriends Worth It?</h3>
+      <p><strong>For Spectacular 2026 Stickers specifically: MOSTLY NO.</strong></p>
+      <ol>
+        <li><strong>These are stickers, not cards.</strong> Grading stickers is unusual and reduces the target buyer pool.</li>
+        <li><strong>Base stickers sell for $0.01–$2.00 raw.</strong> Adding $25–$50 in grading costs makes zero economic sense.</li>
+        <li><strong>The population is too new</strong> — no established pop reports means buyers don't yet know what's scarce.</li>
+        <li><strong>Stickers may not grade well</strong> — adhesive/edge issues can reduce grades.</li>
+      </ol>
+
+      <h4>When grading IS worth it:</h4>
+      <ul>
+        <li><strong>GaryVee Autograph /2</strong> — a $1,000+ card is worth the $50–$80 grading fee</li>
+        <li><strong>1/1 cards</strong> (Double Rainbow Debuts, Dual Autos) — authentication adds buyer confidence</li>
+        <li><strong>Very low-numbered parallels (/5, /10)</strong> of popular characters if raw value exceeds $200+</li>
+        <li><strong>Case hits</strong> (Diamond Die Cuts, 5 Year OG Art) if in pristine condition</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="callout-icon">📏</span>
+        <div><strong>Rule of thumb:</strong> Only grade cards worth $100+ raw, and only if you're confident in a PSA 9 or 10. For a $100 raw card, a PSA 10 might push it to $200–$300 (2–3x), making the $35–$50 cost worthwhile.</div>
+      </div>
+
+      <hr>
+
+      <h2 id="sell-first">8. What to Sell First — Priority Recommendations</h2>
+      <p>Based on ~250 Spectacular 2026 cards, here's the likely composition and selling priority:</p>
+
+      <h3>Expected Card Distribution (~250 cards from ~7 boxes)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Category</th><th>Expected #</th><th>Avg Value</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td>Base Stickers (common)</td><td>~170–180</td><td>$0.25–$2 each</td><td><span class="priority-badge green">LOW — bundle these</span></td></tr>
+            <tr><td>Numbered Parallels</td><td>~14</td><td>$20–$500 each</td><td><span class="priority-badge red">HIGH — sell NOW</span></td></tr>
+            <tr><td>Debut Stickers</td><td>~14</td><td>$2–$250 each</td><td><span class="priority-badge red">HIGH for numbered</span></td></tr>
+            <tr><td>Spectacular Showdowns</td><td>~7</td><td>$5–$30 each</td><td><span class="priority-badge yellow">MEDIUM</span></td></tr>
+            <tr><td>Comic Inserts</td><td>~7</td><td>$5–$50 each</td><td><span class="priority-badge yellow">MEDIUM</span></td></tr>
+            <tr><td>Mini Stickers</td><td>~7</td><td>$3–$15 each</td><td><span class="priority-badge green">LOW</span></td></tr>
+            <tr><td>Scratch-off cards</td><td>~14</td><td>$1–$5 each</td><td><span class="priority-badge green">LOW</span></td></tr>
+            <tr><td>Case Hits (if lucky)</td><td>0–1</td><td>$100–$500+</td><td><span class="priority-badge red">HIGHEST</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>🔴 SELL IMMEDIATELY (This Week)</h3>
+      <ol>
+        <li><strong>Any autographed cards</strong> — GaryVee autos, DJ Coffman autos, Dual Autos. List at $300–$1,000+</li>
+        <li><strong>Low-numbered parallels</strong> (/5, /10, /55) — especially Spectacular Matches. List at $150–$500+</li>
+        <li><strong>Case hits</strong> — Diamond Die Cuts, 5 Year OG Art. List at $100–$400</li>
+        <li><strong>1/1 cards of any type</strong> — Double Rainbow Debuts. Auction material — start at $500+</li>
+        <li><strong>Gary Bee Debut Stickers</strong> (any parallel) — Indigo /99 = $100+, Violet /55 = $200+</li>
+      </ol>
+
+      <h3>🟡 SELL WITHIN 1–2 WEEKS</h3>
+      <ol>
+        <li><strong>Debut Stickers</strong> — Blue /299, Green /399, Yellow /499 of popular characters. $15–$60</li>
+        <li><strong>Sixth Dimension Black /99</strong> — $30–$80</li>
+        <li><strong>Comic Variant Gold /99</strong> — $30–$60</li>
+        <li><strong>Spectacular Showdowns</strong> — $10–$30</li>
+        <li><strong>Haunted Holograms</strong> — $5–$20</li>
+      </ol>
+
+      <h3>🟢 SELL OR BUNDLE (No Rush)</h3>
+      <ol>
+        <li><strong>Red/Orange Debut Stickers</strong> (unnumbered short prints) — $5–$15</li>
+        <li><strong>Base Spectacular Stickers</strong> — sell as character lots (10–20 per lot) for $5–$15</li>
+        <li><strong>Mini Stickers</strong> — Tie Dye and Gold variants at $5–$10</li>
+        <li><strong>Scratch-off cards</strong> — $1–$3 unless they're winners</li>
+      </ol>
+
+      <h3>🔵 HOLD (Potential Future Value)</h3>
+      <ol>
+        <li><strong>Scratch-off winning codes</strong> — unlock a 1/1 Spectacular NFT. Only 15 winners exist across ALL production. Could be worth thousands.</li>
+        <li><strong>Complete base set</strong> — if you can assemble all 100 characters in one Spectacular type, worth more than sum of parts</li>
+      </ol>
+
+      <h3>Selling Tips for UK Seller</h3>
+      <ul>
+        <li><strong>List on eBay.com</strong> (not .co.uk) for high-value cards — that's where the buyers are</li>
+        <li><strong>Use eBay's Global Shipping Programme</strong> to protect yourself</li>
+        <li><strong>Price in USD</strong> for eBay.com listings</li>
+        <li><strong>Free UK shipping</strong> for eBay.co.uk lots to attract domestic buyers</li>
+        <li><strong>Take excellent photos</strong> with good lighting — VeeFriends collectors care about foil presentation</li>
+        <li><strong>Use correct keywords:</strong> "2026 VeeFriends Super Stickers Spectacular" + character name + parallel type + serial number</li>
+      </ul>
+
+      <hr>
+
+      <h2 id="risk-factors">9. Key Risk Factors</h2>
+      <ol>
+        <li><strong>Rapid depreciation:</strong> Modern non-sports releases typically lose 30–60% value within 6 months. The Spectacular product is likely past its peak already.</li>
+        <li><strong>Personality risk:</strong> VeeFriends' value is 100% tied to Gary Vaynerchuk. Any controversy, health issue, or shift in priorities could crater the market overnight.</li>
+        <li><strong>Market saturation:</strong> With ~5,900+ VeeFriends 2026 listings already on eBay (product only 3 weeks old), supply is outpacing demand for commons.</li>
+        <li><strong>Sticker format stigma:</strong> Traditional card collectors don't take sticker products as seriously as Chrome/refractor cards.</li>
+        <li><strong>NFT baggage:</strong> Many in the trading card community associate VeeFriends with failed NFT hype, creating resistance to the brand.</li>
+      </ol>
+
+      <hr>
+
+      <h2 id="summary">10. Summary &amp; Bottom Line</h2>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Aspect</th><th>Assessment</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Market outlook</strong></td><td>Bearish for commons, neutral for mid-tier, cautiously bullish for ultra-rare pulls</td></tr>
+            <tr><td><strong>Best time to sell</strong></td><td><strong>NOW</strong> — prices will likely decline over next 3–6 months</td></tr>
+            <tr><td><strong>Best platform</strong></td><td>eBay.com for singles, Whatnot for mid-range lots</td></tr>
+            <tr><td><strong>UK opportunity</strong></td><td>Low demand in UK but zero competition — first-mover advantage exists</td></tr>
+            <tr><td><strong>Grading</strong></td><td>Not worth it for 95% of Spectacular stickers</td></tr>
+            <tr><td><strong>Realistic total value of 250 cards</strong></td><td><strong>£200–£800</strong> depending on numbered/rare pulls</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout success">
+        <span class="callout-icon">🎯</span>
+        <div><strong>If You Had to Act Today:</strong><br>
+        1. Sort your 250 cards into numbered vs unnumbered<br>
+        2. Photograph every numbered parallel, autograph, and insert<br>
+        3. List anything numbered /99 or lower on eBay.com immediately with Buy It Now + Best Offer<br>
+        4. List Debuts (Yellow/Green/Blue and higher) individually<br>
+        5. Bundle base stickers into lots of 10–20 and list on eBay.co.uk<br>
+        6. Check your scratch-off codes — even one winner changes everything</div>
+      </div>
+
+      <div class="deep-footer">
+        <p>Research compiled by Zapp · March 2026</p>
+        <p style="margin-top:8px;">Prices are snapshots and will change. eBay sold data represents actual completed transactions.</p>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<button class="mobile-toc-toggle" onclick="document.querySelector('.mobile-toc-overlay').classList.add('show')">☰</button>
+<div class="mobile-toc-overlay">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('show')">✕</button>
+  <div style="padding-top:48px">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+    <div class="toc-title" style="margin-top:24px">On This Page</div>
+    <ul class="toc-list">
+      <li><a href="#product-lines" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">1. Product Lines</a></li>
+      <li><a href="#market-values" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">2. Current Market Values</a></li>
+      <li><a href="#chrome-comparison" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">3. Chrome Comparison</a></li>
+      <li><a href="#platform-prices" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">4. Platform Prices</a></li>
+      <li><a href="#gary-vee-factor" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">5. Gary Vee Factor</a></li>
+      <li><a href="#uk-opportunity" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">6. UK Opportunity</a></li>
+      <li><a href="#grading" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">7. Grading</a></li>
+      <li><a href="#sell-first" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">8. What to Sell First</a></li>
+      <li><a href="#risk-factors" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">9. Risk Factors</a></li>
+      <li><a href="#summary" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">10. Summary</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const tocLinks=document.querySelectorAll('.sidebar .toc-list a');const headings=[];
+tocLinks.forEach(link=>{const id=link.getAttribute('href').slice(1);const el=document.getElementById(id);if(el)headings.push({el,link})});
+window.addEventListener('scroll',()=>{let current=headings[0];for(const h of headings){if(h.el.getBoundingClientRect().top<=120)current=h}tocLinks.forEach(l=>l.classList.remove('active'));if(current)current.link.classList.add('active')});
+</script>
+</body>
+</html>

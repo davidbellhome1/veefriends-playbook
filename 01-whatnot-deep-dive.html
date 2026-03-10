@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whatnot Platform Deep Dive — UK Seller Setup & Mechanics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #141420;
+  --surface-raised: #1c1c2e;
+  --surface-hover: #252540;
+  --border: #2a2a45;
+  --text: #e8e8f0;
+  --text-muted: #8888a8;
+  --text-dim: #5c5c78;
+  --accent-green: #00e676;
+  --accent-blue: #4fc3f7;
+  --accent-purple: #b388ff;
+  --accent-orange: #ffab40;
+  --accent-red: #ff5252;
+  --accent-pink: #ff4081;
+  --accent-yellow: #ffd740;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.3; }
+
+/* Layout */
+.page-wrapper { display: flex; max-width: 1300px; margin: 0 auto; }
+.sidebar {
+  width: 280px; flex-shrink: 0;
+  position: sticky; top: 0; height: 100vh;
+  overflow-y: auto; padding: 32px 24px;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.main-content { flex: 1; min-width: 0; padding: 48px 56px; max-width: 860px; }
+
+/* Back link */
+.back-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--accent-green); text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; font-weight: 600;
+  margin-bottom: 24px;
+  transition: transform 0.2s;
+}
+.back-link:hover { transform: translateX(-4px); }
+
+/* Sidebar TOC */
+.toc-title {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--text-dim); font-weight: 600; margin-bottom: 16px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.toc-list { list-style: none; }
+.toc-list li { margin-bottom: 4px; }
+.toc-list a {
+  display: block; padding: 8px 12px; border-radius: 8px;
+  color: var(--text-muted); text-decoration: none;
+  font-size: 13px; font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+  border-left: 2px solid transparent;
+}
+.toc-list a:hover { background: var(--surface-raised); color: var(--text); }
+.toc-list a.active { color: var(--accent-green); border-left-color: var(--accent-green); background: rgba(0,230,118,0.06); }
+
+/* Hero */
+.deep-hero { margin-bottom: 48px; }
+.deep-hero .badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--surface-raised); border: 1px solid var(--border);
+  padding: 6px 14px; border-radius: 99px;
+  font-size: 12px; color: var(--accent-green); font-weight: 600;
+  margin-bottom: 16px;
+}
+.deep-hero h1 { font-size: 36px; margin-bottom: 12px; }
+.deep-hero h1 span { color: var(--accent-green); }
+.deep-hero .subtitle { font-size: 16px; color: var(--text-muted); }
+.deep-hero .meta { font-size: 13px; color: var(--text-dim); margin-top: 12px; }
+
+/* Headings */
+.content h2 {
+  font-size: 26px; margin-top: 56px; margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  color: var(--accent-green);
+}
+.content h3 { font-size: 20px; margin-top: 36px; margin-bottom: 14px; color: var(--text); }
+.content h4 { font-size: 16px; margin-top: 24px; margin-bottom: 10px; color: var(--accent-blue); }
+
+/* Paragraphs & Lists */
+.content p { margin-bottom: 14px; color: var(--text-muted); font-size: 15px; }
+.content ul, .content ol { margin-bottom: 16px; padding-left: 0; list-style: none; }
+.content ul li, .content ol li {
+  position: relative; padding: 6px 0 6px 24px;
+  color: var(--text-muted); font-size: 14px; line-height: 1.6;
+}
+.content ul li::before {
+  content: '→'; position: absolute; left: 0;
+  color: var(--accent-green); font-weight: 600;
+}
+.content ol { counter-reset: ol-counter; }
+.content ol li { counter-increment: ol-counter; }
+.content ol li::before {
+  content: counter(ol-counter) '.'; position: absolute; left: 0;
+  color: var(--accent-green); font-weight: 700; font-size: 13px;
+}
+
+/* Tables */
+.data-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+.data-table th {
+  text-align: left; padding: 12px 16px;
+  background: var(--surface-raised);
+  color: var(--text-muted); font-weight: 600;
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--border);
+}
+.data-table td {
+  padding: 11px 16px; border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--surface-hover); }
+.table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 12px; border: 1px solid var(--border); }
+.table-wrapper .data-table { margin: 0; }
+
+/* Blockquotes */
+blockquote {
+  border-left: 3px solid var(--accent-purple);
+  padding: 16px 24px; margin: 20px 0;
+  background: rgba(179,136,255,0.06);
+  border-radius: 0 12px 12px 0;
+  font-size: 15px; color: var(--text);
+  font-style: italic;
+}
+blockquote strong { color: var(--accent-purple); font-style: normal; }
+
+/* Callouts */
+.callout {
+  border-radius: 12px; padding: 18px 22px;
+  margin: 20px 0; font-size: 14px;
+  display: flex; gap: 14px; line-height: 1.6;
+}
+.callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.callout.warning { background: rgba(255,171,64,0.08); border: 1px solid rgba(255,171,64,0.2); color: var(--accent-orange); }
+.callout.success { background: rgba(0,230,118,0.08); border: 1px solid rgba(0,230,118,0.2); color: var(--accent-green); }
+.callout.info { background: rgba(79,195,247,0.08); border: 1px solid rgba(79,195,247,0.2); color: var(--accent-blue); }
+.callout.danger { background: rgba(255,82,82,0.08); border: 1px solid rgba(255,82,82,0.2); color: var(--accent-red); }
+
+/* Links */
+.content a { color: var(--accent-blue); text-decoration: none; border-bottom: 1px solid rgba(79,195,247,0.3); transition: border-color 0.2s; }
+.content a:hover { border-bottom-color: var(--accent-blue); }
+
+/* Strong */
+.content strong { color: var(--text); font-weight: 600; }
+
+/* Checklist */
+.checklist { list-style: none !important; padding-left: 0 !important; }
+.checklist li { padding-left: 32px !important; }
+.checklist li::before { content: '☐' !important; color: var(--accent-green) !important; font-size: 16px; }
+
+/* HR */
+.content hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+/* Sources */
+.sources { margin-top: 32px; padding: 20px 24px; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); }
+.sources h4 { color: var(--text-dim); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.sources ul li { font-size: 13px; }
+.sources ul li::before { content: '📎'; }
+
+/* Footer */
+.deep-footer {
+  margin-top: 64px; padding-top: 32px;
+  border-top: 1px solid var(--border);
+  text-align: center; color: var(--text-dim); font-size: 13px;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main-content { padding: 24px 20px; }
+  .deep-hero h1 { font-size: 28px; }
+  .content h2 { font-size: 22px; }
+  .data-table { font-size: 13px; }
+  .data-table th, .data-table td { padding: 8px 10px; }
+}
+
+/* Mobile TOC toggle */
+.mobile-toc-toggle {
+  display: none; position: fixed; bottom: 24px; right: 24px; z-index: 999;
+  background: var(--accent-green); color: var(--bg);
+  border: none; border-radius: 50%; width: 48px; height: 48px;
+  font-size: 20px; cursor: pointer; box-shadow: 0 4px 20px rgba(0,230,118,0.3);
+}
+@media (max-width: 900px) {
+  .mobile-toc-toggle { display: flex; align-items: center; justify-content: center; }
+}
+.mobile-toc-overlay {
+  display: none; position: fixed; inset: 0; z-index: 998;
+  background: rgba(10,10,15,0.95); padding: 24px;
+  overflow-y: auto;
+}
+.mobile-toc-overlay.show { display: block; }
+.mobile-toc-overlay .close-btn {
+  position: absolute; top: 16px; right: 16px;
+  background: none; border: none; color: var(--text); font-size: 24px; cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="page-wrapper">
+  <nav class="sidebar">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+    <div class="toc-title">On This Page</div>
+    <ul class="toc-list">
+      <li><a href="#uk-seller-setup" class="active">1. UK Seller Setup</a></li>
+      <li><a href="#fee-structure">2. Fee Structure</a></li>
+      <li><a href="#live-selling">3. How Live Selling Works</a></li>
+      <li><a href="#equipment">4. Equipment & Setup</a></li>
+      <li><a href="#shipping">5. Shipping from UK</a></li>
+      <li><a href="#algorithm">6. The Algorithm</a></li>
+      <li><a href="#quick-start">7. Quick Start Checklist</a></li>
+      <li><a href="#risks">Key Risks</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+
+    <div class="deep-hero">
+      <div class="badge">🎯 Deep Dive #1</div>
+      <h1>Whatnot Platform <span>Deep Dive</span></h1>
+      <div class="subtitle">UK Seller Setup & Mechanics — everything you need to get from zero to first live stream</div>
+      <div class="meta">Prepared: 9 March 2026 · For the Bell family (David, Alex 15, Matthew 13)</div>
+    </div>
+
+    <div class="content">
+
+      <!-- SECTION 1 -->
+      <h2 id="uk-seller-setup">1. UK Seller Setup (Step by Step)</h2>
+
+      <h3>Who Can Sell</h3>
+      <ul>
+        <li><strong>Minimum age to hold an account:</strong> 18 years old.</li>
+        <li><strong>Teens aged 13–17 CAN sell</strong>, but only under specific conditions:
+          <ul>
+            <li>The account must be <strong>owned and registered by a parent/legal guardian</strong> (aged 18+).</li>
+            <li>The parent's <strong>government-issued ID</strong> is used for verification.</li>
+            <li>The teen must be <strong>supervised</strong> during use.</li>
+            <li>The parent is <strong>legally responsible</strong> for all activity on the account.</li>
+          </ul>
+        </li>
+        <li><strong>Source:</strong> <a href="https://help.whatnot.com/hc/en-us/articles/27689602370317-Teens-on-Whatnot" target="_blank">Whatnot Help Center — Teens on Whatnot</a></li>
+      </ul>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Critical for this family:</strong> The 15-year-old and 13-year-old can both participate, but the account MUST be in the father's name. The sons can appear on camera and run the live stream, but the father's ID, bank details, and legal identity are on the account. Teens who create their own accounts and are caught being underage have been banned.</div>
+      </div>
+
+      <h3>Application Process</h3>
+      <ol>
+        <li><strong>Create an account</strong> at <a href="https://www.whatnot.com" target="_blank">whatnot.com</a> or via the Whatnot app (iOS/Android).</li>
+        <li><strong>Navigate to the seller application</strong> at <a href="https://www.whatnot.com/seller" target="_blank">whatnot.com/seller</a>.</li>
+        <li><strong>Complete the application form:</strong>
+          <ul>
+            <li>Full legal name and address (must match ID).</li>
+            <li>Government-issued photo ID (passport or driving licence — for UK, a <strong>passport</strong> is ideal).</li>
+            <li>Select selling categories — choose <strong>"Trading Card Games"</strong> (VeeFriends is listed as a subcategory under TCG alongside Pokémon, Yu-Gi-Oh!, MTG, etc.).</li>
+            <li>Links to existing selling presence (eBay shop, social media, etc.) — having an established presence helps approval.</li>
+            <li><strong>30–60 second video</strong> showing your face, your products/inventory, and your selling style.</li>
+          </ul>
+        </li>
+        <li><strong>Submit and wait for review.</strong></li>
+      </ol>
+
+      <h3>Approval Timeline</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Seller Type</th><th>Expected Wait</th></tr></thead>
+          <tbody>
+            <tr><td>Individual sellers (standard categories)</td><td>5–10 business days</td></tr>
+            <tr><td>Business/brand sellers</td><td>10–14 business days</td></tr>
+            <tr><td>High-demand categories (e.g., sneakers)</td><td>Up to 3 weeks</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li>Most sellers report getting access within a few days to a week.</li>
+        <li>If rejected, you can <strong>reapply after 30 days</strong> with an improved submission.</li>
+        <li>Common rejection reasons: incomplete form, insufficient inventory evidence, poor video quality, duplicate accounts.</li>
+      </ul>
+
+      <h3>Post-Approval Onboarding</h3>
+      <p>After approval:</p>
+      <ol>
+        <li><strong>Activate seller dashboard.</strong></li>
+        <li><strong>Complete Stripe Connect setup</strong> — this is how you get paid.</li>
+        <li><strong>Attend onboarding</strong> — Whatnot runs a live Zoom onboarding session covering platform rules, tools, and tips. There's a brief quiz at the end.</li>
+        <li><strong>Agree to Terms of Service.</strong></li>
+        <li><strong>Set up shipping profiles</strong> and <strong>return address</strong> (UK address).</li>
+        <li><strong>Upload initial inventory</strong> to your store.</li>
+        <li><strong>Schedule your first show</strong> or list items on the marketplace.</li>
+      </ol>
+
+      <h3>Bank/Payment Setup for UK Sellers</h3>
+      <ul>
+        <li>Whatnot uses <strong>Stripe Connect</strong> for all seller payouts.</li>
+        <li>During setup, you create or connect a Stripe account and link a <strong>UK bank account</strong>.</li>
+        <li>Payouts are in <strong>GBP (£)</strong> to your UK bank account.</li>
+        <li><strong>Setup process:</strong> In the app or web dashboard → Profile → Financials → Payouts → Payment Settings → "Set Up Stripe Connect" → Follow Stripe's verification flow.</li>
+        <li>Stripe will require: legal name, date of birth, UK address, bank account details (sort code + account number), and may request additional verification documents.</li>
+      </ul>
+
+      <div class="sources">
+        <h4>Sources</h4>
+        <ul>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/8442834600333-Apply-to-sell-on-Whatnot" target="_blank">Whatnot — Apply to sell</a></li>
+          <li><a href="https://selleracademy.whatnot.com/guide" target="_blank">Whatnot Seller Academy — Go Live Guide</a></li>
+          <li><a href="https://closo.co/blogs/platform-specific-guides/whatnot-seller-application-process-2025-guide" target="_blank">CLOSO — Whatnot Seller Application Process (2025 Guide)</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/38855359354381-Why-Whatnot-Requires-Seller-Verification" target="_blank">Whatnot — Seller Verification</a></li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 2 -->
+      <h2 id="fee-structure">2. Fee Structure</h2>
+
+      <h3>Commission Rates</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Region</th><th>Standard Categories</th><th>Coins &amp; Money</th><th>Electronics</th></tr></thead>
+          <tbody>
+            <tr><td>US / Canada / Australia</td><td>8%</td><td>4%</td><td>5%</td></tr>
+            <tr><td><strong>UK / Europe</strong></td><td><strong>6.67% + VAT</strong></td><td><strong>4% + VAT</strong></td><td>N/A</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li>Commission is charged <strong>only on the item's sale price</strong> (not shipping or tax).</li>
+        <li>VAT (20% in the UK) is added to the commission percentage, making the effective commission rate approximately <strong>8% of sale price</strong> (6.67% × 1.2 = 8.004%).</li>
+      </ul>
+
+      <h3>Payment Processing Fees (UK/Europe)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Component</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><td>Processing fee</td><td>2.42% + VAT of sale price</td></tr>
+            <tr><td>Transaction fee</td><td>£0.25 + VAT per transaction</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li>Processing fee is calculated on the <strong>entire transaction amount</strong> (item + shipping + tax).</li>
+        <li>Effective processing rate with VAT: approximately <strong>2.9% + £0.30</strong> (very similar to US Stripe rates).</li>
+      </ul>
+
+      <h3>High-Value Order Discount</h3>
+      <ul>
+        <li>On individual orders <strong>over $1,500 (≈£1,200)</strong> in select categories, Whatnot charges <strong>0% commission on the portion above $1,500</strong>.</li>
+        <li><strong>Eligible categories include: Trading Card Games</strong>, Comics &amp; Anime, Toys &amp; Hobbies, Coins &amp; Money, and Sports Singles.</li>
+        <li>The payment processing fee still applies to the full amount.</li>
+        <li><strong>This is very relevant for high-value VeeFriends cards.</strong></li>
+      </ul>
+
+      <h3>No Hidden Fees</h3>
+      <ul>
+        <li>✅ <strong>No listing fees</strong> — free to list any number of items.</li>
+        <li>✅ <strong>No store subscription fees.</strong></li>
+        <li>✅ <strong>No mandatory promotional fees.</strong></li>
+        <li>✅ <strong>Hosting live auctions is free.</strong></li>
+      </ul>
+
+      <h3>Optional Promotional Fees</h3>
+      <ul>
+        <li><strong>Promote Full Show:</strong> Set a maximum hourly spend to keep your show promoted in feeds throughout the stream.</li>
+        <li><strong>Show Boost:</strong> Set a one-time budget (spent over max 15 minutes) for a short visibility spike.</li>
+        <li><strong>Community Boost:</strong> Your viewers contribute towards a boost — costs nothing to the seller.</li>
+        <li>These are <strong>entirely optional</strong> — many sellers succeed without using them.</li>
+      </ul>
+
+      <h3>Worked Examples — Total Effective Fees for UK Sellers</h3>
+      <p>Assumptions: UK seller, standard category (Trading Card Games), buyer pays shipping.</p>
+
+      <h4>£10 card sale</h4>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Fee</th><th>Calculation</th><th>Amount</th></tr></thead>
+          <tbody>
+            <tr><td>Commission</td><td>6.67% × £10</td><td>£0.67</td></tr>
+            <tr><td>VAT on commission</td><td>20% × £0.67</td><td>£0.13</td></tr>
+            <tr><td>Processing</td><td>2.42% × £10</td><td>£0.24</td></tr>
+            <tr><td>Transaction fee</td><td>£0.25</td><td>£0.25</td></tr>
+            <tr><td>VAT on processing + transaction</td><td>20% × £0.49</td><td>£0.10</td></tr>
+            <tr><td><strong>Total fees</strong></td><td></td><td><strong>£1.39</strong></td></tr>
+            <tr><td><strong>Effective rate</strong></td><td></td><td><strong>~13.9%</strong></td></tr>
+            <tr><td><strong>You keep</strong></td><td></td><td><strong>£8.61</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div>The per-transaction fee (£0.25+VAT) hits hard on low-value items. A £1 card sale would lose ~42% to fees.</div>
+      </div>
+
+      <h4>£50 card sale</h4>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Fee</th><th>Calculation</th><th>Amount</th></tr></thead>
+          <tbody>
+            <tr><td>Commission</td><td>6.67% × £50</td><td>£3.34</td></tr>
+            <tr><td>VAT on commission</td><td>20% × £3.34</td><td>£0.67</td></tr>
+            <tr><td>Processing</td><td>2.42% × £50</td><td>£1.21</td></tr>
+            <tr><td>Transaction fee</td><td>£0.25</td><td>£0.25</td></tr>
+            <tr><td>VAT on processing + transaction</td><td>20% × £1.46</td><td>£0.29</td></tr>
+            <tr><td><strong>Total fees</strong></td><td></td><td><strong>£5.76</strong></td></tr>
+            <tr><td><strong>Effective rate</strong></td><td></td><td><strong>~11.5%</strong></td></tr>
+            <tr><td><strong>You keep</strong></td><td></td><td><strong>£44.24</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>£200 card sale</h4>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Fee</th><th>Calculation</th><th>Amount</th></tr></thead>
+          <tbody>
+            <tr><td>Commission</td><td>6.67% × £200</td><td>£13.34</td></tr>
+            <tr><td>VAT on commission</td><td>20% × £13.34</td><td>£2.67</td></tr>
+            <tr><td>Processing</td><td>2.42% × £200</td><td>£4.84</td></tr>
+            <tr><td>Transaction fee</td><td>£0.25</td><td>£0.25</td></tr>
+            <tr><td>VAT on processing + transaction</td><td>20% × £5.09</td><td>£1.02</td></tr>
+            <tr><td><strong>Total fees</strong></td><td></td><td><strong>£22.12</strong></td></tr>
+            <tr><td><strong>Effective rate</strong></td><td></td><td><strong>~11.1%</strong></td></tr>
+            <tr><td><strong>You keep</strong></td><td></td><td><strong>£177.88</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Comparison: Whatnot UK vs eBay UK</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Feature</th><th>Whatnot (UK)</th><th>eBay UK (Private)</th><th>eBay UK (Business)</th></tr></thead>
+          <tbody>
+            <tr><td>Commission / FVF</td><td>6.67% + VAT (~8%)</td><td>12.8% of total sale</td><td>6.9–12.9% + 20% VAT</td></tr>
+            <tr><td>Payment processing</td><td>2.42% + VAT + £0.25+VAT</td><td>Included in FVF</td><td>Included in FVF</td></tr>
+            <tr><td>Regulatory fee</td><td>None</td><td>0.35% (+VAT for biz)</td><td>0.35% + VAT</td></tr>
+            <tr><td>Listing fees</td><td>None</td><td>None (up to allowance)</td><td>None (up to allowance)</td></tr>
+            <tr><td>Store subscription</td><td>None</td><td>Optional (£4.95–£349.95/mo)</td><td>Optional</td></tr>
+            <tr><td>Promoted listings</td><td>Optional</td><td>Optional (2–10% extra)</td><td>Optional</td></tr>
+            <tr><td><strong>Effective total on £50 card</strong></td><td><strong>~11.5%</strong></td><td><strong>~12.8%</strong></td><td><strong>~14–16%</strong></td></tr>
+            <tr><td><strong>Key advantage</strong></td><td>Lower fees, live audience</td><td>Massive search traffic</td><td>Established buyer base</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout success">
+        <span class="callout-icon">💡</span>
+        <div><strong>Bottom line:</strong> Whatnot is <strong>1–4% cheaper</strong> than eBay UK on total fees, especially at higher price points. The big difference is selling format — Whatnot's live auction model vs eBay's search-and-buy model.</div>
+      </div>
+
+      <div class="sources">
+        <h4>Sources</h4>
+        <ul>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/4847069165965-Whatnot-Seller-Fees-and-Commissions-Schedule" target="_blank">Whatnot Seller Fees and Commissions Schedule</a></li>
+          <li><a href="https://www.exportyourstore.com/blog/how-much-does-whatnot-take" target="_blank">ExportYourStore — Whatnot Fees</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/27912945518733-Reduced-Commission-on-High-Value-Orders-Promotion" target="_blank">Whatnot — High-Value Orders Promotion</a></li>
+          <li><a href="https://www.ebay.co.uk/sellercentre/selling/start-selling/fees" target="_blank">eBay UK Seller Centre — Fees</a></li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 3 -->
+      <h2 id="live-selling">3. How Live Selling Works</h2>
+
+      <h3>The Live Stream Format</h3>
+      <p>Whatnot live shows are essentially <strong>interactive video auctions hosted from your phone or via OBS</strong>. Think QVC meets Twitch, but for collectors. Here's how it works:</p>
+      <ol>
+        <li><strong>You go live</strong> — buyers see your stream in their feed.</li>
+        <li><strong>You show items on camera</strong> — hold up cards, talk about them, build hype.</li>
+        <li><strong>You launch auctions</strong> — select a pre-loaded item from your store, set a starting bid and timer.</li>
+        <li><strong>Buyers bid in real-time</strong> — bids appear on screen, timer counts down.</li>
+        <li><strong>Counter-bid extensions</strong> — if someone bids in the last 10 seconds, the timer resets (configurable).</li>
+        <li><strong>Winner pays automatically</strong> — their payment method is charged instantly.</li>
+        <li><strong>You move to the next item</strong> — rinse and repeat.</li>
+      </ol>
+
+      <h3>Auction Types</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Type</th><th>How It Works</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Standard Auction</strong></td><td>Timer counts down. Last-second bids extend the timer. Most common format.</td></tr>
+            <tr><td><strong>Sudden Death</strong></td><td>Timer counts down with <strong>no extensions</strong>. Highest bidder at zero wins. Marked with skull icon. 💀</td></tr>
+            <tr><td><strong>Buy It Now (BIN)</strong></td><td>Fixed price, instant purchase. Can be pinned during live shows or listed on marketplace.</td></tr>
+            <tr><td><strong>Giveaway</strong></td><td>Free item — viewers enter for a chance to win. Runs up to 5 minutes. Seller pays shipping.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Scheduling Shows</h3>
+      <ul>
+        <li><strong>Schedule from the app:</strong> Tap "+" icon → "Schedule a Show" → Add title, thumbnail, date/time, category.</li>
+        <li><strong>Schedule ahead:</strong> Whatnot recommends scheduling <strong>about a week in advance</strong> to allow time for promotion and bookmarks.</li>
+        <li><strong>Followers get notified</strong> when you schedule and when you go live.</li>
+        <li><strong>Bookmarks:</strong> Buyers can bookmark upcoming shows to get reminders.</li>
+      </ul>
+
+      <h3>Best Times to Stream (UK-Specific Advice)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Time Slot</th><th>Why It Works</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Thursday–Sunday, 7–11 PM UK time</strong></td><td>Peak engagement period. People are relaxed, browsing on phones.</td></tr>
+            <tr><td><strong>Weekend afternoons (1–4 PM)</strong></td><td>Good for collectibles. Less competition from US sellers (morning there).</td></tr>
+            <tr><td><strong>Avoid Monday–Wednesday</strong></td><td>Unless you have an established audience.</td></tr>
+            <tr><td><strong>Consider US overlap: 7 PM UK = 2 PM EST</strong></td><td>Catch both UK evening and US afternoon buyers.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Giveaways — How They Drive Traffic</h3>
+      <ul>
+        <li>Giveaways are <strong>the #1 traffic-building tool</strong> for new sellers.</li>
+        <li>You list a free item as a giveaway → viewers enter → winner is drawn randomly.</li>
+        <li><strong>Seller pays shipping</strong> on giveaway items (important to factor this in).</li>
+        <li>Giveaways bring in viewers who may stay and bid on your other items.</li>
+        <li>You can run giveaways <strong>simultaneously alongside auctions</strong>.</li>
+        <li>Best practice: Run a giveaway at the <strong>start</strong> of your show (to build initial audience) and at the <strong>midpoint</strong> (to retain viewers).</li>
+      </ul>
+
+      <h3>Chat Interaction</h3>
+      <ul>
+        <li>Live chat runs alongside the video feed.</li>
+        <li><strong>Engage constantly:</strong> Welcome new viewers, shout out repeat buyers, answer questions about cards.</li>
+        <li>Chat engagement directly impacts your discoverability ranking.</li>
+        <li>You can set chat to "Verified Buyers Only" to reduce spam.</li>
+      </ul>
+
+      <h3>Multi-Item Shows vs Single-Item Focus</h3>
+      <ul>
+        <li><strong>Multi-item shows</strong> are the norm — most successful card sellers run through 20–50+ items per show.</li>
+        <li>Keep pace: aim for roughly <strong>1 item every 2–3 minutes</strong> (some sellers go faster).</li>
+        <li><strong>Single-item focus</strong> works for very high-value items (e.g., a rare graded card worth £500+).</li>
+        <li>Pre-load all items into your store before going live.</li>
+      </ul>
+
+      <h3>Buy It Now / Marketplace Alongside Live</h3>
+      <ul>
+        <li>You can list "Buy It Now" items in your store that buyers can browse <strong>anytime</strong>, even when you're not live.</li>
+        <li>During a live show, BIN items in your store remain purchasable.</li>
+        <li><strong>Marketplace listings</strong> are lower visibility than live shows but provide <strong>passive income between streams</strong>.</li>
+        <li>You can "pin" specific items from your store during a live show to highlight them.</li>
+      </ul>
+
+      <div class="sources">
+        <h4>Sources</h4>
+        <ul>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/9779931101837-Start-an-auction-during-a-show" target="_blank">Whatnot — Start an auction during a show</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/11329417780365-Giveaways-Overview" target="_blank">Whatnot — Giveaways Overview</a></li>
+          <li><a href="https://selleracademy.whatnot.com/guide" target="_blank">Whatnot Seller Academy — Go Live Guide</a></li>
+          <li><a href="https://resalepro.com/whatnot/best-time-to-go-live-on-whatnot/" target="_blank">Resale Pro — Best Time to Go Live on Whatnot</a></li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 4 -->
+      <h2 id="equipment">4. Equipment &amp; Setup Needed</h2>
+
+      <h3>Minimum Requirements (Start Here)</h3>
+      <p>You can start streaming with <strong>just a phone and decent lighting</strong>. Many top sellers started exactly this way.</p>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Item</th><th>Recommendation</th><th>Est. Cost</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Smartphone</strong></td><td>iPhone 12 or newer / recent Android with good camera. Use the <strong>rear camera</strong> for better quality.</td><td>Already own</td></tr>
+            <tr><td><strong>Phone tripod/stand</strong></td><td>UBeesize 50" Tripod (~£20–25) or desk-mounted stand. <strong>Must hold phone vertically</strong> — portrait only.</td><td>£15–30</td></tr>
+            <tr><td><strong>Lighting</strong></td><td>Two-point lighting system. <strong>Avoid ring lights</strong> — harsh reflections on card sleeves. LED panel lights with diffusers.</td><td>£30–140</td></tr>
+            <tr><td><strong>Internet</strong></td><td>Minimum <strong>10 Mbps upload speed</strong>. Strong Wi-Fi or Ethernet adapter.</td><td>Existing</td></tr>
+            <tr><td><strong>Whatnot app</strong></td><td>iOS or Android — free download.</td><td>Free</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Intermediate Setup (Level Up)</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Item</th><th>Recommendation</th><th>Est. Cost</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Second device</strong></td><td>Tablet or second phone for <strong>controls</strong> (starting auctions, reading chat) while primary runs camera.</td><td>May already own</td></tr>
+            <tr><td><strong>External microphone</strong></td><td>BOYA BY-M1 lavalier mic (~£15–20). Known iOS bug with external mics on Whatnot; works fine on Android.</td><td>£15–30</td></tr>
+            <tr><td><strong>Background</strong></td><td>Clean, uncluttered backdrop. Consider a simple branded banner or card display stand.</td><td>£10–30</td></tr>
+            <tr><td><strong>Card display</strong></td><td>Small easel or card stand. Top-loading stand at an angle under camera. Sticky notes for tracking winners.</td><td>£5–15</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Advanced Setup (OBS Streaming)</h3>
+      <p>For sellers who want to take production to the next level:</p>
+      <ul>
+        <li><strong>OBS (Open Broadcaster Software)</strong> — free software for professional streaming with multiple angles, overlays, etc.</li>
+        <li>Use your phone as a product camera via apps like <strong>OBS Camera</strong>, <strong>Camo</strong>, or <strong>DroidCam</strong>.</li>
+        <li>Add a webcam for face cam (e.g., Logitech MX Brio or Razer Kiyo Pro).</li>
+        <li>Requires a computer + capture card + HDMI setup.</li>
+        <li><strong>Not needed to start</strong> — this is for scaling up later.</li>
+      </ul>
+
+      <h3>Card-Specific Display Tips</h3>
+      <ul>
+        <li>Use <strong>penny sleeves + toploaders</strong> for raw cards during display.</li>
+        <li>Position camera <strong>directly above</strong> the card for clear shots.</li>
+        <li>Keep a <strong>clean playmat or velvet surface</strong> as background for cards.</li>
+        <li>Have a <strong>magnifying/zooming</strong> option ready for showing card condition/details.</li>
+      </ul>
+
+      <div class="sources">
+        <h4>Sources</h4>
+        <ul>
+          <li><a href="https://selleracademy.whatnot.com/productionguide" target="_blank">Whatnot Seller Academy — Production Guide</a></li>
+          <li><a href="https://resalepro.com/whatnot/streaming-equipment-for-whatnot-beginners/" target="_blank">Resale Pro — Streaming Equipment for Whatnot Beginners</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/21865348694541-Policy-Compliant-Camera-Setup-Recommendations" target="_blank">Whatnot — Camera Setup Recommendations</a></li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 5 -->
+      <h2 id="shipping">5. Shipping from UK</h2>
+
+      <h3>How Whatnot Handles Shipping for UK Sellers</h3>
+      <ul>
+        <li><strong>Shipping is free for the seller</strong> by default. The <strong>buyer pays shipping</strong> at checkout.</li>
+        <li>Whatnot provides <strong>prepaid shipping labels</strong> — you just print them, stick them on the package, and drop off.</li>
+        <li><strong>You must ship within 2 business days</strong> of the sale (faster shipping → faster payout → better ratings).</li>
+      </ul>
+
+      <h3>UK Domestic Shipping (UK → UK)</h3>
+      <ul>
+        <li><strong>Carrier:</strong> Royal Mail (Whatnot's UK partner for domestic shipments).</li>
+        <li>Labels are generated via Whatnot — you print them and drop packages at a Royal Mail post office or use a collection service.</li>
+        <li><strong>Cost to buyer:</strong> Based on weight and dimensions — Whatnot handles pricing automatically at checkout.</li>
+        <li><strong>Tracking:</strong> Royal Mail tracked service — tracking updates are tied to your payout.</li>
+      </ul>
+
+      <h3>International Shipping from UK</h3>
+      <ul>
+        <li><strong>UK → International:</strong> Supported via <strong>DPD</strong> for outbound UK shipments.</li>
+        <li><strong>Customs:</strong> Buyer is responsible for any customs/import duties.</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="callout-icon">💡</span>
+        <div><strong>For VeeFriends:</strong> Given that VeeFriends has a strong US collector base, enabling international shipping opens you up to American buyers — potentially a much larger market. The buyer pays shipping costs.</div>
+      </div>
+
+      <h3>Packaging Best Practices for Trading Cards</h3>
+      <ul>
+        <li>Use <strong>bubble mailers</strong> for shipping cards — this is the standard.</li>
+        <li>Put cards in <strong>penny sleeves → toploaders</strong> before packaging.</li>
+        <li>Wrap toploaders in <strong>painter's tape</strong> (so tape doesn't damage the card if it shifts).</li>
+        <li>Place in a <strong>rigid cardboard insert</strong> or between two pieces of cardboard, then into a bubble mailer or small box.</li>
+        <li>For graded/slabbed cards, use small boxes with bubble wrap.</li>
+        <li><strong>For orders £500+</strong>, Whatnot recommends purchasing <strong>shipping insurance and confirmation</strong>.</li>
+      </ul>
+
+      <h3>Smart Bundling™ (UK)</h3>
+      <ul>
+        <li>When a buyer purchases <strong>multiple items from the same livestream</strong>, Whatnot's algorithm automatically bundles them into one package.</li>
+        <li>In the UK, bundling logic considers both <strong>weight and dimensions</strong>.</li>
+        <li><strong>Marketplace Bundling:</strong> Additional items bought from the same seller on the marketplace are also auto-bundled until you print the label.</li>
+        <li><strong>Weekly Bundling:</strong> A newer feature (currently live for select UK sellers) that lets buyers bundle purchases across an entire week.</li>
+      </ul>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>Note:</strong> Custom bundling options are NOT currently supported in the UK. Smart Bundling handles it automatically.</div>
+      </div>
+
+      <h3>Returns Policy</h3>
+      <ul>
+        <li><strong>Buyer Protection:</strong> If an item arrives damaged or not as described, Whatnot mediates.</li>
+        <li><strong>UK/EU Right of Withdrawal:</strong> Buyers may return items within <strong>14 days</strong> under Right of Withdrawal laws. Does <strong>not</strong> apply to consumable sales, custom items, or sealed items opened for health reasons.</li>
+        <li><strong>Seller does NOT have to cover return shipping costs</strong> under these regulations.</li>
+        <li>Sellers have <strong>48 business hours</strong> from return delivery to dispute the returned items.</li>
+      </ul>
+
+      <div class="sources">
+        <h4>Sources</h4>
+        <ul>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/27641952241037-UK-Shipping-Guide-for-Sellers" target="_blank">Whatnot — UK Shipping Guide for Sellers</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/16285911553677-Smart-Bundling" target="_blank">Whatnot — Smart Bundling</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/360061604591-Packaging-guidelines" target="_blank">Whatnot — Packaging Guidelines</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/360061195412-Whatnot-Seller-Protection-Policy" target="_blank">Whatnot — Seller Protection Policy</a></li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 6 -->
+      <h2 id="algorithm">6. The Algorithm &amp; Discovery</h2>
+
+      <h3>How Whatnot Recommends Streams to Buyers</h3>
+      <p>Whatnot is a <strong>discovery-based</strong> marketplace. The "For You Feed" is the main way buyers find shows:</p>
+      <ul>
+        <li><strong>65% of all GMV comes from feeds.</strong></li>
+        <li><strong>50% of GMV comes from the For You Feed alone.</strong></li>
+        <li>The algorithm predicts: "What is the likelihood that this buyer will watch or purchase in this particular show?"</li>
+        <li>Shows are ranked by estimated likelihood of buyer-show interaction.</li>
+      </ul>
+      <p>Since early 2025, Whatnot uses <strong>real-time inference</strong> — meaning the algorithm uses:</p>
+      <ul>
+        <li><strong>Show-level features</strong> (what category is being sold right now)</li>
+        <li><strong>Session-level signals</strong> (what the buyer just searched for or browsed)</li>
+        <li><strong>Hourly-updated features</strong> (not just daily batch predictions)</li>
+        <li><strong>New user signals</strong> (no more 24-hour cold start delay)</li>
+      </ul>
+
+      <h3>What Factors Drive Visibility</h3>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Factor</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Historical popularity</strong></td><td>How much activity (views, bids, sales) your channel has generated recently</td></tr>
+            <tr><td><strong>Category accuracy</strong></td><td>Properly categorised shows get surfaced to the right buyers</td></tr>
+            <tr><td><strong>Engagement velocity</strong></td><td>Early viewers + active chat + bids in first few minutes boost ranking</td></tr>
+            <tr><td><strong>Seller rating</strong></td><td>Higher average ratings = better placement</td></tr>
+            <tr><td><strong>Follower interaction</strong></td><td>Buyers who previously purchased from you are more likely to see your shows</td></tr>
+            <tr><td><strong>Stream frequency</strong></td><td>Regular streamers build algorithm "trust" and follower habits</td></tr>
+            <tr><td><strong>Show title &amp; thumbnail</strong></td><td>Catchy, keyword-rich titles help in both feed ranking and search</td></tr>
+            <tr><td><strong>Giveaways</strong></td><td>Running giveaways increases viewer count, signalling engagement</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>How to Get Featured / Increase Visibility</h3>
+      <ol>
+        <li><strong>Stream consistently</strong> — 2–3 times per week minimum. Build a schedule your followers can rely on.</li>
+        <li><strong>Nail the first 5–10 minutes</strong> — start with your best items or a giveaway. Early engagement is crucial.</li>
+        <li><strong>Optimise your title and thumbnail</strong> — use clear, keyword-rich titles (e.g., "VeeFriends Rare Cards — Graded PSA 9s &amp; Sealed Boxes!").</li>
+        <li><strong>Categorise correctly</strong> — list under "Trading Card Games → VeeFriends" specifically.</li>
+        <li><strong>Encourage bookmarks</strong> — share your upcoming show link on social media.</li>
+        <li><strong>Use referral links</strong> — each new user you refer auto-follows you. Whatnot gives $15 credit to new users.</li>
+        <li><strong>Consider Promote Tools</strong> (optional paid) — mixed reviews from sellers, some report 30% more first-time buyers.</li>
+        <li><strong>Community Boost</strong> — your existing buyers contribute to boost your show. Costs you nothing.</li>
+      </ol>
+
+      <h3>Cross-Category Discovery</h3>
+      <ul>
+        <li>The algorithm surfaces shows based on buyer affinity, not just followed categories.</li>
+        <li>A buyer who watches Pokémon TCG streams may be shown VeeFriends shows.</li>
+        <li>VeeFriends is listed under Trading Card Games alongside Pokémon, Yu-Gi-Oh!, MTG, Lorcana — so you naturally appear alongside the most popular TCG categories.</li>
+      </ul>
+
+      <div class="sources">
+        <h4>Sources</h4>
+        <ul>
+          <li><a href="https://medium.com/whatnot-engineering/evolving-feed-ranking-at-whatnot-25adb116aeb6" target="_blank">Whatnot Engineering — Evolving Feed Ranking</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/12190921464461-Understanding-how-discoverability-works-on-Whatnot" target="_blank">Whatnot — Understanding How Discoverability Works</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/34443991672589-Promote-Tools" target="_blank">Whatnot — Promote Tools</a></li>
+          <li><a href="https://help.whatnot.com/hc/en-us/articles/30706277083021-Community-Boost" target="_blank">Whatnot — Community Boost</a></li>
+        </ul>
+      </div>
+
+      <hr>
+
+      <!-- SECTION 7 -->
+      <h2 id="quick-start">7. Quick Start Checklist</h2>
+      <p><strong>The exact steps for this family to go from zero to first live stream on Whatnot:</strong></p>
+
+      <h3>Phase 1: Account Setup (Day 1)</h3>
+      <ul class="checklist">
+        <li><strong>Father creates a Whatnot account</strong> at whatnot.com using his email.</li>
+        <li>Set up a strong username that works as a brand (e.g., "BellCardsCo" or something memorable).</li>
+        <li>Download the Whatnot app on his phone (and sons' phones for buying/browsing).</li>
+      </ul>
+
+      <h3>Phase 2: Seller Application (Day 1–2)</h3>
+      <ul class="checklist">
+        <li>Go to whatnot.com/seller and start the seller application.</li>
+        <li>Have <strong>father's passport</strong> ready for ID verification.</li>
+        <li>Select <strong>"Trading Card Games"</strong> as the selling category.</li>
+        <li>Link any existing selling presence (eBay store, social media).</li>
+        <li><strong>Record the 30–60 second video</strong> — show face, show VeeFriends inventory, good lighting, natural confidence.</li>
+        <li>Submit application.</li>
+      </ul>
+
+      <h3>Phase 3: While Waiting for Approval (Days 2–10)</h3>
+      <ul class="checklist">
+        <li><strong>Watch 5–10 live shows</strong> on Whatnot — specifically TCG sellers. Study their style.</li>
+        <li><strong>Inventory prep:</strong> Sort cards by value/rarity, sleeve all cards, take photos, research prices.</li>
+        <li><strong>Order supplies:</strong> Bubble mailers (~£15 for 50), phone tripod (~£20), basic lighting (~£30–50), penny sleeves and toploaders.</li>
+        <li><strong>Set up streaming area:</strong> Clean desk, position phone on tripod, set up two-point lighting, test camera angle.</li>
+      </ul>
+
+      <h3>Phase 4: Post-Approval Setup (Day of Approval)</h3>
+      <ul class="checklist">
+        <li><strong>Set up Stripe Connect</strong> with father's bank account details.</li>
+        <li><strong>Set return address</strong> (home address).</li>
+        <li><strong>Create shipping profile</strong> for trading cards.</li>
+        <li><strong>Attend Whatnot onboarding session</strong> (live Zoom — take notes, pass the quiz!).</li>
+        <li><strong>Upload profile picture and banner</strong> (160×160px photo, 750×424px banner).</li>
+      </ul>
+
+      <h3>Phase 5: Pre-Show Prep (1 Week Before First Show)</h3>
+      <ul class="checklist">
+        <li><strong>Pre-load 20–30 items</strong> into the Whatnot store with high-quality photos and accurate titles.</li>
+        <li>Set starting bids — consider starting low (£1 or £2) to attract bidding activity for your first show.</li>
+        <li><strong>Prepare 1–2 giveaway items</strong> — inexpensive but desirable cards to attract viewers.</li>
+        <li><strong>Schedule the show</strong> ~7 days out: catchy title, eye-catching thumbnail, Friday or Saturday evening 7–9 PM UK time.</li>
+        <li><strong>Promote on social media</strong> and include your Whatnot referral link in social bios.</li>
+        <li><strong>Do a private practice stream</strong> — schedule a private show and practice the full flow.</li>
+      </ul>
+
+      <h3>Phase 6: Show Day! 🎬</h3>
+      <ul class="checklist">
+        <li>Set up streaming area 30 minutes early.</li>
+        <li>Organise cards in the order you'll present them.</li>
+        <li>Have a second device ready for chat/controls.</li>
+        <li>Test internet speed (need 10+ Mbps upload).</li>
+        <li><strong>Go live!</strong> Start with a giveaway, welcome every viewer, show cards clearly, keep energy up.</li>
+        <li>End show after 45–90 minutes (leave people wanting more).</li>
+      </ul>
+
+      <h3>Phase 7: Post-Show (Same Day / Next Day)</h3>
+      <ul class="checklist">
+        <li>Review sales in Seller Hub.</li>
+        <li>Print shipping labels (bulk print from web dashboard).</li>
+        <li>Package all cards: card → penny sleeve → toploader → painter's tape → cardboard sandwich → bubble mailer.</li>
+        <li>Drop off at Royal Mail within 2 business days.</li>
+        <li>Mark shipments as "Dropped Off" in Seller Hub.</li>
+        <li>Wait for payout: ~4 hours after delivery confirmation + 96-hour settlement period.</li>
+      </ul>
+
+      <h3>Phase 8: Build &amp; Grow (Ongoing)</h3>
+      <ul class="checklist">
+        <li>Stream 2–3 times per week on a consistent schedule.</li>
+        <li>Grow follower base through giveaways, social media, and great service.</li>
+        <li>Ship fast, package well, earn 5-star ratings.</li>
+        <li>Expand categories (Pokémon, Yu-Gi-Oh!, sports cards) as inventory grows.</li>
+        <li>Track performance in Whatnot Analytics.</li>
+        <li>Aim for Early Payout eligibility: £100K+ sales or 1,000+ orders, 10+ livestreams, 4.8+ rating.</li>
+      </ul>
+
+      <hr>
+
+      <!-- KEY RISKS -->
+      <h2 id="risks">Key Risks &amp; Watch-Outs</h2>
+      <ol>
+        <li><strong>Low-value items eat margins:</strong> The £0.25+VAT per-transaction fee means cards selling for under £5 have disproportionately high effective fees (15–40%). Bundle cheap cards or set minimum starting bids of £3–5.</li>
+        <li><strong>Age policy enforcement:</strong> While teens can appear on camera under parental supervision, if Whatnot flags the account as potentially operated by a minor without proper setup, it could be suspended. Keep the father's involvement visible.</li>
+        <li><strong>VeeFriends is a niche within a niche:</strong> The Whatnot TCG category is dominated by Pokémon and Yu-Gi-Oh! VeeFriends currently shows ~8 viewers at any given time. Plan to <strong>expand into other TCG categories</strong> alongside VeeFriends.</li>
+        <li><strong>Shipping turnaround:</strong> 2-business-day shipping requirement is strict. Factor in proximity to a Royal Mail drop-off point.</li>
+        <li><strong>Returns under UK law:</strong> The 14-day Right of Withdrawal applies. Budget for occasional returns.</li>
+      </ol>
+
+      <div class="deep-footer">
+        <p>Research compiled by Zapp · 9 March 2026</p>
+        <p style="margin-top:8px;">Sources: Whatnot Help Center, Whatnot Seller Academy, Whatnot Engineering Blog, CLOSO, ExportYourStore, Resale Pro, Vendoo, eBay UK Seller Centre, and Reddit r/whatnotapp</p>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Mobile TOC -->
+<button class="mobile-toc-toggle" onclick="document.querySelector('.mobile-toc-overlay').classList.add('show')">☰</button>
+<div class="mobile-toc-overlay">
+  <button class="close-btn" onclick="this.parentElement.classList.remove('show')">✕</button>
+  <div style="padding-top:48px">
+    <a href="index.html" class="back-link">← Back to Playbook</a>
+    <div class="toc-title" style="margin-top:24px">On This Page</div>
+    <ul class="toc-list">
+      <li><a href="#uk-seller-setup" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">1. UK Seller Setup</a></li>
+      <li><a href="#fee-structure" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">2. Fee Structure</a></li>
+      <li><a href="#live-selling" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">3. How Live Selling Works</a></li>
+      <li><a href="#equipment" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">4. Equipment & Setup</a></li>
+      <li><a href="#shipping" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">5. Shipping from UK</a></li>
+      <li><a href="#algorithm" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">6. The Algorithm</a></li>
+      <li><a href="#quick-start" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">7. Quick Start Checklist</a></li>
+      <li><a href="#risks" onclick="document.querySelector('.mobile-toc-overlay').classList.remove('show')">Key Risks</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// Active TOC tracking
+const tocLinks = document.querySelectorAll('.sidebar .toc-list a');
+const headings = [];
+tocLinks.forEach(link => {
+  const id = link.getAttribute('href').slice(1);
+  const el = document.getElementById(id);
+  if (el) headings.push({ el, link });
+});
+window.addEventListener('scroll', () => {
+  let current = headings[0];
+  for (const h of headings) {
+    if (h.el.getBoundingClientRect().top <= 120) current = h;
+  }
+  tocLinks.forEach(l => l.classList.remove('active'));
+  if (current) current.link.classList.add('active');
+});
+</script>
+</body>
+</html>
