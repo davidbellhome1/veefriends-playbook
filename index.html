@@ -299,6 +299,8 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 }
 .deep-dive-link:hover { background: rgba(255,255,255,0.05); transform: translateX(4px); }
 
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 16px 0; }
+
 @media (max-width: 640px) {
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .profile-grid, .channel-grid { grid-template-columns: 1fr; }
@@ -324,11 +326,11 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 <div class="container">
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-number green">~250</div>
-      <div class="stat-label">Cards to Sell</div>
+      <div class="stat-number green">260</div>
+      <div class="stat-label">Cards in Collection</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number blue">$570</div>
+      <div class="stat-number blue">$620</div>
       <div class="stat-label">Total Investment</div>
     </div>
     <div class="stat-card">
@@ -336,8 +338,8 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
       <div class="stat-label">Whatnot Total Fees</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number orange">£200–800</div>
-      <div class="stat-label">Est. Portfolio Value</div>
+      <div class="stat-number orange">£2,579</div>
+      <div class="stat-label">Mid Estimate Value</div>
     </div>
     <div class="stat-card">
       <div class="stat-number pink">5+</div>
@@ -373,7 +375,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 
     <div class="callout success">
       <span class="callout-icon">✅</span>
-      <div><strong>Good news for the family:</strong> Alex (15) and Matthew (13) CAN both appear on Whatnot streams and run the show. The account must be in Dad's name, and Dad needs to appear at the start of each stream. But the boys can absolutely be the presenters.</div>
+      <div><strong>Good news for the family:</strong> Alex (15) and Matthew (13) CAN both appear on Whatnot streams and run the show. The account must be in David's name (as account holder), and Mum or Dad needs to appear at the start of each stream. But the boys can absolutely be the presenters.</div>
     </div>
 
     <div class="accordion open">
@@ -385,7 +387,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <div class="content-block">
           <h4>Application Process</h4>
           <ul>
-            <li>Create account at whatnot.com in David's name (18+ required)</li>
+            <li>Create account at whatnot.com in David's name as account holder (18+ required)</li>
             <li>Apply at whatnot.com/seller — choose "Trading Card Games" category</li>
             <li>Need: UK passport, proof of address, links to any existing eBay shop or social media</li>
             <li>Record a 30-60 second video showing your face, your cards, and your selling style</li>
@@ -397,10 +399,10 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <div class="content-block">
           <h4>Teen Seller Rules</h4>
           <ul>
-            <li>Account MUST be in parent's name — David is legally responsible for everything</li>
+            <li>Account MUST be in parent's name — David (as account holder) is legally responsible for everything</li>
             <li>Both boys (13+) can use the account under supervision</li>
             <li>An adult must appear at the beginning of each live stream</li>
-            <li>David's ID, bank details, and legal identity are on the account</li>
+            <li>David's ID (as account holder), bank details, and legal identity are on the account</li>
             <li>⚠️ Teens who create their own accounts risk permanent bans</li>
           </ul>
         </div>
@@ -413,7 +415,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <span class="arrow">▼</span>
       </div>
       <div class="accordion-content">
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead>
             <tr><th>Fee Type</th><th>UK Rate</th><th>Notes</th></tr>
           </thead>
@@ -423,17 +425,17 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
             <tr><td>Listing Fee</td><td>£0</td><td>Free to list</td></tr>
             <tr><td>Monthly Fee</td><td>£0</td><td>No store fees</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <div class="content-block">
           <h4>What You Actually Keep (Worked Examples)</h4>
-          <table class="data-table">
+          <div class="table-wrap"><table class="data-table">
             <thead><tr><th>Sale Price</th><th>Commission</th><th>Processing</th><th>You Keep</th><th>% Kept</th></tr></thead>
             <tbody>
               <tr><td>£10</td><td>£0.80</td><td>£0.59</td><td><strong>£8.61</strong></td><td>86%</td></tr>
               <tr><td>£50</td><td>£4.00</td><td>£1.75</td><td><strong>£44.25</strong></td><td>89%</td></tr>
               <tr><td>£200</td><td>£16.00</td><td>£6.10</td><td><strong>£177.90</strong></td><td>89%</td></tr>
             </tbody>
-          </table>
+          </table></div>
         </div>
         <div class="callout info">
           <span class="callout-icon">💡</span>
@@ -448,19 +450,23 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <span class="arrow">▼</span>
       </div>
       <div class="accordion-content">
-        <table class="data-table">
-          <thead><tr><th>Item</th><th>Cost</th><th>Priority</th></tr></thead>
+        <div class="table-wrap"><table class="data-table">
+          <thead><tr><th>Item</th><th>Recommendation</th><th>Cost</th><th>Priority</th></tr></thead>
           <tbody>
-            <tr><td>Ring light</td><td>£15–25</td><td>🔴 Essential</td></tr>
-            <tr><td>Phone/tablet stand</td><td>£10–15</td><td>🔴 Essential</td></tr>
-            <tr><td>Packaging starter kit</td><td>~£50</td><td>🔴 Essential</td></tr>
-            <tr><td>Thermal label printer</td><td>£50–70</td><td>🟡 Nice to have</td></tr>
-            <tr><td>Webcam (if not using phone)</td><td>£30–60</td><td>🟡 Nice to have</td></tr>
-            <tr><td>Microphone</td><td>£20–40</td><td>🟡 Nice to have</td></tr>
-            <tr><td>Card mat</td><td>£10–15</td><td>🟢 Optional</td></tr>
+            <tr><td>Main camera (presenter)</td><td>Logitech C920/C922 webcam OR smartphone on tripod</td><td>£60–70</td><td>🔴 Essential</td></tr>
+            <tr><td>Card camera (overhead/close-up)</td><td>Second phone or IPEVO V4K document camera on adjustable arm</td><td>£80–100</td><td>🔴 Essential</td></tr>
+            <tr><td>Ring light</td><td>Neewer 18" ring light with stand</td><td>£35–45</td><td>🔴 Essential</td></tr>
+            <tr><td>Key/fill light</td><td>Elgato Key Light Mini or desk LED panel</td><td>£25–50</td><td>🟡 Recommended</td></tr>
+            <tr><td>Microphone</td><td>Blue Snowball (~£40) or Fifine K669 (~£25)</td><td>£25–40</td><td>🔴 Essential</td></tr>
+            <tr><td>Phone/camera mount</td><td>Adjustable overhead arm/gooseneck for card close-up</td><td>£15–25</td><td>🔴 Essential</td></tr>
+            <tr><td>Tripod</td><td>Phone tripod for main angle</td><td>£15–20</td><td>🔴 Essential</td></tr>
+            <tr><td>Card mat</td><td>Black felt or velvet mat for clean card display</td><td>£10–15</td><td>🔴 Essential</td></tr>
+            <tr><td>Background</td><td>Plain backdrop or tidy shelf — clean/branded, no green screen</td><td>£0–20</td><td>🟡 Recommended</td></tr>
+            <tr><td>Packaging starter kit</td><td>Toploaders, sleeves, team bags, mailers, tape</td><td>~£50</td><td>🔴 Essential</td></tr>
+            <tr><td>Thermal label printer</td><td>Brother QL-800</td><td>£55–65</td><td>🟡 Recommended</td></tr>
           </tbody>
-        </table>
-        <p style="color:var(--text-muted);font-size:14px;margin-top:12px;"><strong>Total startup: £180–350</strong>. You can start with just a phone, ring light, and packaging supplies (~£75).</p>
+        </table></div>
+        <p style="color:var(--text-muted);font-size:14px;margin-top:12px;"><strong>Total estimated: £350–550</strong> for a semi-professional two-camera setup. Two cameras let you show presenters AND card close-ups simultaneously — a big step up from phone-only streaming.</p>
       </div>
     </div>
 
@@ -532,7 +538,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <span class="arrow">▼</span>
       </div>
       <div class="accordion-content">
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead><tr><th>Model</th><th>How It Works</th><th>Typical Margin</th><th>Risk</th></tr></thead>
           <tbody>
             <tr><td><strong>Live Auctions</strong></td><td>Show cards, viewers bid in real-time. The core format.</td><td>15-40%</td><td>Medium</td></tr>
@@ -543,7 +549,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
             <tr><td><strong>Consignment</strong></td><td>Sell other people's cards, take a cut. Zero inventory cost.</td><td>15-30%</td><td>Very Low</td></tr>
             <tr><td><strong>Bulk Lots</strong></td><td>Sell large lots of lower-value cards</td><td>30-50%</td><td>Low</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <div class="callout warning">
           <span class="callout-icon">⚠️</span>
           <div><strong>Research found:</strong> Buyers on Whatnot pay on average 57% above market value for slabs/singles and 40% above for breaks compared to other platforms. The live auction format creates FOMO that drives prices up.</div>
@@ -651,14 +657,14 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <span class="arrow">▼</span>
       </div>
       <div class="accordion-content">
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead><tr><th>Scenario</th><th>Weekly Sales</th><th>After Fees</th><th>After COGS & Shipping</th><th>Net Margin</th></tr></thead>
           <tbody>
             <tr><td>Small card streamer (10-20 viewers)</td><td>£200</td><td>£178</td><td>~£48 profit</td><td>24%</td></tr>
             <tr><td>Mid-level seller</td><td>£3,000</td><td>£2,670</td><td>~£870/week profit</td><td>29%</td></tr>
             <tr><td>Fashion reseller ($26K/90 days)</td><td>~£2,000</td><td>~£1,780</td><td>~£920/week profit</td><td>46%</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <div class="callout warning">
           <span class="callout-icon">💬</span>
           <div>"I stream 4 nights a week, 3-4 hours each. Plus prep and shipping, 30-35 hours weekly. Sales are $8-12K/month. After costs... I'm making maybe $20-25/hour." — Reddit seller</div>
@@ -715,7 +721,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <span class="arrow">▼</span>
       </div>
       <div class="accordion-content">
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead><tr><th>Card Type</th><th>Price Range</th><th>Notes</th></tr></thead>
           <tbody>
             <tr><td>1/1 cards, Dual Autographs</td><td><strong>$1,000–$2,100+</strong></td><td>The jackpots</td></tr>
@@ -726,10 +732,10 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
             <tr><td>Yellow /499, common Showdowns</td><td><strong>$20–$50</strong></td><td>Decent singles</td></tr>
             <tr><td>Base stickers (all 6 foils)</td><td><strong>$0.01–$2.00</strong></td><td>⚠️ Essentially worthless as singles</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <div class="callout warning">
           <span class="callout-icon">📉</span>
-          <div><strong>Reality check:</strong> Base stickers make up the majority of any box and sell for under $2 each. Your realistic portfolio value of ~250 cards is <strong>£200–£800</strong> depending on what numbered/auto pulls you have. Could be higher if you have hits.</div>
+          <div><strong>Portfolio update (from master spreadsheet):</strong> Based on 429 verified sold records, the 260-card collection has a <strong>mid-estimate value of $3,265 (£2,579)</strong> against $620 invested — a net profit of <strong>$2,645 (£2,089)</strong>. Top categories: Autographs (median $375), 5 Year OG Art (median $355), Diamond Die Cut (median $150), /55 Emerald parallels (median $55). The median sold card across all categories is $35.</div>
         </div>
       </div>
     </div>
@@ -793,7 +799,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
       <div class="accordion-content">
         <div class="content-block">
           <p><strong>Short answer: Not for 95% of Spectacular stickers.</strong> Only grade cards worth $100+ raw. PSA is the industry standard for VeeFriends (they have a dedicated category).</p>
-          <table class="data-table">
+          <div class="table-wrap"><table class="data-table">
             <thead><tr><th>Service</th><th>Price</th><th>Turnaround</th></tr></thead>
             <tbody>
               <tr><td>PSA Economy</td><td>$20/card</td><td>120 days</td></tr>
@@ -801,7 +807,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
               <tr><td>PSA Express</td><td>$100/card</td><td>20 days</td></tr>
               <tr><td>CGC Standard</td><td>$15/card</td><td>30-60 days</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <p style="margin-top:12px">Only worth grading: 1/1 cards, low-numbered autos, top-character numbered parallels. The grading cost vs price uplift doesn't make sense for anything under ~$100 raw value.</p>
         </div>
       </div>
@@ -910,7 +916,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <span class="arrow">▼</span>
       </div>
       <div class="accordion-content">
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead><tr><th>Method</th><th>Price</th><th>Tracking</th><th>Best For</th></tr></thead>
           <tbody>
             <tr><td>Royal Mail 2nd Class Large Letter</td><td><strong>£1.55</strong></td><td>❌ No</td><td>Cards under £10</td></tr>
@@ -918,7 +924,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
             <tr><td>Evri ParcelShop to ParcelShop</td><td><strong>£2.62</strong></td><td>✅ Full tracking</td><td>Best value tracked option</td></tr>
             <tr><td>Royal Mail Special Delivery</td><td>~£8</td><td>✅ Insured</td><td>Cards over £100</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <div class="content-block" style="margin-top:16px">
           <h4>Cost Per Shipment (Single Card)</h4>
           <p>Penny sleeve (1p) + toploader (8p) + team bag (3p) + envelope (12p) + stamp (£1.55) = <strong>~£1.80 total untracked</strong> or <strong>~£2.87 with Evri tracking</strong></p>
@@ -932,14 +938,14 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <span class="arrow">▼</span>
       </div>
       <div class="accordion-content">
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead><tr><th>Service</th><th>Price (Large Letter)</th><th>Delivery Time</th></tr></thead>
           <tbody>
             <tr><td>Royal Mail International Standard</td><td><strong>£4.60</strong></td><td>7-21 days</td></tr>
             <tr><td>Royal Mail International Tracked</td><td>£11.25</td><td>5-7 days</td></tr>
             <tr><td>Evri International</td><td>From £6.08</td><td>6-14 days</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <div class="callout danger">
           <span class="callout-icon">🚨</span>
           <div><strong>US Import Change (Aug 2025):</strong> The US suspended its $800 duty-free threshold. ALL shipments to the US may now face customs duties (~10% tariff). This makes UK → US shipping less competitive vs domestic US sellers. On Whatnot, international customs duties are the buyer's responsibility.</div>
@@ -957,7 +963,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <span class="arrow">▼</span>
       </div>
       <div class="accordion-content">
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead><tr><th>Milestone</th><th>What Happens</th></tr></thead>
           <tbody>
             <tr><td>First £1,000 gross income</td><td>Tax-free (trading allowance). No HMRC registration needed.</td></tr>
@@ -967,10 +973,10 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
             <tr><td>£50,000 turnover</td><td>Making Tax Digital — digital record-keeping required.</td></tr>
             <tr><td>£90,000 turnover</td><td>VAT registration required.</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <div class="content-block" style="margin-top:16px">
           <h4>Whose Income Is It?</h4>
-          <p>Since David provides the inventory and the account is in his name — <strong>this is David's trading income</strong> for tax purposes. The boys helping doesn't change this. Safest approach: treat all income as David's self-employment until the boys turn 18 and can run their own accounts.</p>
+          <p>Since David and Patricia provide the inventory and the account is in David's name (as account holder) — <strong>this is David's trading income</strong> for tax purposes. The boys helping doesn't change this. Safest approach: treat all income as David's self-employment until the boys turn 18 and can run their own accounts.</p>
         </div>
       </div>
     </div>
@@ -986,7 +992,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
           <ul>
             <li><strong>Different timezone</strong> — stream at UK evening hours with less competition from US sellers</li>
             <li><strong>Cheaper European shipping</strong> — £3.80 to Europe vs £4.60 worldwide. European buyers prefer UK sellers.</li>
-            <li><strong>VeeFriends UK gap</strong> — virtually zero UK-based VeeFriends sellers. First-mover advantage.</li>
+            <li><strong>VeeFriends UK opportunity</strong> — a small but growing group of UK sellers, led by <strong>Sports Cards Direct</strong> (sportscardsdirect.co.uk) as the official UK retailer, plus eBay.co.uk and Whatnot sellers. Still early — opportunity to connect with and build on this emerging market.</li>
             <li><strong>Access to UK-exclusive products</strong> — Pokémon Centre UK exclusives, UK football cards</li>
             <li><strong>Cardmarket access</strong> — Europe's largest TCG marketplace, not easily accessible from US</li>
           </ul>
@@ -1010,7 +1016,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <span class="arrow">▼</span>
       </div>
       <div class="accordion-content">
-        <table class="data-table">
+        <div class="table-wrap"><table class="data-table">
           <thead><tr><th>Event</th><th>Location</th><th>Date</th></tr></thead>
           <tbody>
             <tr><td><strong>Birmingham Card Show #5</strong></td><td>New Bingley Hall</td><td>21 March 2026</td></tr>
@@ -1022,7 +1028,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
             <tr><td>Guildford Card Show</td><td>Guildford</td><td>31 May 2026</td></tr>
             <tr><td><strong>Card Con IV</strong></td><td>Farnborough</td><td>5-6 September 2026</td></tr>
           </tbody>
-        </table>
+        </table></div>
         <p style="color:var(--text-muted);font-size:13px;margin-top:10px">Find more events: <a href="https://ukcardshows.co.uk" style="color:var(--accent-blue)">ukcardshows.co.uk</a></p>
       </div>
     </div>
@@ -1049,9 +1055,9 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <h4 style="color:var(--accent-green)">Phase 1: Foundation (Weeks 1–4)</h4>
         <p>Get set up, get organised, learn the platforms.</p>
         <ul>
-          <li><strong>David:</strong> Apply for Whatnot seller account (in your name). Set up eBay seller account.</li>
-          <li><strong>David:</strong> Order packaging supplies: 200 toploaders + sleeves (~£25), 100 team bags (~£5), 50 envelopes (~£8), bubble mailers (~£8) = ~£50 total</li>
-          <li><strong>David:</strong> Open a separate bank account for card business (Starling/Monzo = free and instant)</li>
+          <li><strong>David & Patricia:</strong> Apply for Whatnot seller account (in David's name as account holder). Set up eBay seller account.</li>
+          <li><strong>David & Patricia:</strong> Order packaging supplies: 200 toploaders + sleeves (~£25), 100 team bags (~£5), 50 envelopes (~£8), bubble mailers (~£8) = ~£50 total</li>
+          <li><strong>David & Patricia:</strong> Open a separate bank account for card business (Starling/Monzo = free and instant)</li>
           <li><strong>Alex & Matthew:</strong> Catalogue every card — set, condition, estimated value</li>
           <li><strong>Alex & Matthew:</strong> Research values on eBay sold listings. Watch successful Whatnot streamers.</li>
           <li><strong>Alex & Matthew:</strong> Practice presenting cards on camera — film each other on phones</li>
@@ -1066,7 +1072,7 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         <ul>
           <li>List 20-30 best cards on eBay — good photos, market-driven prices</li>
           <li>Schedule and run first Whatnot live stream (30-60 minutes)</li>
-          <li>David appears at the start of stream, then boys take over</li>
+          <li>Mum or Dad appears at the start of stream, then boys take over</li>
           <li>Mix of auction items ($1 starts on cheaper cards) and BIN items</li>
           <li>Run a giveaway to attract first viewers</li>
           <li>Create TikTok/Instagram, post first unboxing or card showcase content</li>
@@ -1108,8 +1114,8 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
       <h3 style="font-size:20px; margin-bottom:20px;">👨‍👦‍👦 Family Ground Rules</h3>
       <div class="content-block">
         <ul>
-          <li>David's name on all accounts — legally required until the boys turn 18</li>
-          <li>David appears at the start of every Whatnot stream</li>
+          <li>David's name (as account holder) on all accounts — legally required until the boys turn 18</li>
+          <li>Mum or Dad appears at the start of every Whatnot stream</li>
           <li>Never share home address, school names, or personal details on stream</li>
           <li>Ship within 2 business days — Whatnot requires this</li>
           <li>Keep ALL receipts and records from day one</li>
